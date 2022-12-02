@@ -22,7 +22,7 @@ namespace RabbitMq.WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Logn([FromBody] UserLogin credentials)
+        public async Task<IActionResult> Login([FromBody] UserLogin credentials)
         {
             return Login(await _service.Login(credentials));
         }

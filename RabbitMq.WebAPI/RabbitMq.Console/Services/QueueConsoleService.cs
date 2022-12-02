@@ -7,8 +7,6 @@ namespace RabbitMq.Console.Services
     {
         public static bool SendValue(string message, string exchange, string key)
         {
-            Task.Delay(TimeSpan.FromSeconds(2.5)).Wait();
-
             var factory = new ConnectionFactory()
             {
                 Uri = new Uri("amqp://guest:guest@localhost:5672")
