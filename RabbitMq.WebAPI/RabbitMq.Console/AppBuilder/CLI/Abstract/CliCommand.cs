@@ -18,7 +18,6 @@ namespace RabbitMq.Console.AppBuilder.CLI.Abstract
 
             string error = "Unknown";
 
-            var b = await response.Content.ReadAsStringAsync();
             var errorMessage = JsonConvert.DeserializeObject<ErrorMessage>(
                 await response.Content.ReadAsStringAsync());
 
