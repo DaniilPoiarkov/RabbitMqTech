@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using RabbitMq.Common.DTOs;
-using RabbitMq.Common.DTOs.AuxiliaryModels;
 using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
@@ -15,6 +14,8 @@ namespace RabbitMq.Console.AppBuilder
 
         private readonly HttpClient _httpClient;
         public List<ICliCommand> CliCommands { get; init; }
+
+        internal HubConnection? HubConnection { get; private set; }
 
         internal UserDto CurrentUser { get; set; } = new();
 
@@ -69,17 +70,17 @@ namespace RabbitMq.Console.AppBuilder
             }
         }
 
-        private async Task SetUpUserData()
+        internal async Task SetUpUserData()
         {
             await Login();
             await SetCurrentUser();
 
-            var connection = new HubConnectionBuilder()
+            HubConnection = new HubConnectionBuilder()
                 .WithUrl(_httpClient.BaseAddress?.ToString() + "notifications")
                 .Build();
 
-            connection.ConfigureHubConnection(_httpClient);
-            await connection.StartAsync();
+            HubConnection.ConfigureHubConnection(_httpClient);
+            await HubConnection.StartAsync();
         }
 
         private async Task Login()

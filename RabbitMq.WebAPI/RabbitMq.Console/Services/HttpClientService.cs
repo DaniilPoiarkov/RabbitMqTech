@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
 using System.Text;
 using RabbitMq.Common.Exceptions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace RabbitMq.Console.Services
 {

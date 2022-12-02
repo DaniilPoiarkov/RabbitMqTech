@@ -21,6 +21,7 @@ builder
     .AddCliCommand<HelpCommand>()
     .AddCliCommand<ClearConsoleCommand>()
     .AddCliCommand<ExitCommand>()
+    .AddCliCommand<AuthCommand>()
     .AddCliCommand<UserCommand>()
     .AddCliCommand<QueueCommand>()
     .AddCliCommand<NotificationCommand>();
