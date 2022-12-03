@@ -15,11 +15,6 @@ namespace RabbitMq.Console.Services
             _httpClient = httpClient;
         }
 
-        public Task<List<UserDto>> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<UserDto> GetCurrentUser()
         {
             var response = await _httpClient.SendAsync(new(HttpMethod.Get, "/api/user/current"));
@@ -37,14 +32,11 @@ namespace RabbitMq.Console.Services
         {
             var response = await _httpClient.SendAsync(new(HttpMethod.Put, "/api/auth")
             {
-                Content = new StringContent(
-                    JsonConvert.SerializeObject(new UserLogin()
-                    {
-                        Email = email,
-                        Password = password,
-                    }),
-                    Encoding.UTF8,
-                    "application/json"),
+                Content = CreateRequestStringContent(new UserLogin()
+                {
+                    Email = email,
+                    Password = password,
+                })
             });
 
             if (!response.IsSuccessStatusCode)
@@ -56,9 +48,30 @@ namespace RabbitMq.Console.Services
             return await response.Content.ReadAsStringAsync();
         }
 
-        public Task SendNotification()
-        {
-            throw new NotImplementedException();
-        }
+        public StringContent CreateRequestStringContent(object body) => 
+            new(
+                JsonConvert.SerializeObject(body),
+                Encoding.UTF8,
+                "application/json");
+
+        public async Task<HttpResponseMessage> GetRequest(string url) => 
+            await _httpClient.SendAsync(new(HttpMethod.Get, url));
+
+        public async Task<HttpResponseMessage> PutRequest(string url, StringContent? body = null) =>
+            await _httpClient.SendAsync(new(HttpMethod.Put, url)
+            {
+                Content = body,
+            });
+
+        public async Task<HttpResponseMessage> PostRequest(string url, StringContent? body = null) =>
+            await _httpClient.SendAsync(new(HttpMethod.Post, url)
+            {
+                Content = body,
+            });
+
+        public async Task<HttpResponseMessage> DeleteRequest(string url) =>
+            await _httpClient.DeleteAsync(url);
+
+        public HttpClient HttpClient => _httpClient;
     }
 }

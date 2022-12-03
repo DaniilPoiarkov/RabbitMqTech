@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMq.Broker.Interfaces;
 using RabbitMq.Broker.Models.Options;
+using RabbitMq.Common.DTOs.NotificationsDto;
 using RabbitMq.Common.Entities;
 using RabbitMq.Common.Entities.Notifications;
 using RabbitMq.Common.Exceptions;
@@ -14,6 +15,7 @@ namespace RabbitMq.Broker.Services
 {
     public abstract class NotificationService<TNotification, TDto>
         where TNotification : Notification
+        where TDto : NotificationDto
     {
         protected readonly RabbitMqDb _db;
         protected readonly IMapper _mapper;
@@ -38,16 +40,18 @@ namespace RabbitMq.Broker.Services
                 .ExecuteDeleteAsync(cancellationToken);
         }
 
-        public virtual async Task CreateAndSendNotification(TNotification notification, CancellationToken cancellationToken = default)
+        public virtual async Task CreateAndSendNotification(TDto notification, CancellationToken cancellationToken = default)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == notification.RecieverId, cancellationToken);
+
+            var entity = _mapper.Map<TNotification>(notification);
 
             if (user == null)
                 throw new NotFoundException(nameof(User));
 
-            notification.RecieverConnectionId = user.ConnectionId;
+            entity.RecieverConnectionId = user.ConnectionId;
 
-            await _db.Set<TNotification>().AddAsync(notification, cancellationToken);
+            await _db.Set<TNotification>().AddAsync(entity, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
 
             using var producer = _factory.Open(new()
@@ -59,7 +63,7 @@ namespace RabbitMq.Broker.Services
             });
 
             producer.Producer.Send(
-                JsonConvert.SerializeObject(notification));
+                JsonConvert.SerializeObject(entity));
         }
 
         public virtual async Task<List<TDto>> GetNotifications(int recieverId, CancellationToken cancellationToken = default)

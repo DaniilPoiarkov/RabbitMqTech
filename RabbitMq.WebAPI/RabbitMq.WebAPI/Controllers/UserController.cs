@@ -37,5 +37,9 @@ namespace RabbitMq.WebAPI.Controllers
             await _service.SetConnectionId(connectionId, _userParameters.UserId, cancellationToken);
             return NoContent();
         }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken) =>
+            Ok(await _service.GetAllUsers(cancellationToken));
     }
 }

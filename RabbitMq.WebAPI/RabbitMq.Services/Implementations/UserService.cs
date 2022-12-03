@@ -5,7 +5,6 @@ using RabbitMq.Common.Entities;
 using RabbitMq.Common.Exceptions;
 using RabbitMq.DAL;
 using RabbitMq.Services.Abstract;
-using System.Threading;
 
 namespace RabbitMq.Services.Implementations
 {
@@ -19,9 +18,14 @@ namespace RabbitMq.Services.Implementations
             _mapper = mapper;
         }
 
+        public async Task<List<UserDto>> GetAllUsers(CancellationToken cancellationToken = default) => 
+            _mapper.Map<List<UserDto>>(
+                await _db.Users.ToListAsync(cancellationToken));
+
         public async Task<UserDto> GetUserByEmail(string email, CancellationToken cancellationToken = default)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+
             if (user == null)
                 throw new NotFoundException(nameof(User));
 

@@ -11,7 +11,6 @@ namespace RabbitMq.Services.MappingProfiles
             CreateMap<Notification, NotificationDto>().ReverseMap();
             CreateMap<SimpleNotification, SimpleNotificationDto>().ReverseMap();
             CreateMap<PrivateNotification, PrivateNotificationDto>().ReverseMap();
-            CreateMap<PublicNotification, PublicNotificationDto>().ReverseMap();
         }
     }
 }

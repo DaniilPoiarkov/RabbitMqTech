@@ -5,6 +5,7 @@ namespace RabbitMq.Console.IoC.Abstract
 {
     public interface ICommandContainer
     {
+        object GetCommand(Type commandType);
         T GetCommand<T>();
         ICollection<CommandDescriptor> GetAllDescriptors();
     }

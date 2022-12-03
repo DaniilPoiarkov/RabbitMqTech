@@ -14,6 +14,5 @@ namespace RabbitMq.DAL
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<SimpleNotification> SimpleNotifications { get; set; } = null!;
         public DbSet<PrivateNotification> PrivateNotifications { get; set; }
-        public DbSet<PublicNotification> PublicNotifications { get; set; }
     }
 }
