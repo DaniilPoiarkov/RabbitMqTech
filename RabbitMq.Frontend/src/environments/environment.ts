@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  webAPI: 'https://localhost:7036',
+  hubUrl: 'https://localhost:7036/notifications'
 };
 
 /*
