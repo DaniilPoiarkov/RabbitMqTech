@@ -11,5 +11,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  public log(val: string){
+    console.log(val);
+  }
+  public logEnter(val: string){
+    console.log(val + ' after enter');
+  }
+  public clickedBtn(): void {
+    console.log('clicked');
+  }
 }

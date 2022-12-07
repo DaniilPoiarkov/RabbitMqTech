@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { RouterOutlet } from '@angular/router';
-
-
+import { SharedModule } from 'src/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,8 @@ import { RouterOutlet } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterOutlet
+    SharedModule,
+    RouterModule
   ]
 })
 export class AuthModule { }
