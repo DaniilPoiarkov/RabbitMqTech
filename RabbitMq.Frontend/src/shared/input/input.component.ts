@@ -1,16 +1,24 @@
 import { 
-  Component, 
-  OnInit, 
+  Component,
   Input, 
   Output, 
-  EventEmitter } from '@angular/core';
+  EventEmitter, 
+  forwardRef} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.sass']
+  styleUrls: ['./input.component.sass'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => InputComponent),
+    },
+  ],
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements ControlValueAccessor {
 
   constructor() { }
 
@@ -42,4 +50,21 @@ export class InputComponent implements OnInit {
       this.text = '';
     }
   }
+
+  writeValue(val: string): void {
+    this.text = val;
+  }
+
+  onChange: (value: Event) => void = () => { };
+
+  onTouched: (value: Event) => void = () => { };
+
+  registerOnChange(fn: (value: Event) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: (value: Event) => void): void {
+    this.onTouched = fn;
+  }
+
 }

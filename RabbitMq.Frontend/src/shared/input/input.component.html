@@ -6,6 +6,8 @@
         [placeholder]="placeholder"
         [disabled]="isDisabled"
         [(ngModel)]="text"
+        (blur)="onTouched($event)"
+        (ngModelChange)="onChange($event)"
         (ngModelChange)="emitValue()"
         (keydown.enter)="emitValueKeyDownEnterEvent()">
 </div>
