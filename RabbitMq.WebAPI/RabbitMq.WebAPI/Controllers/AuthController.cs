@@ -18,7 +18,7 @@ namespace RabbitMq.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] UserRegister model)
         {
-            return Ok(await _service.Register(model));
+            return Ok(new AccessToken() { Token = await _service.Register(model) });
         }
 
         [HttpPut]
@@ -30,7 +30,7 @@ namespace RabbitMq.WebAPI.Controllers
         [HttpGet]
         public IActionResult Login(UserDto user)
         {
-            return Ok(_service.GetToken(user));
+            return Ok(new AccessToken() { Token = _service.GetToken(user) });
         }
     }
 }
