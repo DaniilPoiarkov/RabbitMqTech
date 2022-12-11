@@ -1,0 +1,23 @@
+<div class="head">
+    <h2>Login page</h2>
+    <a class="link" href="auth/register">New here? Create an account!</a>
+</div>
+<div class="container">
+    <app-input 
+        class="ipt" 
+        label="Email" 
+        (value)="log($event)" 
+        (keyDownEnter)="logEnter($event)"
+    ></app-input>
+    <app-input 
+        class="ipt"
+        label="Password"
+        type="password"
+    ></app-input>
+    <div class="btn-container">
+        <app-button 
+            btnText="Login"
+            (clicked)="clickedBtn()"
+        ></app-button>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="container">
+    <label class="label"> {{ label }}</label>
+    <input 
+        [class]="class"
+        [type]="type"
+        [placeholder]="placeholder"
+        [disabled]="isDisabled"
+        [(ngModel)]="text"
+        (ngModelChange)="emitValue()"
+        (keydown.enter)="emitValueKeyDownEnterEvent()">
+</div>
