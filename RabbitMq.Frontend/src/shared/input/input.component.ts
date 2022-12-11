@@ -30,6 +30,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type = '';
   @Input() placeholder = '';
 
+  @Input() isErrorDisplay = false;
   @Input() isDisabled = false;
   @Input() cleanAfterEnter = false;
 

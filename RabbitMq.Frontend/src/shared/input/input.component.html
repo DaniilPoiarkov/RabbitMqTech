@@ -9,5 +9,6 @@
         (blur)="onTouched($event)"
         (ngModelChange)="onChange($event)"
         (ngModelChange)="emitValue()"
-        (keydown.enter)="emitValueKeyDownEnterEvent()">
+        (keydown.enter)="emitValueKeyDownEnterEvent()"/>
+    <span *ngIf="isErrorDisplay && errorMessage" class="error">{{ errorMessage }}</span>
 </div>
