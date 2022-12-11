@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   get emailError(): string {
     const ctrl = this.emailControl;
 
-    if(ctrl.errors?.['required'] && ctrl.dirty || ctrl.touched) {
+    if(ctrl.errors?.['required'] && (ctrl.dirty || ctrl.touched)) {
       return 'Email is required';
     }
 
@@ -57,11 +57,11 @@ export class LoginComponent implements OnInit {
   get passwordError(): string {
     const ctrl = this.passwordControl;
 
-    if(ctrl.errors?.['required'] && ctrl.dirty || ctrl.touched) {
+    if(ctrl.errors?.['required'] && (ctrl.dirty || ctrl.touched)) {
       return 'Password is required';
     }
 
-    if(ctrl.errors?.['minlength'] && ctrl.dirty || ctrl.touched) {
+    if(ctrl.errors?.['minlength'] && (ctrl.dirty || ctrl.touched)) {
       return 'Password must be at least 5 characters';
     }
 
@@ -103,7 +103,6 @@ export class LoginComponent implements OnInit {
       //TODO: Add toastr Notifications
       this.loginForm.reset();
       console.log(err);
-      console.log('err');
     });
   }
 
