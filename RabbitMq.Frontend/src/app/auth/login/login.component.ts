@@ -101,6 +101,7 @@ export class LoginComponent implements OnInit {
       }
     }, (err) => {
       //TODO: Add toastr Notifications
+      this.loginForm.reset();
       console.log(err);
       console.log('err');
     });
