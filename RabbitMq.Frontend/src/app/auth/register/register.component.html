@@ -1,1 +1,50 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <div class="head">
+        <h2>Sign up</h2>
+        <a class="link" href="/auth/login">Already have an account?</a>
+    </div>
+    <div class="form-container">
+        <app-input
+            label="Email"
+            placeholder="Write your email"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="emailError"
+            [formControl]="emailControl"
+            (keyDownEnter)="submit()">
+        </app-input>
+        
+        <app-input
+            label="Username"
+            placeholder="Write your username"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="nameError"
+            [formControl]="nameControl"
+            (keyDownEnter)="submit()">
+        </app-input>
+        
+        <app-input
+            label="Password"
+            placeholder="Write your password"
+            type="password"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="passwordError"
+            [formControl]="passwordControl"
+            (keyDownEnter)="submit()">
+        </app-input>
+        
+        <app-input
+            label="Repeat your password"
+            type="password"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="passwordError"
+            (value)="setRepeatedPassword($event)"
+            (keyDownEnter)="submit()">
+        </app-input>
+    </div>
+    <div class="btn-container">
+        <app-button
+            (clicked)="submit()"
+            btnText="Register">
+        </app-button>
+    </div>
+</form>

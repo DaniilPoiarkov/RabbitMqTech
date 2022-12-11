@@ -45,7 +45,16 @@ namespace RabbitMq.Console.Services
                 Environment.Exit(0);
             }
 
-            return await response.Content.ReadAsStringAsync();
+            var token =  JsonConvert.DeserializeObject<AccessToken>(
+                await response.Content.ReadAsStringAsync());
+
+            if(token == null)
+            {
+                System.Console.WriteLine("Something went wrong. Try again later");
+                Environment.Exit(0);
+            }
+
+            return token.Token;
         }
 
         public StringContent CreateRequestStringContent(object body) => 
