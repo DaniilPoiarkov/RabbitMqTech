@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/core/services/auth.service';
+import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { AccessToken } from 'src/models/access-token';
 import { UserRegister } from 'src/models/user-register';
 
@@ -63,6 +64,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private toastrService: ToastrNotificationService,
   ) { 
     this.emailControl = new FormControl(this.userRegister.email ,[
       Validators.required
@@ -94,9 +96,9 @@ export class RegisterComponent implements OnInit {
 
     if(!this.registerForm.valid || 
       this.passwordControl.value !== this.repeatedPassword) {
-      //TODO Add toastr notifications
-      console.log('Some values are incorrect');
-      console.log(this.registerForm.errors);
+
+      this.registerForm.markAllAsTouched();
+      this.toastrService.error('Some values are incorrect', 'Error');
       this.isErrorDisplay = true;
       return;
     }
@@ -107,19 +109,15 @@ export class RegisterComponent implements OnInit {
       password: this.passwordControl.value,
     }
 
-    console.log(this.userRegister);
-    console.log('Commented request');
-
     this.authService.register(this.userRegister).subscribe((resp) => {
       if(resp.ok) {
-        //TODO Add toastr success notification
+        this.toastrService.success('Registered successfully!');
         const token = resp.body as AccessToken;
         localStorage.setItem('token', token.token);
         this.router.navigate(['/']);
       }
     }, (err) => {
-      //TODO: Add toastr notifications
-      console.log(err.error.Error);
+      this.toastrService.error(err.error.Error, 'Error');
       this.registerForm.reset();
     });
 
