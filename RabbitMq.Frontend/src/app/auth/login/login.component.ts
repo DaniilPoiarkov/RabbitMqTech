@@ -21,9 +21,6 @@ export class LoginComponent implements OnInit {
   public passwordControl: FormControl;
   public isErrorDisplay = false;
 
-  @ViewChild('passwordInput') passwordInput: InputComponent;
-  @ViewChild('emailInput') emailInput: InputComponent;
-
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -78,7 +75,11 @@ export class LoginComponent implements OnInit {
     }
 
     if(!this.loginForm.valid) {
-      this.toastrService.error('Invalid values');
+      this.toastrService.error(
+        'Invalid values. Tap to reset fields', 
+        'Error', 
+        () => this.loginForm.reset());
+      
       this.loginForm.markAllAsTouched(); 
       this.isErrorDisplay = true;
       return;
@@ -101,7 +102,7 @@ export class LoginComponent implements OnInit {
       }
     }, (err) => {
       this.loginForm.reset();
-      this.toastrService.error(err.error.Error);
+      this.toastrService.error(err.error.Error, 'Error');
     });
   }
 
