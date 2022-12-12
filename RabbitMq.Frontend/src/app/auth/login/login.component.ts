@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/core/services/auth.service';
+import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { AccessToken } from 'src/models/access-token';
 import { UserLogin } from 'src/models/user-login';
 import { InputComponent } from 'src/shared/input/input.component';
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private toastrService: ToastrNotificationService
   ) { 
     this.emailControl = new FormControl(this.userLogin.email, [
       Validators.required,
@@ -76,16 +78,14 @@ export class LoginComponent implements OnInit {
     }
 
     if(!this.loginForm.valid) {
-      // TODO: Add toastr notifications
-      console.log('Invalid form');
+      this.toastrService.error('Invalid values');
       this.loginForm.markAllAsTouched(); 
       this.isErrorDisplay = true;
       return;
     }
 
     if(!this.loginForm.dirty || !this.loginForm.touched) {
-      //TODO: Add toastr notifications
-      console.log('Empty values');
+      this.toastrService.error('Empty values', 'Error');
       this.loginForm.markAllAsTouched();
       this.isErrorDisplay = true;
       return;
@@ -96,13 +96,12 @@ export class LoginComponent implements OnInit {
         const token = resp.body as AccessToken;
         
         localStorage.setItem('token', token.token);
-
+        this.toastrService.success('Login successfull');
         this.router.navigate(['/']);
       }
     }, (err) => {
-      //TODO: Add toastr Notifications
       this.loginForm.reset();
-      console.log(err);
+      this.toastrService.error(err.error.Error);
     });
   }
 
