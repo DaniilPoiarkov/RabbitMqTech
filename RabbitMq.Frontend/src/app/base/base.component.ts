@@ -18,8 +18,8 @@ export class BaseComponent implements OnInit {
   }
 
   logout(): void {
-    this.toastr.success('Logout successfull');
     localStorage.clear();
+    this.toastr.success('Logout successfull');
     this.router.navigate(['auth/login']);
   }
 }
