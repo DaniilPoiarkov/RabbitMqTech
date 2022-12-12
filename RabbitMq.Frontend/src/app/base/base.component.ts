@@ -11,16 +11,13 @@ export class BaseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrNotificationService,
+    private toastr: ToastrNotificationService
   ) { }
 
   ngOnInit(): void {
-    //this.toastr.success('QWERTY', 'ASD');
-    //this.toastr.error('ERROR', 'ERROR');
   }
 
   logout(): void {
-    //TODO Add toastr notifications
     this.toastr.success('Logout successfull');
     localStorage.clear();
     this.router.navigate(['auth/login']);
