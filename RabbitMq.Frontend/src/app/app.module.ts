@@ -8,11 +8,13 @@ import { CoreModule } from 'src/core/core.module';
 import { SharedModule } from 'src/shared/shared.module';
 import { BaseComponent } from './base/base.component';
 import { AuthModule } from './auth/auth.module';
+import { FooterComponent } from './base/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BaseComponent
+    BaseComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,26 @@
+@import '../../colors.sass'
+    
 .btn
     width: 150px
     height: 45px
     border-radius: 15px
-    border: 1px solid #a8a8a8
-    background-color: #dddddd
+    border: 1px solid $cyan
+    background-color: $dark-gray
     &:hover
-        background-color: #aeaeae
+        background-color: $black
+        border: 2px solid $dark-cyan
         cursor: pointer
-        box-shadow: 7px 7px 5px 1px #78777733
+        transition-timing-function: ease-in-out
 
+.header-btn
+    width: 100px
+    height: 35px
+    border-radius: 20px
+    border: 1px solid $cyan
+    background-color: $dark-gray
+    &:hover
+        background-color: $black
+        border: 2px solid $dark-cyan
+        cursor: pointer
+        transition-timing-function: ease-in-out
+        

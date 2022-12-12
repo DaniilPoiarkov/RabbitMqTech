@@ -1,11 +1,28 @@
 <div class="app-page">
     <div class="header">
-        <p>Header</p>
+        <div class="nav-container">
+            <app-button class="header-btn" btnText="nav1">
+            </app-button>
+            
+            <app-button class="header-btn" btnText="nav2">
+            </app-button>
+            
+            <app-button class="header-btn" btnText="nav3">
+            </app-button>
+        </div>
+        <app-button class="header-btn logout" btnText="logout"
+            (clicked)="logout()">
+        </app-button>
     </div>
     <div class="router">
-        <router-outlet></router-outlet>
+        <div class="main-content">
+            <h1>TODO: DELETE THIS TEXT AND LEFT ONLY ROUTER</h1>
+            <app-button style="margin: 15px 0" btnText="BTN1"></app-button>
+            <div style="width: 250px">
+                <app-input></app-input>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <div class="footer">
-        <p>Footer</p>
-    </div>
+    <app-footer></app-footer>
 </div>
