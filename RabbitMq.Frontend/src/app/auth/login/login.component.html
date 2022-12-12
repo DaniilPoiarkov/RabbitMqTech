@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" class="form-container" (ngSubmit)="submit()">
+<form [formGroup]="loginForm" class="form-container">
     <div class="head">
         <h2>Log in</h2>
         <a class="link" href="auth/register">New here? Create an account!</a>
@@ -9,7 +9,6 @@
             class="ipt" 
             label="Email"
             placeholder="Write your email"
-            (keyDownEnter)="submit()"
             [formControl]="emailControl"
             [isErrorDisplay]="isErrorDisplay"
             [errorMessage]="emailError"
@@ -20,16 +19,15 @@
             label="Password"
             placeholder="Write your password"
             type="password"
-            (keyDownEnter)="submit()"
             [formControl]="passwordControl"
             [isErrorDisplay]="isErrorDisplay"
             [errorMessage]="passwordError"
         ></app-input>
-        <div class="btn-container">
-            <app-button 
-                btnText="Login"
-                (clicked)="submit()"
-            ></app-button>
-        </div>
+    </div>
+    <div class="btn-container">
+        <app-button 
+            btnText="Login"
+            (clicked)="submit()"
+        ></app-button>
     </div>
 </form>

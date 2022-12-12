@@ -15,12 +15,13 @@ export class BaseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.toastr.success('QWERTY', 'ASD');
-    this.toastr.error('ERROR', 'ERROR');
+    //this.toastr.success('QWERTY', 'ASD');
+    //this.toastr.error('ERROR', 'ERROR');
   }
 
   logout(): void {
     //TODO Add toastr notifications
+    this.toastr.success('Logout successfull');
     localStorage.clear();
     this.router.navigate(['auth/login']);
   }

@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
         const token = resp.body as AccessToken;
         
         localStorage.setItem('token', token.token);
-        this.toastrService.success('Login successfull');
+        this.toastrService.success('Login successfully');
         this.router.navigate(['/']);
       }
     }, (err) => {
