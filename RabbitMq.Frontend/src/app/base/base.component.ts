@@ -17,6 +17,7 @@ export class BaseComponent implements OnInit {
 
   logout(): void {
     //TODO Add toastr notifications
+    localStorage.clear();
     this.router.navigate(['auth/login']);
   }
 }
