@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
+import { UserService } from 'src/core/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-base',
@@ -11,10 +14,51 @@ export class BaseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrNotificationService
+    private toastr: ToastrNotificationService,
+    private userService: UserService
   ) { }
 
+  public hubConnection: HubConnection;
+
   ngOnInit(): void {
+
+    const connection = new HubConnectionBuilder()
+      .withUrl(environment.hubUrl)
+      .withAutomaticReconnect()
+      .build();
+
+    this.configureConnection(connection);
+
+    connection.start()
+      .then(() => this.toastr.success(connection.connectionId as string)) //TODO: Remove after test
+      .catch(() => this.toastr.error(
+        'Failed to connect to the server.\n' +
+        'Some functionalities can not be processed', 'Error'));
+
+    this.hubConnection = connection;
+  }
+
+  configureConnection(connection: HubConnection): void {
+
+    connection.on('Connected', (connectionId: string) => {
+      this.userService.setConnectionId(connectionId).subscribe();
+    });
+
+    connection.on('PrivateNotification', () => { });
+
+    connection.on('SimpleNotification', () => { });
+  }
+
+  goToPrivateNotificationsPage(): void {
+    this.router.navigate(['/private']);
+  }
+
+  goToSimpleNotificationsPage(): void {
+    this.router.navigate(['/simple']);
+  }
+
+  goToAllUsersPage(): void {
+    this.router.navigate(['/users']);
   }
 
   logout(): void {
@@ -22,4 +66,5 @@ export class BaseComponent implements OnInit {
     this.toastr.success('Logout successfull');
     this.router.navigate(['auth/login']);
   }
+
 }

@@ -3,17 +3,20 @@
         <div class="nav-container">
             <app-button 
                 class="header-btn" 
-                btnText="Private notifications">
+                btnText="Private notifications"
+                (clicked)="goToPrivateNotificationsPage()">
             </app-button>
             
             <app-button 
                 class="header-btn" 
-                btnText="Simple notifications">
+                btnText="Simple notifications"
+                (clicked)="goToSimpleNotificationsPage()">
             </app-button>
             
             <app-button 
                 class="header-btn" 
-                btnText="People around you">
+                btnText="People around you"
+                (clicked)="goToAllUsersPage()">
             </app-button>
         </div>
         <app-button 
