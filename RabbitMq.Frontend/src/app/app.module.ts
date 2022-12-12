@@ -9,6 +9,8 @@ import { SharedModule } from 'src/shared/shared.module';
 import { BaseComponent } from './base/base.component';
 import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './base/footer/footer.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrConfig } from './toastr-config';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { FooterComponent } from './base/footer/footer.component';
     AuthModule,
     CoreModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(ToastrConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
