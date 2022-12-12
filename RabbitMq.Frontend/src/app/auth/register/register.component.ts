@@ -107,9 +107,6 @@ export class RegisterComponent implements OnInit {
       password: this.passwordControl.value,
     }
 
-    console.log(this.userRegister);
-    console.log('Commented request');
-
     this.authService.register(this.userRegister).subscribe((resp) => {
       if(resp.ok) {
         //TODO Add toastr success notification
