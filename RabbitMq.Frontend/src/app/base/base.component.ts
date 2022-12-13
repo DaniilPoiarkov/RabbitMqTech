@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
+import { CurrentUserService } from 'src/core/services/current-user.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { UserService } from 'src/core/services/user.service';
 import { environment } from 'src/environments/environment';
@@ -17,7 +18,8 @@ export class BaseComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrNotificationService,
-    private userService: UserService
+    private userService: UserService,
+    private currentUser: CurrentUserService
   ) { }
 
   public privateNotifications: PrivateNotification[] = [];
@@ -26,6 +28,10 @@ export class BaseComponent implements OnInit {
   public hubConnection: HubConnection;
 
   ngOnInit(): void {
+
+    this.currentUser.resetCurrentUser().subscribe(
+      () => console.log('User updated'), 
+      (err) => console.log(err.error.Error));
 
     const connection = new HubConnectionBuilder()
       .withUrl(environment.hubUrl)
