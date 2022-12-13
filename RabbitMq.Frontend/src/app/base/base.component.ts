@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
+import { CurrentUserService } from 'src/core/services/current-user.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { UserService } from 'src/core/services/user.service';
 import { environment } from 'src/environments/environment';
+import { PrivateNotification } from 'src/models/notifications/private-notification';
+import { SimpleNotification } from 'src/models/notifications/simple-notification';
 
 @Component({
   selector: 'app-base',
@@ -15,12 +18,18 @@ export class BaseComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrNotificationService,
-    private userService: UserService
+    private userService: UserService,
+    private currentUser: CurrentUserService
   ) { }
+
+  public privateNotifications: PrivateNotification[] = [];
+  public simpleNotifications: SimpleNotification[] = [];
 
   public hubConnection: HubConnection;
 
   ngOnInit(): void {
+
+    this.currentUser.resetCurrentUser().subscribe();
 
     const connection = new HubConnectionBuilder()
       .withUrl(environment.hubUrl)
@@ -40,12 +49,22 @@ export class BaseComponent implements OnInit {
   configureConnection(connection: HubConnection): void {
 
     connection.on('Connected', (connectionId: string) => {
-      this.userService.setConnectionId(connectionId).subscribe();
+      this.userService.setConnectionId(connectionId)
+        .subscribe(() => {
+        this.currentUser.resetCurrentUser()
+          .subscribe();
+      });
     });
 
-    connection.on('PrivateNotification', () => { });
+    connection.on('PrivateNotification', (notification: PrivateNotification) => { 
+      console.log(notification);
+      this.privateNotifications.push(notification); 
+    });
 
-    connection.on('SimpleNotification', () => { });
+    connection.on('SimpleNotification', (notification: SimpleNotification) => { 
+      console.log(notification);
+      this.simpleNotifications.push(notification);
+    });
   }
 
   goToPrivateNotificationsPage(): void {
