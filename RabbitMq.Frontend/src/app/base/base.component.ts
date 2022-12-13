@@ -30,7 +30,6 @@ export class BaseComponent implements OnInit {
     this.configureConnection(connection);
 
     connection.start()
-      .then(() => this.toastr.success(connection.connectionId as string)) //TODO: Remove after test
       .catch(() => this.toastr.error(
         'Failed to connect to the server.\n' +
         'Some functionalities can not be processed', 'Error'));
