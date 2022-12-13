@@ -67,10 +67,6 @@ export class BaseComponent implements OnInit {
     });
   }
 
-  log(): void {
-    this.currentUser.currentUser$.subscribe(user => console.log(user));
-  }
-
   goToPrivateNotificationsPage(): void {
     this.router.navigate(['/private']);
   }
