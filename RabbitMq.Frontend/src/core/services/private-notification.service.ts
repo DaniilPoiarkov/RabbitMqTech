@@ -2,8 +2,6 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
-import { User } from 'src/models/user';
-import { CurrentUserService } from './current-user.service';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -11,7 +9,7 @@ import { HttpService } from './http.service';
 })
 export class PrivateNotificationService {
 
-  baseUrl = '/api/privateNotification';
+  private baseUrl = '/api/privateNotification';
 
   constructor(
     private http: HttpService

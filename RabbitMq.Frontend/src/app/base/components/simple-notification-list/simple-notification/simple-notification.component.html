@@ -1,0 +1,13 @@
+<div class="notification">
+    <div class="body">
+        <span>{{ notification.content }}</span>
+        <span class="date">{{ notification.createdAt | date }}</span>
+    </div>
+    <div class="btn-container">
+        <app-button
+            btnText="Delete"
+            class="card-btn"
+            (clicked)="deleteNotification()">
+        </app-button>
+    </div>
+</div>

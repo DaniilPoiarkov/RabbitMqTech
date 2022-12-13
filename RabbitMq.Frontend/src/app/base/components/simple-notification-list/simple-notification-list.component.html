@@ -1,1 +1,11 @@
-<p>simple-notification-list works!</p>
+<h1>Your simple notifications:</h1>
+<div class="container">
+    <div class="notification-list">
+        <div *ngFor="let notification of notifications">
+            <app-simple-notification 
+                [notification]="notification"
+                (deleted)="removeNotification($event)">
+            </app-simple-notification>
+        </div>
+    </div>
+</div>

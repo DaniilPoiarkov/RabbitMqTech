@@ -2,8 +2,6 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SimpleNotification } from 'src/models/notifications/simple-notification';
-import { User } from 'src/models/user';
-import { CurrentUserService } from './current-user.service';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -11,19 +9,14 @@ import { HttpService } from './http.service';
 })
 export class SimpleNotificationService {
 
-  baseUrl = '/api/simpleNotification';
-  user: User;
+  private baseUrl = '/api/simpleNotification';
 
   constructor(
-    private http: HttpService,
-    private currentUser: CurrentUserService
-  ) { 
-    this.currentUser.currentUser$
-      .subscribe((user) => this.user = user);
-  }
+    private http: HttpService
+  ) { }
 
-  public getAllNotifications(): Observable<HttpResponse<SimpleNotification[]>> {
-    return this.http.getFullRequest(this.baseUrl + '?userId=' + this.user.id);
+  public getAllNotifications(userId: number): Observable<HttpResponse<SimpleNotification[]>> {
+    return this.http.getFullRequest(this.baseUrl + '?userId=' + userId);
   }
 
   public sendNotification(notification: SimpleNotification) : Observable<HttpResponse<void>> {
