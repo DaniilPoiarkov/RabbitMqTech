@@ -57,6 +57,7 @@ namespace RabbitMq.Console.AppBuilder
                         {
                             await command.Execute(args, this);
                             isHandled = true;
+                            break;
                         }
                     }
 
