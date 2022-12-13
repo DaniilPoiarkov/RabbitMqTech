@@ -29,9 +29,7 @@ export class BaseComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.currentUser.resetCurrentUser().subscribe(
-      () => console.log('User updated'), 
-      (err) => console.log(err.error.Error));
+    this.currentUser.resetCurrentUser().subscribe();
 
     const connection = new HubConnectionBuilder()
       .withUrl(environment.hubUrl)
