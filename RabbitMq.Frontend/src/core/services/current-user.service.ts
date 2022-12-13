@@ -3,6 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { User } from 'src/models/user';
 import { ToastrNotificationService } from './toastr-notification.service';
 import { UserService } from './user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class CurrentUserService {
 
   public currentUser$ = this.currentUser.asObservable();
 
+  private jwtHelper = new JwtHelperService();
+
   public resetCurrentUser(): Observable<void> {
     return new Observable(() => {
       this.userService.getCurrentUser().subscribe((resp) => {
@@ -31,5 +34,17 @@ export class CurrentUserService {
           () => this.resetCurrentUser())
       });
     });
+  }
+
+  public getUserId(): number | null {
+    
+    const token = localStorage.getItem('token');
+
+    if(token) {
+      const decoded = this.jwtHelper.decodeToken(token);
+      return decoded.id;
+    }
+
+    return null;
   }
 }
