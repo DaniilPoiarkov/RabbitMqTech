@@ -4,6 +4,8 @@ import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { UserService } from 'src/core/services/user.service';
 import { environment } from 'src/environments/environment';
+import { PrivateNotification } from 'src/models/notifications/private-notification';
+import { SimpleNotification } from 'src/models/notifications/simple-notification';
 
 @Component({
   selector: 'app-base',
@@ -17,6 +19,9 @@ export class BaseComponent implements OnInit {
     private toastr: ToastrNotificationService,
     private userService: UserService
   ) { }
+
+  public privateNotifications: PrivateNotification[] = [];
+  public simpleNotifications: SimpleNotification[] = [];
 
   public hubConnection: HubConnection;
 
@@ -43,9 +48,15 @@ export class BaseComponent implements OnInit {
       this.userService.setConnectionId(connectionId).subscribe();
     });
 
-    connection.on('PrivateNotification', () => { });
+    connection.on('PrivateNotification', (notification: PrivateNotification) => { 
+      console.log(notification);
+      this.privateNotifications.push(notification); 
+    });
 
-    connection.on('SimpleNotification', () => { });
+    connection.on('SimpleNotification', (notification: SimpleNotification) => { 
+      console.log(notification);
+      this.simpleNotifications.push(notification);
+    });
   }
 
   goToPrivateNotificationsPage(): void {
