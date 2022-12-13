@@ -13,7 +13,13 @@ export class CurrentUserService {
   constructor(
     private userService: UserService,
     private toastr: ToastrNotificationService
-  ) { }
+  ) { 
+    this.userService.getCurrentUser().subscribe((resp) => {
+      this.currentUser.next(resp.body as User);
+    }, (err) => {
+      this.toastr.error(err.error.Error, 'Error');
+    });
+  }
 
   private currentUser = new ReplaySubject<User>(1);
 
@@ -37,7 +43,7 @@ export class CurrentUserService {
   }
 
   public getUserId(): number | null {
-    
+
     const token = localStorage.getItem('token');
 
     if(token) {

@@ -13,18 +13,12 @@ export class PrivateNotificationService {
 
   baseUrl = '/api/privateNotification';
 
-  user: User;
-
   constructor(
-    private http: HttpService,
-    private currentUser: CurrentUserService
-  ) { 
-    this.currentUser.currentUser$
-      .subscribe((user) => this.user = user);
-  }
+    private http: HttpService
+  ) { }
 
-  public getAllNotifications(): Observable<HttpResponse<PrivateNotification[]>> {
-    return this.http.getFullRequest(this.baseUrl + '?userId=' + this.user.id);
+  public getAllNotifications(userId: number): Observable<HttpResponse<PrivateNotification[]>> {
+    return this.http.getFullRequest(this.baseUrl + '?userId=' + userId);
   }
 
   public sendNotification(notification: PrivateNotification) : Observable<HttpResponse<void>> {
