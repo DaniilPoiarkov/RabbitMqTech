@@ -26,7 +26,7 @@ export class CurrentUserService {
       }, (err) => {
         this.toastr.error(
           err.error.Error + ' Your data might not be saved.\n' +
-          'Tap te try again', 
+          'Tap to try again', 
           'Error',
           () => this.resetCurrentUser())
       });
