@@ -49,7 +49,11 @@ export class BaseComponent implements OnInit {
   configureConnection(connection: HubConnection): void {
 
     connection.on('Connected', (connectionId: string) => {
-      this.userService.setConnectionId(connectionId).subscribe();
+      this.userService.setConnectionId(connectionId)
+        .subscribe(() => {
+        this.currentUser.resetCurrentUser()
+          .subscribe();
+      });
     });
 
     connection.on('PrivateNotification', (notification: PrivateNotification) => { 
@@ -61,6 +65,10 @@ export class BaseComponent implements OnInit {
       console.log(notification);
       this.simpleNotifications.push(notification);
     });
+  }
+
+  log(): void {
+    this.currentUser.currentUser$.subscribe(user => console.log(user));
   }
 
   goToPrivateNotificationsPage(): void {
