@@ -1,1 +1,11 @@
-<p>private-notification-list works!</p>
+<h1>Your private notifications:</h1>
+<div class="container" *ngIf="loaded">
+    <div class="notification-list">
+        <div *ngFor="let notification of notifications">
+            <app-private-notification
+                [notification]="notification"
+                (deleted)="removeNotification($event)">
+            </app-private-notification>
+        </div>
+    </div>
+</div>

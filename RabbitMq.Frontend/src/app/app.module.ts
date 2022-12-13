@@ -17,6 +17,7 @@ import { UserListComponent } from './base/components/user-list/user-list.compone
 import { PrivateNotificationListComponent } from './base/components/private-notification-list/private-notification-list.component';
 import { SimpleNotificationListComponent } from './base/components/simple-notification-list/simple-notification-list.component';
 import { UserCardComponent } from './base/components/user-list/user-card/user-card.component';
+import { PrivateNotificationComponent } from './base/components/private-notification-list/private-notification/private-notification.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserCardComponent } from './base/components/user-list/user-card/user-ca
     UserListComponent,
     PrivateNotificationListComponent,
     SimpleNotificationListComponent,
-    UserCardComponent
+    UserCardComponent,
+    PrivateNotificationComponent
   ],
   imports: [
     BrowserModule,
