@@ -2,19 +2,19 @@
     <div class="header">
         <div class="nav-container">
             <app-button 
-                class="header-btn" 
+                class="header-btn nav" 
                 btnText="Private notifications"
                 (clicked)="goToPrivateNotificationsPage()">
             </app-button>
             
             <app-button 
-                class="header-btn" 
+                class="header-btn nav" 
                 btnText="Simple notifications"
                 (clicked)="goToSimpleNotificationsPage()">
             </app-button>
             
             <app-button 
-                class="header-btn" 
+                class="header-btn nav" 
                 btnText="People around you"
                 (clicked)="goToAllUsersPage()">
             </app-button>
@@ -27,11 +27,11 @@
     </div>
     <div class="router">
         <div class="main-content">
-            <h1>TODO: DELETE THIS TEXT AND LEFT ONLY ROUTER</h1>
+            <!-- <h1>TODO: DELETE THIS TEXT AND LEFT ONLY ROUTER</h1>
             <app-button style="margin: 15px 0" btnText="BTN1"></app-button>
             <div style="width: 250px">
                 <app-input></app-input>
-            </div>
+            </div> -->
             <router-outlet></router-outlet>
         </div>
     </div>

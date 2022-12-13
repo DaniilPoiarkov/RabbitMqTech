@@ -68,11 +68,11 @@ export class BaseComponent implements OnInit {
   }
 
   goToPrivateNotificationsPage(): void {
-    this.router.navigate(['/private']);
+    this.router.navigate(['/private-notifications']);
   }
 
   goToSimpleNotificationsPage(): void {
-    this.router.navigate(['/simple']);
+    this.router.navigate(['/simple-notifications']);
   }
 
   goToAllUsersPage(): void {
