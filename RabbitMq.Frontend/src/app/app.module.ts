@@ -18,6 +18,7 @@ import { PrivateNotificationListComponent } from './base/components/private-noti
 import { SimpleNotificationListComponent } from './base/components/simple-notification-list/simple-notification-list.component';
 import { UserCardComponent } from './base/components/user-list/user-card/user-card.component';
 import { PrivateNotificationComponent } from './base/components/private-notification-list/private-notification/private-notification.component';
+import { MainPageComponent } from './base/components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PrivateNotificationComponent } from './base/components/private-notifica
     PrivateNotificationListComponent,
     SimpleNotificationListComponent,
     UserCardComponent,
-    PrivateNotificationComponent
+    PrivateNotificationComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,

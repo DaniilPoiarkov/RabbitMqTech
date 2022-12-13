@@ -67,6 +67,10 @@ export class BaseComponent implements OnInit {
     });
   }
 
+  goToNewsPage(): void {
+    this.router.navigate(['/main']);
+  }
+
   goToPrivateNotificationsPage(): void {
     this.router.navigate(['/private-notifications']);
   }

@@ -118,7 +118,7 @@ export class RegisterComponent implements OnInit {
         this.toastrService.success('Registered successfully!');
         const token = resp.body as AccessToken;
         localStorage.setItem('token', token.token);
-        this.router.navigate(['/']);
+        this.router.navigate(['/main']);
       }
     }, (err) => {
       this.toastrService.error(err.error.Error, 'Error');
