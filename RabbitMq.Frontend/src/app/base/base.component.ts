@@ -57,12 +57,22 @@ export class BaseComponent implements OnInit {
     });
 
     connection.on('PrivateNotification', (notification: PrivateNotification) => { 
-      console.log(notification);
+      this.toastr.info(
+        notification.content, 
+        'Recieved new Private Notification! Tap to open page', 
+        () => {
+          this.goToPrivateNotificationsPage();
+        }, 10000);
       this.privateNotifications.push(notification); 
     });
 
     connection.on('SimpleNotification', (notification: SimpleNotification) => { 
-      console.log(notification);
+      this.toastr.info(
+        notification.content, 
+        'Recieved new Simple Notification! Tap to open page', 
+        () => {
+          this.goToSimpleNotificationsPage();
+        }, 10000);
       this.simpleNotifications.push(notification);
     });
   }
