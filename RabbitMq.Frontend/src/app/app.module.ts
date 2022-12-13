@@ -13,12 +13,20 @@ import { ToastrModule } from 'ngx-toastr';
 import { ToastrConfig } from './toastr-config';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from 'src/core/interceptors/jwt-interceptor.service';
+import { UserListComponent } from './base/components/user-list/user-list.component';
+import { PrivateNotificationListComponent } from './base/components/private-notification-list/private-notification-list.component';
+import { SimpleNotificationListComponent } from './base/components/simple-notification-list/simple-notification-list.component';
+import { UserCardComponent } from './base/components/user-list/user-card/user-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
-    FooterComponent
+    FooterComponent,
+    UserListComponent,
+    PrivateNotificationListComponent,
+    SimpleNotificationListComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,
