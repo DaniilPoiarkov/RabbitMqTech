@@ -2,7 +2,14 @@
     <h2>{{ user.username }}</h2>
     <span>{{ user.email }}</span>
     <div class="btn-container">
-        <app-button class="card-btn" btnText="Send"></app-button>
-        <app-button class="card-btn" btnText="Something"></app-button>
+        <app-button 
+            class="card-btn" 
+            btnText="Send"
+            (clicked)="sendNotification()">
+        </app-button>
+        <app-button 
+            class="card-btn" 
+            btnText="Something"
+            (clicked)="something()"></app-button>
     </div>
 </div>
