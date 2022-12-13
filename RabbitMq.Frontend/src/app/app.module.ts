@@ -11,6 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './base/footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrConfig } from './toastr-config';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptorService } from 'src/core/interceptors/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ToastrConfig } from './toastr-config';
     BrowserAnimationsModule,
     ToastrModule.forRoot(ToastrConfig)
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

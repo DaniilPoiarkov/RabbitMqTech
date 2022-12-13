@@ -98,7 +98,11 @@ export class RegisterComponent implements OnInit {
       this.passwordControl.value !== this.repeatedPassword) {
 
       this.registerForm.markAllAsTouched();
-      this.toastrService.error('Some values are incorrect', 'Error');
+      this.toastrService.error(
+        'Some values are incorrect. Tap to clear fields', 
+        'Error', 
+        () => this.registerForm.reset());
+      
       this.isErrorDisplay = true;
       return;
     }

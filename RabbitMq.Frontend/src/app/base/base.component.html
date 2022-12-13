@@ -1,16 +1,27 @@
 <div class="app-page">
     <div class="header">
         <div class="nav-container">
-            <app-button class="header-btn" btnText="Private notifications">
+            <app-button 
+                class="header-btn" 
+                btnText="Private notifications"
+                (clicked)="goToPrivateNotificationsPage()">
             </app-button>
             
-            <app-button class="header-btn" btnText="Simple notifications">
+            <app-button 
+                class="header-btn" 
+                btnText="Simple notifications"
+                (clicked)="goToSimpleNotificationsPage()">
             </app-button>
             
-            <app-button class="header-btn" btnText="People around you">
+            <app-button 
+                class="header-btn" 
+                btnText="People around you"
+                (clicked)="goToAllUsersPage()">
             </app-button>
         </div>
-        <app-button class="header-btn logout" btnText="logout"
+        <app-button 
+            class="header-btn logout" 
+            btnText="logout"
             (clicked)="logout()">
         </app-button>
     </div>

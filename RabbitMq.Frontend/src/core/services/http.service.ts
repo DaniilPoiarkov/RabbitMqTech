@@ -23,7 +23,7 @@ export class HttpService {
     return this.http.post<T>(this.baseUrl + url, payload, { observe: 'response', headers: this.headers });
   }
 
-  public putFullRequest<T>(payload: object, url: string) : Observable<HttpResponse<T>> {
+  public putFullRequest<T>(url: string, payload?: object) : Observable<HttpResponse<T>> {
     return this.http.put<T>(this.baseUrl + url, payload, { observe: 'response', headers: this.headers });
   }
 

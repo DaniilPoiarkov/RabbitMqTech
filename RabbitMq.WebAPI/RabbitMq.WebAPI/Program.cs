@@ -30,20 +30,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapHub<NotificationHub>("/notifications");
-
 app.UseCors(cors => cors
     .AllowAnyMethod()
-    .AllowAnyOrigin()
-    .AllowAnyHeader());
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins(
+        "http://localhost:4200",
+        "http://localhost:3000"));
 
-app.UseHttpsRedirection();
+app
+    .UseHttpsRedirection()
+    .UseRouting();
 
 app
     .UseAuthentication()
     .UseAuthorization()
     .UseMiddleware<GetUserParametersMiddleware>();
 
-app.MapControllers();
+app.UseEndpoints(cfg =>
+{
+    cfg.MapControllers();
+    cfg.MapHub<NotificationHub>("/notifications");
+});
 
 app.Run();
