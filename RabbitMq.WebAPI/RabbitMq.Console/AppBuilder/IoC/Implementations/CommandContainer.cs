@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace RabbitMq.Console.IoC.Implementations
 {
-    public sealed class CommandContainer : ICommandContainer, IEnumerable<CommandDescriptor>
+    public sealed class CommandContainer : ICommandContainer
     {
         private readonly List<CommandDescriptor> _commandDescriptors;
         public CommandContainer(List<CommandDescriptor> descriptors)
