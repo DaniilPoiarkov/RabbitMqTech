@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace RebbitMq.BenchmarkTests.ConsoleClientTests
 {
     [MemoryDiagnoser(false)]
-    public class ConsoleClientBenchmark
+    public class ForLoopBenchmark
     {
         [Params(1000, 100_000, 1_000_000)]
         public int Size { get; set; }
