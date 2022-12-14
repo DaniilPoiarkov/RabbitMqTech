@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptorService } from './interceptors/error-interceptor.service';
 
 
 
@@ -9,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     HttpClientModule
+  ],
+  providers: [
+    { provide: ErrorHandler, useClass: ErrorInterceptorService },
   ]
 })
 export class CoreModule { }

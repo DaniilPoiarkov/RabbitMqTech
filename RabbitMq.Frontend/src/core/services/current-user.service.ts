@@ -32,10 +32,10 @@ export class CurrentUserService {
       this.userService.getCurrentUser().subscribe((resp) => {
         const user = resp.body as User;
         this.currentUser.next(user);
-      }, (err) => {
+      }, () => {
         this.toastr.error(
-          err.error.Error + ' Your data might not be saved.\n' +
-          'Tap to try again', 
+          'Your data might not be saved.\n' +
+          'Tap to try again',
           'Error',
           () => this.resetCurrentUser())
       });

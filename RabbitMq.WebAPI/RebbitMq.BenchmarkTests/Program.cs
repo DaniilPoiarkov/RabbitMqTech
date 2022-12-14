@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
+using RebbitMq.BenchmarkTests.ConsoleClientTests;
 
 namespace RebbitMq.BenchmarkTests
 {
