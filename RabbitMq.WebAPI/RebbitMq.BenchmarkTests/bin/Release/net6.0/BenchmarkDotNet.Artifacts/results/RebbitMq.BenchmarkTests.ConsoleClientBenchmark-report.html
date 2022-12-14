@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>RebbitMq.BenchmarkTests.ConsoleClientBenchmark-20221214-122551</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.13.2, OS=Windows 11 (10.0.22621.963)
+AMD Ryzen 7 5700U with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK=7.0.100
+  [Host]     : .NET 6.0.11 (6.0.1122.52304), X64 RyuJIT AVX2
+  DefaultJob : .NET 6.0.11 (6.0.1122.52304), X64 RyuJIT AVX2
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>         Method</th><th>Size</th><th>     Mean</th><th>  Error</th><th> StdDev</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>ForLoop_AsICollection</td><td>1000</td><td>14,893.9 ns</td><td>297.00 ns</td><td>435.34 ns</td><td>-</td>
+</tr><tr><td>ForLoop_AsIList</td><td>1000</td><td>663.3 ns</td><td>15.02 ns</td><td>43.11 ns</td><td>4056 B</td>
+</tr><tr><td>ForLoop_AsICollection</td><td>100000</td><td>1,440,536.7 ns</td><td>21,549.72 ns</td><td>17,994.99 ns</td><td>1 B</td>
+</tr><tr><td>ForLoop_AsIList</td><td>100000</td><td>197,486.3 ns</td><td>3,458.30 ns</td><td>4,373.64 ns</td><td>400098 B</td>
+</tr><tr><td>ForLoop_AsICollection</td><td>1000000</td><td>14,770,702.2 ns</td><td>212,969.37 ns</td><td>188,791.80 ns</td><td>15 B</td>
+</tr><tr><td>ForLoop_AsIList</td><td>1000000</td><td>1,235,396.2 ns</td><td>22,513.81 ns</td><td>38,230.16 ns</td><td>4000161 B</td>
+</tr></tbody></table>
+</body>
+</html>

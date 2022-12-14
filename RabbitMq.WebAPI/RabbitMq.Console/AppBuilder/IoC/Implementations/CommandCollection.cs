@@ -7,7 +7,7 @@ namespace RabbitMq.Console.IoC.Implementations
 {
     public sealed class CommandCollection : ICommandCollection
     {
-        private readonly ICollection<CommandDescriptor> _commandDescriptors = new List<CommandDescriptor>();
+        private readonly List<CommandDescriptor> _commandDescriptors = new();
 
         public ICommandCollection AddCommandSingleton<TCommand>()
         {

@@ -7,8 +7,8 @@ namespace RabbitMq.Console.IoC.Implementations
 {
     public sealed class CommandContainer : ICommandContainer, IEnumerable<CommandDescriptor>
     {
-        private readonly ICollection<CommandDescriptor> _commandDescriptors;
-        public CommandContainer(ICollection<CommandDescriptor> descriptors)
+        private readonly List<CommandDescriptor> _commandDescriptors;
+        public CommandContainer(List<CommandDescriptor> descriptors)
         {
             _commandDescriptors = descriptors;
         }
@@ -55,18 +55,22 @@ namespace RabbitMq.Console.IoC.Implementations
 
         public IEnumerator<CommandDescriptor> GetEnumerator()
         {
-            for (int i = 0; i < _commandDescriptors.Count; i++)
+            Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+
+            for (int i = 0; i < descriptorsAsSpan.Length; i++)
             {
-                var command = _commandDescriptors.ElementAt(i);
+                var command = descriptorsAsSpan[i];
                 yield return command;
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            for (int i = 0; i < _commandDescriptors.Count; i++)
+            Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+
+            for (int i = 0; i < descriptorsAsSpan.Length; i++)
             {
-                var command = _commandDescriptors.ElementAt(i);
+                var command = descriptorsAsSpan[i];
                 yield return command;
             }
         }
