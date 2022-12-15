@@ -5,7 +5,6 @@ using RabbitMq.Common.Entities;
 using RabbitMq.Common.Exceptions;
 using RabbitMq.DAL;
 using RabbitMq.Services.Abstract;
-using System.Linq;
 
 namespace RabbitMq.Services.Implementations
 {
