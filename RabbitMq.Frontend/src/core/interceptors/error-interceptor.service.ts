@@ -15,7 +15,6 @@ export class ErrorInterceptorService extends ErrorHandler {
   }
 
   get toastr(): ToastrNotificationService {
-    console.log('Get toastr');
     return this.injector.get(ToastrNotificationService);
   }
 
