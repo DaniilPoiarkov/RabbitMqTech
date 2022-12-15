@@ -41,6 +41,7 @@ export class ErrorInterceptorService extends ErrorHandler {
 
     if(error.status === 401) {
       this.toastr.error('Authorization expired.', 'Unauthorized');
+      localStorage.clear();
       this.router.navigate(['/auth/login']);
       return;
     }
