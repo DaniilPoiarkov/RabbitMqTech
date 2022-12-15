@@ -30,6 +30,10 @@ export class PrivateNotificationListComponent implements OnInit {
       this.getNotifications();
     });
 
+    const el = document.getElementById('private') as HTMLElement;
+    el.style.color = '#45a29e';
+    el.style.margin = '2px 0 0 0';
+    el.style.borderBottom = '2px solid #66fcf1';
   }
 
   private getNotifications(): void {

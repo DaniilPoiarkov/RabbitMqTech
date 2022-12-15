@@ -58,7 +58,7 @@ export class BaseComponent implements OnInit {
         notification.content, 
         'Recieved new Private Notification! Tap to open page', 
         () => {
-          this.goToPrivateNotificationsPage();
+          this.router.navigate(['/private-notifications']);
         }, 10000);
     });
 
@@ -67,25 +67,9 @@ export class BaseComponent implements OnInit {
         notification.content, 
         'Recieved new Simple Notification! Tap to open page', 
         () => {
-          this.goToSimpleNotificationsPage();
+          this.router.navigate(['/simple-notifications']);
         }, 10000);
     });
-  }
-
-  goToNewsPage(): void {
-    this.router.navigate(['/main']);
-  }
-
-  goToPrivateNotificationsPage(): void {
-    this.router.navigate(['/private-notifications']);
-  }
-
-  goToSimpleNotificationsPage(): void {
-    this.router.navigate(['/simple-notifications']);
-  }
-
-  goToAllUsersPage(): void {
-    this.router.navigate(['/users']);
   }
 
   logout(): void {
@@ -94,4 +78,18 @@ export class BaseComponent implements OnInit {
     this.router.navigate(['auth/login']);
   }
 
+  updateStyle(id: string): void {
+
+    console.log(id);
+    const el = document.getElementById(id) as HTMLElement;
+    el.style.borderBottom = '1px solid red';
+    el.style.color = 'red';
+  }
+
+  clearStyles(): void {
+    const usersEl = document.getElementById('users');
+    const privateEl = document.getElementById('private');
+    const simpleEl = document.getElementById('simple');
+
+  }
 }

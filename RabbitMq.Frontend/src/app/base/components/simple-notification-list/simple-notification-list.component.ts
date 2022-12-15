@@ -26,7 +26,11 @@ export class SimpleNotificationListComponent implements OnInit {
       this.user = user;
       this.getNotifications();
     });
-
+    
+    const el = document.getElementById('simple') as HTMLElement;
+    el.style.color = '#45a29e';
+    el.style.margin = '2px 0 0 0';
+    el.style.borderBottom = '2px solid #66fcf1';
   }
 
   private getNotifications(): void {
