@@ -8,7 +8,9 @@ namespace RabbitMq.DAL.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<PrivateNotification> builder)
         {
-
+            builder.HasOne(n => n.Sender)
+                .WithMany()
+                .HasForeignKey(n => n.SenderId);
         }
     }
 }

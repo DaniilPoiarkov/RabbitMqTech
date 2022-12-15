@@ -22,9 +22,6 @@ export class BaseComponent implements OnInit {
     private currentUser: CurrentUserService
   ) { }
 
-  public privateNotifications: PrivateNotification[] = [];
-  public simpleNotifications: SimpleNotification[] = [];
-
   public hubConnection: HubConnection;
 
   ngOnInit(): void {
@@ -63,7 +60,6 @@ export class BaseComponent implements OnInit {
         () => {
           this.goToPrivateNotificationsPage();
         }, 10000);
-      this.privateNotifications.push(notification); 
     });
 
     connection.on('SimpleNotification', (notification: SimpleNotification) => { 
@@ -73,7 +69,6 @@ export class BaseComponent implements OnInit {
         () => {
           this.goToSimpleNotificationsPage();
         }, 10000);
-      this.simpleNotifications.push(notification);
     });
   }
 

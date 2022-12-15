@@ -2,6 +2,8 @@
 using RabbitMq.Console.IoC.Abstract;
 using RabbitMq.Console.IoC.Enums;
 using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace RabbitMq.Console.IoC.Implementations
 {
@@ -56,10 +58,11 @@ namespace RabbitMq.Console.IoC.Implementations
         public IEnumerator<CommandDescriptor> GetEnumerator()
         {
             Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+            var searchSpace = MemoryMarshal.GetReference(descriptorsAsSpan);
 
-            for (int i = 0; i < descriptorsAsSpan.Length; i++)
+            for (int i = 0; i < _commandDescriptors.Count; i++)
             {
-                var command = descriptorsAsSpan[i];
+                var command = Unsafe.Add(ref searchSpace, i);
                 yield return command;
             }
         }
@@ -67,10 +70,11 @@ namespace RabbitMq.Console.IoC.Implementations
         IEnumerator IEnumerable.GetEnumerator()
         {
             Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+            var searchSpace = MemoryMarshal.GetReference(descriptorsAsSpan);
 
-            for (int i = 0; i < descriptorsAsSpan.Length; i++)
+            for (int i = 0; i < _commandDescriptors.Count; i++)
             {
-                var command = descriptorsAsSpan[i];
+                var command = Unsafe.Add(ref searchSpace, i);
                 yield return command;
             }
         }

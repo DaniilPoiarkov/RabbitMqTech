@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PrivateNotificationService } from 'src/core/services/private-notification.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
-import { UserService } from 'src/core/services/user.service';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
 import { User } from 'src/models/user';
 
@@ -20,23 +19,21 @@ export class PrivateNotificationComponent implements OnInit {
 
   constructor(
     private service: PrivateNotificationService,
-    private userService: UserService,
     private toastr: ToastrNotificationService
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUserById(this.notification.senderId).subscribe((resp) => {
-      this.sender = resp.body as User;
-    }, (err) => {
-      this.toastr.error(err.error.Error, 'Error');
+    if(this.notification.sender) {
+      this.sender = this.notification.sender;
+    } else {
       this.sender = {
         id: -1,
-        connectionId: '',
-        email: '',
         username: 'Deleted user',
+        email: '',
+        connectionId: '',
         password: '',
       }
-    });
+    }
   }
 
   public deleteNotification(): void {
