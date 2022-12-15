@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace RebbitMq.BenchmarkTests.ConsoleClientTests
+namespace RabbitMq.BenchmarkTests.ConsoleClientTests
 {
     [MemoryDiagnoser(false)]
     public class ForLoopBenchmark

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.Broker", "RabbitMq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.Console", "RabbitMq.Console\RabbitMq.Console.csproj", "{A70EFB83-B109-4100-BD3F-A821E1C6B366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RebbitMq.BenchmarkTests", "RebbitMq.BenchmarkTests\RebbitMq.BenchmarkTests.csproj", "{F3790C37-63D3-4C12-8865-AE76FF8623EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.BenchmarkTests", "RebbitMq.BenchmarkTests\RabbitMq.BenchmarkTests.csproj", "{F3790C37-63D3-4C12-8865-AE76FF8623EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
-using RebbitMq.BenchmarkTests.ConsoleClientTests;
+using RabbitMq.BenchmarkTests.ConsoleClientTests;
 
 namespace RebbitMq.BenchmarkTests
 {
@@ -7,7 +7,7 @@ namespace RebbitMq.BenchmarkTests
     {
         public static void Main()
         {
-            BenchmarkRunner.Run<ConsoleClientBenchmark>();
+            BenchmarkRunner.Run<ForLoopBenchmark>();
         }
     }
 }
