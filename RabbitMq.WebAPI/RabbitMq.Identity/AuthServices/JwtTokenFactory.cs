@@ -23,7 +23,6 @@ namespace RabbitMq.Identity.AuthServices
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userName),
                 new Claim(JwtRegisteredClaimNames.Email, userEmail),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("id", userId.ToString()),
             };
 

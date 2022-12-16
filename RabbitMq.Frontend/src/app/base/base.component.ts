@@ -77,19 +77,5 @@ export class BaseComponent implements OnInit {
     this.toastr.success('Logout successfull');
     this.router.navigate(['auth/login']);
   }
-
-  updateStyle(id: string): void {
-
-    console.log(id);
-    const el = document.getElementById(id) as HTMLElement;
-    el.style.borderBottom = '1px solid red';
-    el.style.color = 'red';
-  }
-
-  clearStyles(): void {
-    const usersEl = document.getElementById('users');
-    const privateEl = document.getElementById('private');
-    const simpleEl = document.getElementById('simple');
-
-  }
+  
 }

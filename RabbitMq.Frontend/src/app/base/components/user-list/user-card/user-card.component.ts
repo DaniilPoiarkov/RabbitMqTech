@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CurrentUserService } from 'src/core/services/current-user.service';
-import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
+import { OpenDialogService } from 'src/core/services/open-dialog.service';
 import { User } from 'src/models/user';
 
 @Component({
@@ -11,8 +11,8 @@ import { User } from 'src/models/user';
 export class UserCardComponent implements OnInit {
 
   constructor(
-    private toastr: ToastrNotificationService,
     private currentUserService: CurrentUserService,
+    private dialogService: OpenDialogService
   ) { }
 
   @Input() user: User;
@@ -25,12 +25,12 @@ export class UserCardComponent implements OnInit {
     });
   }
 
-  sendNotification(): void {
-    this.toastr.warning('Not implemented yet', 'Warning');
+  sendPrivateNotification(): void {
+    this.dialogService.openSendPrivateNotificationDialog(this.currentUser, this.user);
   }
 
-  something(): void {
-    this.toastr.warning('Not implemented yet', 'Warning');
+  sendSimpleNotification(): void {
+    this.dialogService.openSendSimpleNotificationDialog(this.user);
   }
 
 }
