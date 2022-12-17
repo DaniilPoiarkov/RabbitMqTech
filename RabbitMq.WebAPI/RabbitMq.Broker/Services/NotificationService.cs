@@ -71,6 +71,7 @@ namespace RabbitMq.Broker.Services
             return _mapper.Map<List<TDto>>(
                 await _db.Set<TNotification>()
                     .Where(n => n.RecieverId == recieverId)
+                    .OrderBy(n => DateTime.Today - n.CreatedAt)
                     .ToListAsync(cancellationToken));
         }
     }

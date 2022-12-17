@@ -24,7 +24,8 @@ namespace RabbitMq.Broker.Services
             return _mapper.Map<List<PrivateNotificationDto>>(
                 await _db.PrivateNotifications
                     .Where(n => n.RecieverId == recieverId)
-                    .Include(n => n.Sender)
+                        .Include(n => n.Sender)
+                    .OrderBy(n => DateTime.Today - n.CreatedAt)
                     .ToListAsync(cancellationToken));
         }
     }
