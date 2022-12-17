@@ -33,6 +33,7 @@ export class SendPrivateNotificationDialogComponent implements OnInit {
       id: 0,
     }).subscribe(() => {
       this.toastr.success('Send successfully!', 'Success');
+      this.dialogRef.close();
     }, (err) => {
       this.toastr.error(err.error.Error, 'Error');
     });

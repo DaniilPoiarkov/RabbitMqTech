@@ -59,7 +59,7 @@ namespace RabbitMq.Services.Implementations
 
         public async Task<List<NotificationDto>> GetAllNotifications(int userId, CancellationToken cancellationToken = default)
         {
-            var privateNotifications = _mapper.Map <List<PrivateNotificationDto>>(
+            var privateNotifications = _mapper.Map<List<PrivateNotificationDto>>(
                 await _db.PrivateNotifications.Where(n => n.RecieverId == userId).ToListAsync(cancellationToken));
 
             var simpleNotifications = _mapper.Map<List<SimpleNotificationDto>>(
@@ -70,7 +70,7 @@ namespace RabbitMq.Services.Implementations
             notifications.AddRange(privateNotifications);
             notifications.AddRange(simpleNotifications);
 
-            return notifications.OrderByDescending(n => DateTime.Today - n.CreatedAt).ToList();
+            return notifications.OrderBy(n => DateTime.Today - n.CreatedAt).ToList();
         }
     }
 }
