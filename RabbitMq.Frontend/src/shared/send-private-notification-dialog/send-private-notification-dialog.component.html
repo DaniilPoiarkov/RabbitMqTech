@@ -5,7 +5,8 @@
     <div class="editor">
         <app-input
             label="Write short message!"
-            (value)="setContent($event)">
+            (value)="setContent($event)"
+            (keyDownEnter)="send()">
         </app-input>
     </div>
     <div class="btn-container">
