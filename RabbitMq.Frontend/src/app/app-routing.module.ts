@@ -11,18 +11,19 @@ import { UserListComponent } from './base/components/user-list/user-list.compone
 const routes: Routes = [
   ...AuthRoutes,
   { 
-    path: '', 
+    path: '',
     component: BaseComponent, 
     canActivate: [AuthGuard], 
     canActivateChild: [AuthGuard],
     children: 
     [
-      { path: 'main', component: MainPageComponent },
+      { path: 'news', component: MainPageComponent },
       { path: 'users', component: UserListComponent },
       { path: 'private-notifications', component: PrivateNotificationListComponent },
       { path: 'simple-notifications', component: SimpleNotificationListComponent }
     ]
-  }
+  },
+  { path: '**', redirectTo: 'news' }
 ];
 
 @NgModule({

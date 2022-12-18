@@ -13,11 +13,8 @@ namespace RabbitMq.Console.AppBuilder
         private readonly ICommandContainer _commandContainer;
 
         private readonly HttpClient _httpClient;
-
         public List<ICliCommand> CliCommands { get; init; }
-
         internal HubConnection? HubConnection { get; private set; }
-
         internal UserDto CurrentUser { get; set; } = new();
 
         public ConsoleApplication(

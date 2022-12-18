@@ -22,9 +22,6 @@ export class BaseComponent implements OnInit {
     private currentUser: CurrentUserService
   ) { }
 
-  public privateNotifications: PrivateNotification[] = [];
-  public simpleNotifications: SimpleNotification[] = [];
-
   public hubConnection: HubConnection;
 
   ngOnInit(): void {
@@ -61,9 +58,8 @@ export class BaseComponent implements OnInit {
         notification.content, 
         'Recieved new Private Notification! Tap to open page', 
         () => {
-          this.goToPrivateNotificationsPage();
+          this.router.navigate(['/private-notifications']);
         }, 10000);
-      this.privateNotifications.push(notification); 
     });
 
     connection.on('SimpleNotification', (notification: SimpleNotification) => { 
@@ -71,26 +67,9 @@ export class BaseComponent implements OnInit {
         notification.content, 
         'Recieved new Simple Notification! Tap to open page', 
         () => {
-          this.goToSimpleNotificationsPage();
+          this.router.navigate(['/simple-notifications']);
         }, 10000);
-      this.simpleNotifications.push(notification);
     });
-  }
-
-  goToNewsPage(): void {
-    this.router.navigate(['/main']);
-  }
-
-  goToPrivateNotificationsPage(): void {
-    this.router.navigate(['/private-notifications']);
-  }
-
-  goToSimpleNotificationsPage(): void {
-    this.router.navigate(['/simple-notifications']);
-  }
-
-  goToAllUsersPage(): void {
-    this.router.navigate(['/users']);
   }
 
   logout(): void {
@@ -98,5 +77,5 @@ export class BaseComponent implements OnInit {
     this.toastr.success('Logout successfull');
     this.router.navigate(['auth/login']);
   }
-
+  
 }

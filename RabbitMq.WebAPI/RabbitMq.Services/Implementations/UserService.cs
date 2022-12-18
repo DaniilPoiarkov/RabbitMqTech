@@ -20,11 +20,14 @@ namespace RabbitMq.Services.Implementations
 
         public async Task<List<UserDto>> GetAllUsers(CancellationToken cancellationToken = default) => 
             _mapper.Map<List<UserDto>>(
-                await _db.Users.ToListAsync(cancellationToken));
+                await _db.Users.Include(u => u.Notifications)
+                    .ToListAsync(cancellationToken));
 
         public async Task<UserDto> GetUserByEmail(string email, CancellationToken cancellationToken = default)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            var user = await _db.Users.Where(u => u.Email == email)
+                .Include(u => u.Notifications)
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (user == null)
                 throw new NotFoundException(nameof(User));
@@ -34,22 +37,19 @@ namespace RabbitMq.Services.Implementations
 
         public async Task<UserDto> GetUserById(int id, CancellationToken cancellationToken = default)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            var user = await _db.Users.Where(x => x.Id == id)
+                .Include(u => u.Notifications)
+                .FirstOrDefaultAsync(cancellationToken);
+
             if (user == null)
                 throw new NotFoundException(nameof(User));
 
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default)
-        {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
-
-            if (user == null)
-                throw new NotFoundException(nameof(User));
-
-            user.ConnectionId = connectionId;
-            await _db.SaveChangesAsync(cancellationToken);
-        }
+        public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default) =>
+            await _db.Users.Where(u => u.Id == userId)
+                .ExecuteUpdateAsync(c => c.SetProperty(
+                    u => u.ConnectionId, p => connectionId), cancellationToken);
     }
 }

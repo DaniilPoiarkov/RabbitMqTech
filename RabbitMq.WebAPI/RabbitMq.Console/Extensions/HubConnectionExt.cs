@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using RabbitMq.Common.DTOs;
 using RabbitMq.Common.Entities.Notifications;

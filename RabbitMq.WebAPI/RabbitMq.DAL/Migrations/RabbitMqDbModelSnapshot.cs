@@ -101,14 +101,9 @@ namespace RabbitMq.DAL.Migrations
                     b.Property<int>("SenderId")
                         .HasColumnType("integer");
 
+                    b.HasIndex("SenderId");
+
                     b.HasDiscriminator().HasValue("PrivateNotification");
-                });
-
-            modelBuilder.Entity("RabbitMq.Common.Entities.Notifications.PublicNotification", b =>
-                {
-                    b.HasBaseType("RabbitMq.Common.Entities.Notifications.Notification");
-
-                    b.HasDiscriminator().HasValue("PublicNotification");
                 });
 
             modelBuilder.Entity("RabbitMq.Common.Entities.Notifications.SimpleNotification", b =>
@@ -125,6 +120,17 @@ namespace RabbitMq.DAL.Migrations
                         .HasForeignKey("RecieverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RabbitMq.Common.Entities.Notifications.PrivateNotification", b =>
+                {
+                    b.HasOne("RabbitMq.Common.Entities.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("RabbitMq.Common.Entities.User", b =>

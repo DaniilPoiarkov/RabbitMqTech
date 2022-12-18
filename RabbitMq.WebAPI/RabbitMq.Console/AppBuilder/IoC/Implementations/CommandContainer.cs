@@ -2,13 +2,15 @@
 using RabbitMq.Console.IoC.Abstract;
 using RabbitMq.Console.IoC.Enums;
 using System.Collections;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace RabbitMq.Console.IoC.Implementations
 {
-    public sealed class CommandContainer : ICommandContainer, IEnumerable<CommandDescriptor>
+    public sealed class CommandContainer : ICommandContainer
     {
-        private readonly ICollection<CommandDescriptor> _commandDescriptors;
-        public CommandContainer(ICollection<CommandDescriptor> descriptors)
+        private readonly List<CommandDescriptor> _commandDescriptors;
+        public CommandContainer(List<CommandDescriptor> descriptors)
         {
             _commandDescriptors = descriptors;
         }
@@ -55,18 +57,24 @@ namespace RabbitMq.Console.IoC.Implementations
 
         public IEnumerator<CommandDescriptor> GetEnumerator()
         {
+            Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+            var searchSpace = MemoryMarshal.GetReference(descriptorsAsSpan);
+
             for (int i = 0; i < _commandDescriptors.Count; i++)
             {
-                var command = _commandDescriptors.ElementAt(i);
+                var command = Unsafe.Add(ref searchSpace, i);
                 yield return command;
             }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
+            Span<CommandDescriptor> descriptorsAsSpan = _commandDescriptors.ToArray();
+            var searchSpace = MemoryMarshal.GetReference(descriptorsAsSpan);
+
             for (int i = 0; i < _commandDescriptors.Count; i++)
             {
-                var command = _commandDescriptors.ElementAt(i);
+                var command = Unsafe.Add(ref searchSpace, i);
                 yield return command;
             }
         }

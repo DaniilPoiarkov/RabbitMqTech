@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentUserService } from 'src/core/services/current-user.service';
-import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { UserService } from 'src/core/services/user.service';
 import { User } from 'src/models/user';
 
@@ -13,7 +12,6 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private toastr: ToastrNotificationService,
     private currentUser: CurrentUserService,
   ) { }
 
@@ -28,8 +26,14 @@ export class UserListComponent implements OnInit {
 
     this.userService.getAllUsers().subscribe((resp) => {
       const users = resp.body as User[];
-      this.allUsers = users;
+      this.allUsers = users.filter(u => u.id != this.user.id);
+
+      el.style.margin = '2px 0 0 0';
+      el.style.borderBottom = '2px solid #66fcf1';
     });
+
+    const el = document.getElementById('users') as HTMLElement;
+    el.style.color = '#45a29e';
 
   }
 

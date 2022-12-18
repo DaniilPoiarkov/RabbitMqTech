@@ -9,9 +9,10 @@ namespace RabbitMq.Console.AppBuilder
     internal class ConsoleApplicationBuilder
     {
         public readonly ICommandCollection Commands = new CommandCollection();
-        public string Title { get; set; } = "Console Client";
-        public ConsoleColor ForegroundColor { get; set; } = default;
 
+        public string Title { get; set; } = "Console Client";
+
+        public ConsoleColor ForegroundColor { get; set; } = default;
 
         private readonly List<Type> _cliCommandTypes = new();
 

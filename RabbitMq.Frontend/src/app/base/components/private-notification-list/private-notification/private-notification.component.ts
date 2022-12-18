@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CurrentUserService } from 'src/core/services/current-user.service';
+import { OpenDialogService } from 'src/core/services/open-dialog.service';
 import { PrivateNotificationService } from 'src/core/services/private-notification.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
-import { UserService } from 'src/core/services/user.service';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
 import { User } from 'src/models/user';
 
@@ -17,25 +18,30 @@ export class PrivateNotificationComponent implements OnInit {
   @Output() deleted = new EventEmitter<number>();
 
   public sender: User;
+  public currectUser: User;
 
   constructor(
     private service: PrivateNotificationService,
-    private userService: UserService,
-    private toastr: ToastrNotificationService
+    private toastr: ToastrNotificationService,
+    private dialogService: OpenDialogService,
+    private currentUserService: CurrentUserService,
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUserById(this.notification.senderId).subscribe((resp) => {
-      this.sender = resp.body as User;
-    }, (err) => {
-      this.toastr.error(err.error.Error, 'Error');
+    if(this.notification.sender) {
+      this.sender = this.notification.sender;
+    } else {
       this.sender = {
         id: -1,
-        connectionId: '',
-        email: '',
         username: 'Deleted user',
+        email: '',
+        connectionId: '',
         password: '',
       }
+    }
+
+    this.currentUserService.currentUser$.subscribe((user) => {
+      this.currectUser = user;
     });
   }
 
@@ -49,6 +55,10 @@ export class PrivateNotificationComponent implements OnInit {
   }
 
   reply(): void {
-    this.toastr.warning('Not implemented yet', 'Warning!');
+    if(this.notification.sender) {
+      this.dialogService.openSendPrivateNotificationDialog(this.currectUser, this.notification.sender);
+    } else {
+      this.toastr.error('Cant send notification to deleted user', 'Error');
+    }
   }
 }

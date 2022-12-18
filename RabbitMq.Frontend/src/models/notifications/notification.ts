@@ -2,9 +2,9 @@ import { User } from "../user";
 
 export interface Notification {
     id: number,
-    createdAt: Date,
+    createdAt?: Date,
     recieverId: number,
-    user: User,
-    recieverConnectionId: string,
+    user?: User,
+    recieverConnectionId?: string,
     content: string,
 }

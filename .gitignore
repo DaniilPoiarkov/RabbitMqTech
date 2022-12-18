@@ -20,3 +20,6 @@ RabbitMq.WebAPI/RabbitMq.DAL/bin
 
 RabbitMq.WebAPI/RabbitMq.Services/obj
 RabbitMq.WebAPI/RabbitMq.Services/bin
+
+RabbitMq.WebAPI/RabbitMq.BenchmarkTests/obj
+RabbitMq.WebAPI/RabbitMq.BenchmarkTests/bin
