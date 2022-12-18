@@ -1,0 +1,15 @@
+<div class="user-card">
+    <h2>{{ user.username }}</h2>
+    <span>{{ user.email }}</span>
+    <div class="btn-container">
+        <app-button 
+            class="card-btn" 
+            btnText="Private"
+            (clicked)="sendPrivateNotification()">
+        </app-button>
+        <app-button 
+            class="card-btn" 
+            btnText="Simple"
+            (clicked)="sendSimpleNotification()"></app-button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<form [formGroup]="loginForm" class="form-container">
+    <div class="head">
+        <h2>Log in</h2>
+        <a class="link" href="auth/register">New here? Create an account!</a>
+    </div>
+    <div class="container">
+        <app-input
+            class="ipt" 
+            label="Email"
+            placeholder="Write your email"
+            [formControl]="emailControl"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="emailError"
+        ></app-input>
+        <app-input
+            class="ipt"
+            label="Password"
+            placeholder="Write your password"
+            type="password"
+            [formControl]="passwordControl"
+            [isErrorDisplay]="isErrorDisplay"
+            [errorMessage]="passwordError"
+        ></app-input>
+    </div>
+    <div class="btn-container">
+        <app-button 
+            btnText="Login"
+            (clicked)="submit()"
+        ></app-button>
+    </div>
+</form>

@@ -1,0 +1,29 @@
+<div class="app-page">
+    <div class="header">
+        <ul class="nav-container">
+            <li class="nav">
+                <a class="logo" href="/news">RabbitMqTech</a>
+            </li>
+            <li class="nav">
+                <a id="private" href="/private-notifications">Private notifications</a>
+            </li>
+            <li class="nav">
+                <a id="simple" href="/simple-notifications">Simple notifications</a>
+            </li>
+            <li class="nav">
+                <a id="users" href="/users">People around you</a>
+            </li>
+        </ul>
+        <app-button 
+            class="header-btn logout" 
+            btnText="logout"
+            (clicked)="logout()">
+        </app-button>
+    </div>
+    <div class="router">
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

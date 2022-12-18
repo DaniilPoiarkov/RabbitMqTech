@@ -1,0 +1,14 @@
+<div class="container">
+    <label class="label"> {{ label }}</label>
+    <input 
+        [class]="class"
+        [type]="type"
+        [placeholder]="placeholder"
+        [disabled]="isDisabled"
+        [(ngModel)]="text"
+        (blur)="onTouched($event)"
+        (ngModelChange)="onChange($event)"
+        (ngModelChange)="emitValue()"
+        (keydown.enter)="emitValueKeyDownEnterEvent()"/>
+    <span *ngIf="isErrorDisplay && errorMessage" class="error">{{ errorMessage }}</span>
+</div>

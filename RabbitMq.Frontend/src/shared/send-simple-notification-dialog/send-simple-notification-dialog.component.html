@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="info">
+        <h2>Send simple notification to {{ this.data.reciever.username }}</h2>
+    </div>
+    <div class="editor">
+        <app-input
+            label="Write short message!"
+            (value)="setContent($event)"
+            (keyDownEnter)="send()">
+        </app-input>
+    </div>
+    <div class="btn-container">
+        <app-button
+            btnText="Send"
+            (clicked)="send()">
+        </app-button>
+    </div>
+</div>
