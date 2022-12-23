@@ -61,14 +61,13 @@ namespace RabbitMq.Console.AppBuilder
                     var command = CliCommands
                         .FirstOrDefault(cli => cli.ControllerName == context.Args[0]);
 
-                    if (command != null)
+                    if (command == null)
                     {
-                        await command.Execute(context, this);
-                        context.IsHandled = true;
+                        System.Console.WriteLine($"No command for \'{context.Args[0]}\' argument");
+                        continue;
                     }
 
-                    if(!context.IsHandled)
-                        System.Console.WriteLine("No such command");
+                    await command.Execute(context, this);
 
                 }
                 catch(Exception ex)
