@@ -1,4 +1,5 @@
-﻿using RabbitMq.Console.AppBuilder.CLI.Abstract;
+﻿using RabbitMq.Console.AppBuilder.AppContext;
+using RabbitMq.Console.AppBuilder.CLI.Abstract;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 {
@@ -8,8 +9,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 
         public string Description => "Exit an application.";
 
-        public Task Execute(string[] args, ConsoleApplication app)
+        public Task Execute(ConsoleAppContext context, ConsoleApplication app)
         {
+            var args = context.Args;
+
             if(args.Length == 1 && args[0] == "exit")
                 Environment.Exit(0);
             else

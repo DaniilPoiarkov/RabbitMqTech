@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.TestModels;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Abstract
@@ -9,7 +10,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Abstract
 
         public abstract string Description { get; }
 
-        public abstract Task Execute(string[] args, ConsoleApplication app);
+        public abstract Task Execute(ConsoleAppContext context, ConsoleApplication app);
 
         protected static async Task<bool> HandleResponse(HttpResponseMessage response)
         {

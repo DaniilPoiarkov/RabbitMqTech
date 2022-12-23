@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Newtonsoft.Json;
 using RabbitMq.Common.DTOs;
+using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
 using RabbitMq.Console.IoC.Abstract;
@@ -13,6 +17,9 @@ namespace RabbitMq.Console.AppBuilder
         private readonly ICommandContainer _commandContainer;
 
         private readonly HttpClient _httpClient;
+
+        private readonly List<Func<ConsoleAppContext, ConsoleAppContext>> _middlewares;
+
         public List<ICliCommand> CliCommands { get; init; }
         internal HubConnection? HubConnection { get; private set; }
         internal UserDto CurrentUser { get; set; } = new();
@@ -20,11 +27,13 @@ namespace RabbitMq.Console.AppBuilder
         public ConsoleApplication(
             ICommandContainer commandContainer, 
             HttpClient httpClient, 
-            List<ICliCommand> commands)
+            List<ICliCommand> commands,
+            List<Func<ConsoleAppContext, ConsoleAppContext>> middlewares)
         {
             _commandContainer = commandContainer;
             _httpClient = httpClient;
             CliCommands = commands;
+            _middlewares = middlewares;
         }
 
         public async Task Run()
@@ -41,8 +50,17 @@ namespace RabbitMq.Console.AppBuilder
             {
                 try
                 {
-                    var input = Ext.Ask("");
+                    var input = Ext.Ask();
                     var args = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                    var context = new ConsoleAppContext(args);
+
+                    for (int i = 0; i < _middlewares.Count; i++)
+                    {
+                        var middleware = _middlewares[i];
+                        context = middleware.Invoke(context);
+                        System.Console.WriteLine(JsonConvert.SerializeObject(context.Args));
+                    }
 
                     var isHandled = false;
 
@@ -50,9 +68,9 @@ namespace RabbitMq.Console.AppBuilder
                     {
                         var command = CliCommands[i];
 
-                        if (command.ControllerName == args[0])
+                        if (command.ControllerName == context.Args[0])
                         {
-                            await command.Execute(args, this);
+                            await command.Execute(context, this);
                             isHandled = true;
                             break;
                         }

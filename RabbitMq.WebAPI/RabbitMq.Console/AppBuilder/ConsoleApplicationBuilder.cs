@@ -1,4 +1,5 @@
-﻿using RabbitMq.Console.AppBuilder.CLI.Abstract;
+﻿using RabbitMq.Console.AppBuilder.AppContext;
+using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Exceptions;
 using RabbitMq.Console.IoC.Abstract;
 using RabbitMq.Console.IoC.Implementations;
@@ -18,6 +19,8 @@ namespace RabbitMq.Console.AppBuilder
 
         private readonly List<ICliCommand> _cliCommands = new();
 
+        private readonly List<Func<ConsoleAppContext, ConsoleAppContext>> _middlewares = new();
+
         private HttpClient _httpClient = new();
 
         public void ConfigureHttpClient(Action<HttpClient> client) => client.Invoke(_httpClient);
@@ -36,6 +39,8 @@ namespace RabbitMq.Console.AppBuilder
             return this;
         }
 
+        public void Use(Func<ConsoleAppContext, ConsoleAppContext> middleware) => _middlewares.Add(middleware);
+
         public ConsoleApplication Build()
         {
             ConfigureConsole();
@@ -46,7 +51,7 @@ namespace RabbitMq.Console.AppBuilder
 
             ImplementCliCommands(container);
 
-            return new(container, _httpClient, _cliCommands);
+            return new(container, _httpClient, _cliCommands, _middlewares);
         }
 
         private void ConfigureConsole()

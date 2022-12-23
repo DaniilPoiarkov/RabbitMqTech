@@ -2,6 +2,7 @@
 using RabbitMq.Common.DTOs;
 using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
@@ -25,8 +26,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             _http = http;
         }
 
-        public override async Task Execute(string[] args, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context, ConsoleApplication app)
         {
+            var args = context.Args;
+
             if (args.Length > 3 || args.Length <= 1)
             {
                 System.Console.WriteLine("No such implementation");

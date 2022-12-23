@@ -26,6 +26,14 @@ builder
     .AddCliCommand<QueueCommand>()
     .AddCliCommand<NotificationCommand>();
 
+builder.Use(context =>
+{
+    for (int i = 0; i < context.Args.Length; i++)
+        context.Args[i] = context.Args[i].ToLower();
+
+    return context;
+});
+
 var app = builder.Build();
 
 await app.Run();

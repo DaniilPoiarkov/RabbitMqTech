@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RabbitMq.Common.DTOs.NotificationsDto;
 using RabbitMq.Console.Abstract;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
 
@@ -27,8 +28,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             _http = http;
         }
 
-        public override async Task Execute(string[] args, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context, ConsoleApplication app)
         {
+            var args = context.Args;
+
             if(args.Length <= 2)
             {
                 System.Console.WriteLine("No such implementation. Write help to see more information");
