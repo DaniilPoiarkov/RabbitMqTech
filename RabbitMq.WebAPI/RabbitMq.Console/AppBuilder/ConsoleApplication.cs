@@ -50,33 +50,27 @@ namespace RabbitMq.Console.AppBuilder
             {
                 try
                 {
-                    var input = Ext.Ask();
-                    var args = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    var args = Ext.Ask()
+                        .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
                     var context = new ConsoleAppContext(args);
 
                     for (int i = 0; i < _middlewares.Count; i++)
+                        context = _middlewares[i].Invoke(context);
+
+                    if (context.IsInterrupted)
+                        continue;
+
+                    var command = CliCommands
+                        .FirstOrDefault(cli => cli.ControllerName == context.Args[0]);
+
+                    if (command != null)
                     {
-                        var middleware = _middlewares[i];
-                        context = middleware.Invoke(context);
-                        System.Console.WriteLine(JsonConvert.SerializeObject(context.Args));
+                        await command.Execute(context, this);
+                        context.IsHandled = true;
                     }
 
-                    var isHandled = false;
-
-                    for (int i = 0; i < CliCommands.Count; i++)
-                    {
-                        var command = CliCommands[i];
-
-                        if (command.ControllerName == context.Args[0])
-                        {
-                            await command.Execute(context, this);
-                            isHandled = true;
-                            break;
-                        }
-                    }
-
-                    if(!isHandled)
+                    if(!context.IsHandled)
                         System.Console.WriteLine("No such command");
 
                 }
