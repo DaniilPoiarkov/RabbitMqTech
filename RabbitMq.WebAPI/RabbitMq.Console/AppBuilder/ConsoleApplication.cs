@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Newtonsoft.Json;
 using RabbitMq.Common.DTOs;
-using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
@@ -53,7 +50,7 @@ namespace RabbitMq.Console.AppBuilder
                     var args = Ext.Ask()
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-                    var context = new ConsoleAppContext(args);
+                    var context = new ConsoleAppContext(args, CurrentUser);
 
                     for (int i = 0; i < _middlewares.Count; i++)
                         context = _middlewares[i].Invoke(context);
