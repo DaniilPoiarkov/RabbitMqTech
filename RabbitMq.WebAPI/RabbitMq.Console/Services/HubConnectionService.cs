@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using RabbitMq.Console.Abstract;
 using RabbitMq.Console.Extensions;
+using RabbitMq.Console.IoC.Options;
+using RabbitMq.Console.Models;
 
 namespace RabbitMq.Console.Services
 {
-    internal class HubConnectionService
+    public class HubConnectionService : IHubConnectionService
     {
-        private HubConnection _hubConnection { get; }
+        private readonly HubConnection _hubConnection;
 
-        public HubConnectionService(string url)
+        public HubConnectionService(IOptions<HubOptions> options)
         {
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl(url)
+                .WithUrl(options.Value.Url)
                 .Build();
         }
 

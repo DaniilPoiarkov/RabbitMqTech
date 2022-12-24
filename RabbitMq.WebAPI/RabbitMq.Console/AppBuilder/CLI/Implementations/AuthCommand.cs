@@ -3,7 +3,6 @@ using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
-using RabbitMq.Console.Services;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 {
@@ -11,9 +10,9 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
     {
         private readonly IHttpClientService _httpClientService;
 
-        private readonly HubConnectionService _hubConnectionService;
+        private readonly IHubConnectionService _hubConnectionService;
 
-        private readonly CurrentUserService _currentUserService;
+        private readonly ICurrentUserService _currentUserService;
 
         private static readonly string _baseUrl = "/api/auth";
 
@@ -23,7 +22,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             "login: login in another account\n\t\t" +
             "register: create new account";
 
-        public AuthCommand(IHttpClientService httpClientService, HubConnectionService hubservice, CurrentUserService currentUserService)
+        public AuthCommand(IHttpClientService httpClientService, IHubConnectionService hubservice, ICurrentUserService currentUserService)
         {
             _httpClientService = httpClientService;
             _hubConnectionService = hubservice;

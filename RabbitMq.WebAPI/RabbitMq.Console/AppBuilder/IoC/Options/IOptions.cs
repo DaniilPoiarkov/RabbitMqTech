@@ -1,7 +1,7 @@
 ﻿
 namespace RabbitMq.Console.IoC.Options
 {
-    internal interface IOptions<TOptions>
+    public interface IOptions<TOptions>
         where TOptions : class
     {
         TOptions Value { get; }

@@ -1,6 +1,7 @@
 ﻿using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder;
 using RabbitMq.Console.AppBuilder.CLI.Implementations;
+using RabbitMq.Console.Models;
 using RabbitMq.Console.Services;
 
 var builder = new ConsoleApplicationBuilder
@@ -15,10 +16,12 @@ builder.ConfigureHttpClient(client =>
 });
 
 builder.Commands
+    .ConfigureOptions(new HubOptions("https://localhost:7036/notifications"))
+
     .AddCommandTransient<IHttpClientService, HttpClientService>()
 
-    .AddCommandSingleton(new HubConnectionService("https://localhost:7036/notifications"))
-    .AddCommandSingleton<CurrentUserService>();
+    .AddCommandSingleton<IHubConnectionService, HubConnectionService>()
+    .AddCommandSingleton<ICurrentUserService, CurrentUserService>();
 
 builder
     .AddCliCommand<HelpCommand>()

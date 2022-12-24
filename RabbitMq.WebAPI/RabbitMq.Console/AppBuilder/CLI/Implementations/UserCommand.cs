@@ -4,7 +4,6 @@ using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
-using RabbitMq.Console.Services;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 {
@@ -66,7 +65,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 "Email: " + currentUser?.Email + "\n" +
                 "ConnectionId: " + currentUser?.ConnectionId);
 
-            var currentUserService = context.CommandContainer.GetCommand<CurrentUserService>();
+            var currentUserService = context.CommandContainer.GetCommand<ICurrentUserService>();
 
             currentUserService.SetCurrentUser(currentUser ?? throw new UnreachableException());
         }

@@ -1,4 +1,5 @@
 ﻿using RabbitMq.Common.Exceptions;
+using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
@@ -63,11 +64,11 @@ namespace RabbitMq.Console.AppBuilder
 
         internal async Task SetUpUserData()
         {
-            var currentUserService = _commandContainer.GetCommand<CurrentUserService>();
+            var currentUserService = _commandContainer.GetCommand<ICurrentUserService>();
             await currentUserService.Login();
             await currentUserService.SetCurrentUserFromRequest();
 
-            var connectionService = _commandContainer.GetCommand<HubConnectionService>();
+            var connectionService = _commandContainer.GetCommand<IHubConnectionService>();
             connectionService.Configure(
                 _commandContainer.GetCommand<HttpClient>());
             await connectionService.StartAsync();

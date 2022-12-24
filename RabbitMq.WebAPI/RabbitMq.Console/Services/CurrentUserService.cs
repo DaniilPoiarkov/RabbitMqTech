@@ -1,25 +1,22 @@
 ﻿using RabbitMq.Common.DTOs;
 using RabbitMq.Console.Abstract;
 using RabbitMq.Console.Extensions;
-using RabbitMq.Console.IoC.Abstract;
-using RabbitMq.Console.IoC.Implementations;
 using System.Net.Http.Headers;
-using System.Net.Http;
 
 namespace RabbitMq.Console.Services
 {
-    internal class CurrentUserService
+    public class CurrentUserService : ICurrentUserService
     {
         private readonly HttpClient _httpClient;
 
         private readonly IHttpClientService _httpService;
 
-        private readonly HubConnectionService _hubConnectionService;
+        private readonly IHubConnectionService _hubConnectionService;
         public UserDto? CurrentUser { get; set; }
 
         public CurrentUserService(
             HttpClient httpClient,
-            HubConnectionService hubConnectionService,
+            IHubConnectionService hubConnectionService,
             IHttpClientService httpService)
         {
             _httpClient = httpClient;
@@ -32,7 +29,7 @@ namespace RabbitMq.Console.Services
         public async Task SetCurrentUserFromRequest() => 
             CurrentUser = await _httpService.GetCurrentUser();
 
-        internal async Task SetUpUserData()
+        public async Task SetUpUserData()
         {
             await Login();
             await SetCurrentUserFromRequest();
