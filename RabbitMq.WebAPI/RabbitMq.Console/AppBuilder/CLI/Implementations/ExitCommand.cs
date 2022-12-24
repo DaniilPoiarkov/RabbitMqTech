@@ -9,7 +9,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 
         public string Description => "Exit an application.";
 
-        public Task Execute(ConsoleAppContext context, ConsoleApplication app)
+        public Task Execute(ConsoleAppContext context)
         {
             var args = context.Args;
 

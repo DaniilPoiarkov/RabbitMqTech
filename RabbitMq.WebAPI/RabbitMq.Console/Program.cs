@@ -15,7 +15,10 @@ builder.ConfigureHttpClient(client =>
 });
 
 builder.Commands
-    .AddCommandTransient<IHttpClientService, HttpClientService>();
+    .AddCommandTransient<IHttpClientService, HttpClientService>()
+
+    .AddCommandSingleton(new HubConnectionService("https://localhost:7036/notifications"))
+    .AddCommandSingleton<CurrentUserService>();
 
 builder
     .AddCliCommand<HelpCommand>()

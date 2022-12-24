@@ -10,7 +10,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Abstract
 
         public abstract string Description { get; }
 
-        public abstract Task Execute(ConsoleAppContext context, ConsoleApplication app);
+        public abstract Task Execute(ConsoleAppContext context);
 
         protected static async Task<bool> HandleResponse(HttpResponseMessage response)
         {

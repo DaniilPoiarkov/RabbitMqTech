@@ -1,15 +1,19 @@
 ﻿using RabbitMq.Common.DTOs.AuxiliaryModels;
-using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
+using RabbitMq.Console.Services;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 {
     internal class AuthCommand : CliCommand
     {
         private readonly IHttpClientService _httpClientService;
+
+        private readonly HubConnectionService _hubConnectionService;
+
+        private readonly CurrentUserService _currentUserService;
 
         private static readonly string _baseUrl = "/api/auth";
 
@@ -19,12 +23,14 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             "login: login in another account\n\t\t" +
             "register: create new account";
 
-        public AuthCommand(IHttpClientService httpClientService)
+        public AuthCommand(IHttpClientService httpClientService, HubConnectionService hubservice, CurrentUserService currentUserService)
         {
             _httpClientService = httpClientService;
+            _hubConnectionService = hubservice;
+            _currentUserService = currentUserService;
         }
 
-        public override async Task Execute(ConsoleAppContext context, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context) 
         {
             var args = context.Args;
 
@@ -38,16 +44,16 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             {
                 System.Console.Clear();
 
-                await StopHubConnection(app);
-                await app.SetUpUserData();
+                await StopHubConnection();
+                await _currentUserService.SetUpUserData();
             }
             else if (args[1] == "register")
-                await HandleRegisterCommand(app);
+                await HandleRegisterCommand();
             else
                 System.Console.WriteLine("No such implementation");
         }
 
-        private async Task HandleRegisterCommand(ConsoleApplication app)
+        private async Task HandleRegisterCommand()
         {
             System.Console.Clear();
 
@@ -77,22 +83,19 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
 
             if (response.IsSuccessStatusCode)
             {
-                await StopHubConnection(app);
+                await StopHubConnection();
 
                 System.Console.Clear();
                 System.Console.WriteLine("Status code: " + (int)response.StatusCode + "\n" +
                     "Now you can login with your credentials");
 
-                await app.SetUpUserData();
+                await _currentUserService.SetUpUserData();
             }
         }
 
-        private static async Task StopHubConnection(ConsoleApplication app)
+        private async Task StopHubConnection()
         {
-            if (app.HubConnection is null)
-                throw new UnreachableException();
-
-            await app.HubConnection.StopAsync();
+            await _hubConnectionService.StopAsync();
         }
     }
 }

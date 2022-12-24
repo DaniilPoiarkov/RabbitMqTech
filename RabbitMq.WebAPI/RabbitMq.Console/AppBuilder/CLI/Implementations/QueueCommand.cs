@@ -22,7 +22,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             _http = http;
         }
 
-        public override async Task Execute(ConsoleAppContext context, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context)
         {
             var args = context.Args;
 
@@ -32,7 +32,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 return;
             }
 
-            var response = await _http.GetRequest(_baseUrl + "?userId=" + app.CurrentUser.Id);
+            var response = await _http.GetRequest(_baseUrl + "?userId=" + context.User.Id);
 
             if (!await HandleResponse(response))
                 return;
