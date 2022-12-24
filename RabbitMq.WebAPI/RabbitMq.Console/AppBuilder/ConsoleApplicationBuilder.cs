@@ -14,7 +14,6 @@ namespace RabbitMq.Console.AppBuilder
         public string Title { get; set; } = "Console Client";
         public ConsoleColor ForegroundColor { get; set; } = default;
 
-
         private readonly List<Type> _cliCommandTypes = new();
 
         private readonly List<ICliCommand> _cliCommands = new();
@@ -39,7 +38,7 @@ namespace RabbitMq.Console.AppBuilder
             return this;
         }
 
-        public void Use(Func<ConsoleAppContext, ConsoleAppContext> middleware) => 
+        public void Use(Func<ConsoleAppContext, ConsoleAppContext> middleware) =>
             _middlewares.Add(context =>
             {
                 if (context.IsInterrupted)
@@ -108,7 +107,7 @@ namespace RabbitMq.Console.AppBuilder
                         System.Console.WriteLine("Cannot handle empty request");
                         context.IsInterrupted = true;
                     }
-                    else if(!context.CliCommands.Any(cli => cli.ControllerName == context.Args[0]))
+                    else if(!context.CliCommands.Any(cli => cli.ControllerName == context.Args[0].ToLower()))
                     {
                         var message = context.Args[0] switch
                         {
@@ -132,7 +131,7 @@ namespace RabbitMq.Console.AppBuilder
                     if(context.IsInterrupted)
                         return context;
 
-                    if(context.Args[0] != "help")
+                    if(context.Args[0].ToLower() != "help")
                         return context;
 
                     context.ContextVariables.Add("help", "true");

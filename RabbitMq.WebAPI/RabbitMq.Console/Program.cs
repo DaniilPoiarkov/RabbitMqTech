@@ -31,8 +31,9 @@ builder
 
 builder.Use(context =>
 {
-    for (int i = 0; i < context.Args.Length; i++)
-        context.Args[i] = context.Args[i].ToLower();
+    context.Args = context.Args
+        .Select(args => args.ToLower())
+        .ToArray();
 
     return context;
 });
