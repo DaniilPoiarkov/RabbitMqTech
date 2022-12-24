@@ -37,7 +37,6 @@ namespace RabbitMq.Console.AppBuilder
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
                     var context = SetUpContext(args);
-
                     ApplyMiddlewares(context);
 
                     if (context.IsInterrupted || context.CancellationToken.IsCancellationRequested)
