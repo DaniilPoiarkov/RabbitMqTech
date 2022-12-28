@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RabbitMq.Common.DTOs.NotificationsDto;
 using RabbitMq.Console.Abstract;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
 
@@ -27,8 +28,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             _http = http;
         }
 
-        public override async Task Execute(string[] args, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context)
         {
+            var args = context.Args;
+
             if(args.Length <= 2)
             {
                 System.Console.WriteLine("No such implementation. Write help to see more information");
@@ -36,15 +39,15 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             }
 
             if (args[1] == "private")
-                await HandlePrivateNotificationCommand(args, app);
+                await HandlePrivateNotificationCommand(args, context);
             if (args[1] == "simple")
-                await HandleSimpleNotificationCommand(args, app);
+                await HandleSimpleNotificationCommand(args, context);
         }
 
-        private async Task HandlePrivateNotificationCommand(string[] args, ConsoleApplication app)
+        private async Task HandlePrivateNotificationCommand(string[] args, ConsoleAppContext context)
         {
             if(args.Length == 3 && args[2] == "get")
-                await HandleGetCommand<PrivateNotificationDto>(_baseUrlPrivateNotifications, app);
+                await HandleGetCommand<PrivateNotificationDto>(_baseUrlPrivateNotifications, context.User.Id);
             else if (args.Length == 4 && args[2] == "delete")
                 await HandleDeleteCommand(args, _baseUrlPrivateNotifications);
             else if(args.Length == 3 && args[2] == "send")
@@ -61,7 +64,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 {
                     Content = content,
                     RecieverId = userId,
-                    SenderId = app.CurrentUser.Id,
+                    SenderId = context.User.Id,
                 };
 
                 await HandleSendCommand(notification, _baseUrlPrivateNotifications);
@@ -70,10 +73,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 System.Console.WriteLine("No such implementation");
         }
 
-        private async Task HandleSimpleNotificationCommand(string[] args, ConsoleApplication app)
+        private async Task HandleSimpleNotificationCommand(string[] args, ConsoleAppContext context)
         {
             if (args.Length == 3 && args[2] == "get")
-                await HandleGetCommand<SimpleNotificationDto>(_baseUrlSimpleNotifications, app);
+                await HandleGetCommand<SimpleNotificationDto>(_baseUrlSimpleNotifications, context.User.Id);
             else if (args.Length == 4 && args[2] == "delete")
                 await HandleDeleteCommand(args, _baseUrlSimpleNotifications);
             else if (args.Length == 3 && args[2] == "send")
@@ -98,10 +101,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 System.Console.WriteLine("No such implementation");
         }
 
-        private async Task HandleGetCommand<TNotificationType>(string controllerName, ConsoleApplication app)
+        private async Task HandleGetCommand<TNotificationType>(string controllerName, int userId)
             where TNotificationType : NotificationDto
         {
-            var response = await _http.GetRequest(controllerName + "?userId=" + app.CurrentUser.Id);
+            var response = await _http.GetRequest(controllerName + "?userId=" + userId);
 
             if (!await HandleResponse(response))
                 return;

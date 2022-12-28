@@ -1,9 +1,8 @@
-﻿
-using RabbitMq.Common.DTOs;
+﻿using RabbitMq.Common.DTOs;
 
 namespace RabbitMq.Console.Abstract
 {
-    internal interface IHttpClientService
+    public interface IHttpClientService
     {
         HttpClient HttpClient { get; }
         Task<string> Login(string email, string password);

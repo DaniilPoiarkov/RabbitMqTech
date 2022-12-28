@@ -1,4 +1,5 @@
-﻿using RabbitMq.Console.AppBuilder.CLI.Abstract;
+﻿using RabbitMq.Console.AppBuilder.AppContext;
+using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Exceptions;
 using RabbitMq.Console.IoC.Abstract;
 using RabbitMq.Console.IoC.Implementations;
@@ -11,12 +12,13 @@ namespace RabbitMq.Console.AppBuilder
         public readonly ICommandCollection Commands = new CommandCollection();
 
         public string Title { get; set; } = "Console Client";
-
         public ConsoleColor ForegroundColor { get; set; } = default;
 
         private readonly List<Type> _cliCommandTypes = new();
 
         private readonly List<ICliCommand> _cliCommands = new();
+
+        private readonly List<Func<ConsoleAppContext, ConsoleAppContext>> _middlewares = SetUpCommonMiddlewares();
 
         private HttpClient _httpClient = new();
 
@@ -36,6 +38,14 @@ namespace RabbitMq.Console.AppBuilder
             return this;
         }
 
+        public void Use(Func<ConsoleAppContext, ConsoleAppContext> middleware) =>
+            _middlewares.Add(context =>
+            {
+                if (context.IsInterrupted)
+                    return context;
+                return middleware.Invoke(context);
+            });
+
         public ConsoleApplication Build()
         {
             ConfigureConsole();
@@ -46,7 +56,7 @@ namespace RabbitMq.Console.AppBuilder
 
             ImplementCliCommands(container);
 
-            return new(container, _httpClient, _cliCommands);
+            return new(container, _cliCommands, _middlewares);
         }
 
         private void ConfigureConsole()
@@ -73,6 +83,60 @@ namespace RabbitMq.Console.AppBuilder
 
                 _cliCommands.Add((ICliCommand)implementation);
             }
+        }
+
+        private static List<Func<ConsoleAppContext, ConsoleAppContext>> SetUpCommonMiddlewares()
+        {
+            var middlewares = new List<Func<ConsoleAppContext, ConsoleAppContext>>
+            {
+                context =>
+                {
+                    if(context.User is null)
+                    {
+                        context.IsInterrupted = true;
+                        context.RequestCancellation();
+                    }
+
+                    return context;
+                },
+
+                context =>
+                {
+                    if(context.Args.Length == 0)
+                    {
+                        System.Console.WriteLine("Cannot handle empty request");
+                        context.IsInterrupted = true;
+                    }
+                    else if(!context.CliCommands.Any(cli => cli.ControllerName == context.Args[0].ToLower()))
+                    {
+                        var message = context.Args[0] switch
+                        {
+                            "close" => "\'exit\' to close an application",
+                            "cls" => "\'clear\' to clear console",
+                            _ => "\'help\' to learn which commands are available"
+                        };
+
+                        System.Console.WriteLine($"Try to use {message}. No command for \'{context.Args[0]}\' argument");
+                        context.IsInterrupted = true;
+                    }
+
+                    if(context.IsInterrupted)
+                        context.ContextVariables.Add("IsInterrupted", "true");
+
+                    return context;
+                },
+
+                context =>
+                {
+                    if(context.IsInterrupted || context.Args[0].ToLower() != "help")
+                        return context;
+
+                    context.ContextVariables.Add("help", "true");
+                    return context;
+                },
+            };
+
+            return middlewares;
         }
     }
 }

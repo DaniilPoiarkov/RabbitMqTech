@@ -2,6 +2,7 @@
 using RabbitMq.Common.DTOs;
 using RabbitMq.Common.Exceptions;
 using RabbitMq.Console.Abstract;
+using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 
 namespace RabbitMq.Console.AppBuilder.CLI.Implementations
@@ -25,8 +26,10 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             _http = http;
         }
 
-        public override async Task Execute(string[] args, ConsoleApplication app)
+        public override async Task Execute(ConsoleAppContext context) 
         {
+            var args = context.Args;
+
             if (args.Length > 3 || args.Length <= 1)
             {
                 System.Console.WriteLine("No such implementation");
@@ -34,7 +37,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
             }
 
             if (args[1] == "me")
-                await HandleMeCommand(app);
+                await HandleMeCommand(context);
             if (args.Length == 3 && args[1] == "id")
                 await HandleIdCommand(args[2]);
             if(args.Length == 3 && args[1] == "email")
@@ -43,7 +46,7 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 await HandleAllCommand();
         }
 
-        private async Task HandleMeCommand(ConsoleApplication app)
+        private async Task HandleMeCommand(ConsoleAppContext context)
         {
             var response = await _http.GetRequest(_baseUrl + "/current");
 
@@ -62,7 +65,9 @@ namespace RabbitMq.Console.AppBuilder.CLI.Implementations
                 "Email: " + currentUser?.Email + "\n" +
                 "ConnectionId: " + currentUser?.ConnectionId);
 
-            app.SetCurrentUser(currentUser ?? throw new UnreachableException());
+            var currentUserService = context.CommandContainer.GetCommand<ICurrentUserService>();
+
+            currentUserService.SetCurrentUser(currentUser ?? throw new UnreachableException());
         }
 
         private async Task HandleIdCommand(string id)

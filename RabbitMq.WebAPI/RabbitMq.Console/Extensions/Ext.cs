@@ -2,7 +2,7 @@
 {
     internal static class Ext
     {
-        public static string Ask(string message)
+        public static string Ask(string? message = null)
         {
             System.Console.WriteLine(message);
             return System.Console.ReadLine() ?? string.Empty;

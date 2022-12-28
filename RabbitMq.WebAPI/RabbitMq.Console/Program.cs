@@ -1,6 +1,7 @@
 ﻿using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder;
 using RabbitMq.Console.AppBuilder.CLI.Implementations;
+using RabbitMq.Console.Models;
 using RabbitMq.Console.Services;
 
 var builder = new ConsoleApplicationBuilder
@@ -15,7 +16,12 @@ builder.ConfigureHttpClient(client =>
 });
 
 builder.Commands
-    .AddCommandTransient<IHttpClientService, HttpClientService>();
+    .ConfigureOptions(new HubOptions("https://localhost:7036/notifications"))
+
+    .AddCommandTransient<IHttpClientService, HttpClientService>()
+
+    .AddCommandSingleton<IHubConnectionService, HubConnectionService>()
+    .AddCommandSingleton<ICurrentUserService, CurrentUserService>();
 
 builder
     .AddCliCommand<HelpCommand>()
@@ -25,6 +31,15 @@ builder
     .AddCliCommand<UserCommand>()
     .AddCliCommand<QueueCommand>()
     .AddCliCommand<NotificationCommand>();
+
+builder.Use(context =>
+{
+    context.Args = context.Args
+        .Select(args => args.ToLower())
+        .ToArray();
+
+    return context;
+});
 
 var app = builder.Build();
 
