@@ -116,7 +116,7 @@ namespace RabbitMq.Console.AppBuilder
                             _ => "\'help\' to learn which commands are available"
                         };
 
-                        System.Console.WriteLine("Try to use " + message);
+                        System.Console.WriteLine($"Try to use {message}. No command for \'{context.Args[0]}\' argument");
                         context.IsInterrupted = true;
                     }
 
@@ -128,10 +128,7 @@ namespace RabbitMq.Console.AppBuilder
 
                 context =>
                 {
-                    if(context.IsInterrupted)
-                        return context;
-
-                    if(context.Args[0].ToLower() != "help")
+                    if(context.IsInterrupted || context.Args[0].ToLower() != "help")
                         return context;
 
                     context.ContextVariables.Add("help", "true");

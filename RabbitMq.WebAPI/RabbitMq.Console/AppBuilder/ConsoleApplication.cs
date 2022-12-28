@@ -46,13 +46,7 @@ namespace RabbitMq.Console.AppBuilder
                     var command = _cliCommands
                         .FirstOrDefault(cli => cli.ControllerName == context.Args[0]);
 
-                    if (command == null)
-                    {
-                        System.Console.WriteLine($"No command for \'{context.Args[0]}\' argument");
-                        continue;
-                    }
-
-                    await command.Execute(context);
+                    await command?.Execute(context);
 
                 }
                 catch(Exception ex)
@@ -97,7 +91,7 @@ namespace RabbitMq.Console.AppBuilder
         {
             for (int i = 0; i < _middlewares.Count; i++)
             {
-                if (context.IsInterrupted)
+                if (context.IsInterrupted || context.CancellationToken.IsCancellationRequested)
                     return;
 
                 context = _middlewares[i].Invoke(context);

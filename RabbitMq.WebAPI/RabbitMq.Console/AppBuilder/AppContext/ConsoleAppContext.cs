@@ -1,8 +1,8 @@
 ﻿using RabbitMq.Common.DTOs;
 using RabbitMq.Common.Exceptions;
+using RabbitMq.Console.Abstract;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.IoC.Abstract;
-using RabbitMq.Console.Services;
 
 namespace RabbitMq.Console.AppBuilder.AppContext
 {
@@ -25,7 +25,7 @@ namespace RabbitMq.Console.AppBuilder.AppContext
         public ConsoleAppContext(string[] args, List<ICliCommand> commands, ICommandContainer container)
         {
             Args = args;
-            User = container.GetCommand<CurrentUserService>().CurrentUser ?? throw new UnreachableException();
+            User = container.GetCommand<ICurrentUserService>().CurrentUser ?? throw new UnreachableException();
             CliCommands = commands;
             CommandContainer = container;
 
