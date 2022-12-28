@@ -1,12 +1,15 @@
 using RabbitMq.Broker.Hubs;
 using RabbitMq.WebAPI;
+using RabbitMq.WebAPI.DependencyInjection;
 using RabbitMq.WebAPI.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.RegisterServices(builder.Configuration);
+builder.Services.ApplyServiceInstallers(
+    builder.Configuration,
+    typeof(IServiceInstaller).Assembly);
 
 builder.Logging.ClearProviders();
 
