@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SimpleNotificationService } from 'src/core/services/simple-notification.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
@@ -9,7 +9,7 @@ import { User } from 'src/models/user';
   templateUrl: './send-simple-notification-dialog.component.html',
   styleUrls: ['./send-simple-notification-dialog.component.sass']
 })
-export class SendSimpleNotificationDialogComponent implements OnInit {
+export class SendSimpleNotificationDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SendSimpleNotificationDialogComponent>,
@@ -19,9 +19,6 @@ export class SendSimpleNotificationDialogComponent implements OnInit {
   ) { }
 
   private content: string;
-
-  ngOnInit(): void {
-  }
   
   send(): void {
     

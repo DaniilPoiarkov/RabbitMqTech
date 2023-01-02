@@ -30,6 +30,12 @@
             "prefix": "app",
             "style": "kebab-case"
           }
+        ],
+        "@typescript-eslint/no-empty-function": [
+          0
+        ],
+        "@typescript-eslint/no-empty-interface": [
+          0
         ]
       }
     },

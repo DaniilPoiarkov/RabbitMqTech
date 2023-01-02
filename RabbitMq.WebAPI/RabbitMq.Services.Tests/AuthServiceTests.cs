@@ -76,5 +76,27 @@ namespace RabbitMq.Services.Tests
                     Password = "invalid"
                 }));
         }
+
+        [Fact]
+        public async Task Login_WhenValidCredentials_ThenReturnsUser()
+        {
+            var register = new UserRegister()
+            {
+                Email = "Test",
+                Password = "Test",
+                Username = "Test",
+            };
+
+            await _service.Register(register);
+            var user = await _service.Login(new UserLogin()
+            {
+                Email = "Test",
+                Password = "Test",
+            });
+
+            Assert.NotNull(user);
+            Assert.Equal(user.Username, register.Username);
+            Assert.Equal(user.Email, register.Email);
+        }
     }
 }

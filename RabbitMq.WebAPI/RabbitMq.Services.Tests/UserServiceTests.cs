@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FakeItEasy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using RabbitMq.Common.Exceptions;
@@ -41,7 +40,7 @@ namespace RabbitMq.Services.Tests
                 opt.AddProfile<UserProfile>();
             }).CreateMapper();
 
-            var cache = A.Fake<IMemoryCache>();
+            var cache = new MemoryCache(new MemoryCacheOptions());
 
             _service = new(db, mapper);
             _decorated = new DecoratedUserService(_service, cache);

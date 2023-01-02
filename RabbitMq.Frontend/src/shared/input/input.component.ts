@@ -1,7 +1,7 @@
 import { 
   Component,
   Input, 
-  Output, 
+  Output,
   EventEmitter, 
   forwardRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -20,8 +20,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements ControlValueAccessor {
 
-  constructor() { }
-
   public text = '';
 
   @Input() class = 'ipt';
@@ -36,9 +34,6 @@ export class InputComponent implements ControlValueAccessor {
 
   @Output() value = new EventEmitter<string>();
   @Output() keyDownEnter = new EventEmitter<string>();
-
-  ngOnInit(): void {
-  }
 
   public emitValue(): void {
     this.value.emit(this.text);

@@ -45,7 +45,8 @@ namespace RabbitMq.WebAPI.Middlewares
                     "Error: {errorMessage}, Status Code: {statusCode}", 
                     ex.Message, statusCode);
 
-            if (statusCode == HttpStatusCode.InternalServerError &&
+            if ((statusCode == HttpStatusCode.InternalServerError ||
+                statusCode == HttpStatusCode.Conflict) &&
                 _logger.IsEnabled(LogEventLevel.Fatal))
             {
                 var errorMessage = BuildCriticalLog(ex);
