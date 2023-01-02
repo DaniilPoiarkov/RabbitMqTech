@@ -12,9 +12,11 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
             services.AddEndpointsApiExplorer();
             services.AddSignalR();
             services.AddLogging();
+            services.AddMemoryCache();
 
             services
-                .AddTransient<IUserService, UserService>()
+                .AddTransient<UserService>()
+                .AddTransient<IUserService, DecoratedUserService>()
                 .AddTransient<IQueueService, QueueService>()
 
                 .AddScoped(typeof(UserParameters));
