@@ -2,11 +2,14 @@
 using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
 using RabbitMq.Identity.Abstract;
+using RabbitMq.WebAPI.Filters;
 
 namespace RabbitMq.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ModelValidation]
+    [LastTimeAction]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _service;
