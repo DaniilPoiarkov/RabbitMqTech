@@ -24,22 +24,17 @@ jobs:
       run: dotnet test --no-build --verbosity normal RabbitMq.WebAPI/RabbitMq.WebAPI.sln
       
   frontend-build-and-lint:
-    
-    runs-on: ubuntu-latest
-    
+  
+    runs-on: ubuntu-latest  
     steps:
     - uses: actions/checkout@v2
-    
     - name: Setup Node.js
     - uses: actions/setup-node@v2
       with:
         node-version: '16.x'
-        
     - name: Install dependencies
     - run: npm install
-    
     - name: Build
     - run: npm run build
-    
-    - name: Lint
+    - name: Lint tests
     - run: npm lint
