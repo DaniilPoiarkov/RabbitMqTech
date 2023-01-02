@@ -1,5 +1,4 @@
-﻿
-using RabbitMq.Common.DTOs;
+﻿using RabbitMq.Common.DTOs;
 
 namespace RabbitMq.Services.Abstract
 {

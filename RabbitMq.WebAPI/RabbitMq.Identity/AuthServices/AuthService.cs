@@ -6,7 +6,6 @@ using RabbitMq.Common.Entities;
 using RabbitMq.Common.Exceptions;
 using RabbitMq.DAL;
 using RabbitMq.Identity.Abstract;
-using System.Net;
 
 namespace RabbitMq.Identity.AuthServices
 {

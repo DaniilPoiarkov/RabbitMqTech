@@ -7,7 +7,7 @@ using System.Data;
 
 namespace RabbitMq.Console.AppBuilder
 {
-    internal class ConsoleApplicationBuilder
+    public class ConsoleApplicationBuilder
     {
         public readonly ICommandCollection Commands = new CommandCollection();
 
