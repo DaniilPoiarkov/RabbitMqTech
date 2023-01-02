@@ -4,7 +4,6 @@ using RabbitMq.Console.AppBuilder.AppContext;
 using RabbitMq.Console.AppBuilder.CLI.Abstract;
 using RabbitMq.Console.Extensions;
 using RabbitMq.Console.IoC.Abstract;
-using RabbitMq.Console.Services;
 
 namespace RabbitMq.Console.AppBuilder
 {
@@ -44,9 +43,10 @@ namespace RabbitMq.Console.AppBuilder
                         continue;
 
                     var command = _cliCommands
-                        .FirstOrDefault(cli => cli.ControllerName == context.Args[0]);
+                        .FirstOrDefault(cli => cli.ControllerName == context.Args[0]) ??
+                            throw new UnreachableException("Handled in middleware");
 
-                    await command?.Execute(context);
+                    await command.Execute(context);
 
                 }
                 catch(Exception ex)

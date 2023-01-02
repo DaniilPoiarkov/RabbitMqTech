@@ -13,7 +13,6 @@ namespace RabbitMq.Identity.IoC
     {
         public static IServiceCollection ApplyJwtConfiguration(this IServiceCollection services, JwtOptions options)
         {
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

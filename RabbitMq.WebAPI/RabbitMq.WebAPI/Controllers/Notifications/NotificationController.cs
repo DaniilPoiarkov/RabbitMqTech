@@ -21,22 +21,22 @@ namespace RabbitMq.WebAPI.Controllers.Notifications
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetNotifications(int userId)
+        public async Task<IActionResult> GetNotifications(int userId, CancellationToken token)
         {
-            return Ok(await _service.GetNotifications(userId));
+            return Ok(await _service.GetNotifications(userId, token));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNotification([FromBody] TDto notification)
+        public async Task<IActionResult> CreateNotification([FromBody] TDto notification, CancellationToken token)
         {
-            await _service.CreateAndSendNotification(notification);
+            await _service.CreateAndSendNotification(notification, token);
             return NoContent();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteNotification(int id)
+        public async Task<IActionResult> DeleteNotification(int id, CancellationToken token)
         {
-            await _service.DeleteNotification(id);
+            await _service.DeleteNotification(id, token);
             return NoContent();
         }
     }

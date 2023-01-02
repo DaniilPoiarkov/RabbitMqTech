@@ -16,21 +16,15 @@ namespace RabbitMq.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] UserRegister model)
-        {
-            return Ok(new AccessToken() { Token = await _service.Register(model) });
-        }
+        public async Task<IActionResult> Register([FromBody] UserRegister model, CancellationToken token) => 
+            Ok(new AccessToken() { Token = await _service.Register(model, token) });
 
         [HttpPut]
-        public async Task<IActionResult> Login([FromBody] UserLogin credentials)
-        {
-            return Login(await _service.Login(credentials));
-        }
+        public async Task<IActionResult> Login([FromBody] UserLogin credentials, CancellationToken token) => 
+            Login(await _service.Login(credentials, token));
 
         [HttpGet]
-        public IActionResult Login(UserDto user)
-        {
-            return Ok(new AccessToken() { Token = _service.GetToken(user) });
-        }
+        public IActionResult Login(UserDto user) => 
+            Ok(new AccessToken() { Token = _service.GetToken(user) });
     }
 }

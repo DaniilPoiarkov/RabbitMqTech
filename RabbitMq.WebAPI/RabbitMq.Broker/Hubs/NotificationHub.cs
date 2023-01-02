@@ -2,7 +2,6 @@
 using RabbitMq.Broker.Hubs.SubscriptionHelper;
 using RabbitMq.Broker.Interfaces;
 using RabbitMq.Common.Entities.Notifications;
-using Serilog;
 
 namespace RabbitMq.Broker.Hubs
 {

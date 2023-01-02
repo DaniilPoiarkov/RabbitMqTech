@@ -6,8 +6,8 @@ namespace RabbitMq.Identity.Abstract
 {
     public interface IAuthService
     {
-        Task<UserDto> Login(UserLogin credentials);
+        Task<UserDto> Login(UserLogin credentials, CancellationToken token = default);
         string GetToken(UserDto user);
-        Task<string> Register(UserRegister credentials);
+        Task<string> Register(UserRegister credentials, CancellationToken token = default);
     }
 }
