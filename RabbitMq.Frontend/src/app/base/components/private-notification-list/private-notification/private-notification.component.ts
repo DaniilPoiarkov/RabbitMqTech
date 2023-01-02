@@ -58,7 +58,7 @@ export class PrivateNotificationComponent implements OnInit {
     if(this.notification.sender) {
       this.dialogService.openSendPrivateNotificationDialog(this.currectUser, this.notification.sender);
     } else {
-      this.toastr.error('Cant send notification to deleted user', 'Error');
+      this.toastr.error('Can\'t send notification to deleted user', 'Error');
     }
   }
 }

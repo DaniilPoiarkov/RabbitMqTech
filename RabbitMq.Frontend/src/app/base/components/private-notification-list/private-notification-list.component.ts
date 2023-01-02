@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrentUserService } from 'src/core/services/current-user.service';
 import { PrivateNotificationService } from 'src/core/services/private-notification.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SimpleNotificationService } from 'src/core/services/simple-notification.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { SimpleNotification } from 'src/models/notifications/simple-notification';
-import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-simple-notification',
