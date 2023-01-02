@@ -89,5 +89,11 @@ namespace RabbitMq.Services.Tests
         {
             await Assert.ThrowsAsync<NotFoundException>(async () => await _decorated.GetUserByEmail("invalidEmail"));
         }
+
+        [Fact]
+        public async Task GetUserById_WhenUserNotExist_ThenNotFoundExceptionThrown()
+        {
+            await Assert.ThrowsAsync<NotFoundException>(async () => await _decorated.GetUserById(2));
+        }
     }
 }
