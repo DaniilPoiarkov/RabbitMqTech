@@ -21,4 +21,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore RabbitMq.WebAPI/RabbitMq.WebAPI.sln
     - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal RabbitMq.WebAPI/RabbitMq.WebAPI.sln
