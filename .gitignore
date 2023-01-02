@@ -23,3 +23,6 @@ RabbitMq.WebAPI/RabbitMq.Services/bin
 
 RabbitMq.WebAPI/RabbitMq.BenchmarkTests/obj
 RabbitMq.WebAPI/RabbitMq.BenchmarkTests/bin
+
+RabbitMq.WebAPI/RabbitMq.Services.Tests/obj
+RabbitMq.WebAPI/RabbitMq.Services.Tests/bin
