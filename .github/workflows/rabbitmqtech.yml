@@ -3,7 +3,7 @@
 
 name: RabbitMqTech.UnitTests
 
-on:[push]
+on: [push]
 
 jobs:
   build:
