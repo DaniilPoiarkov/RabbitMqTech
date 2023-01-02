@@ -26,6 +26,9 @@ jobs:
   frontend-build-and-lint:
   
     runs-on: ubuntu-latest  
+    defaults:
+      run:
+        working-directory: RabbitMq.Frontend
     steps:
     - uses: actions/checkout@v2
     - name: Setup Node.js
