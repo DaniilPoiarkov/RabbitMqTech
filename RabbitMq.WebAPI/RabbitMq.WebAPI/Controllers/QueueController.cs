@@ -17,7 +17,7 @@ namespace RabbitMq.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllNotifications(int userId) =>
-            Ok(await _service.GetAllNotifications(userId));
+        public async Task<IActionResult> GetAllNotifications(int userId, CancellationToken token) =>
+            Ok(await _service.GetAllNotifications(userId, token));
     }
 }

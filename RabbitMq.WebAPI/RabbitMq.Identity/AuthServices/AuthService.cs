@@ -24,9 +24,9 @@ namespace RabbitMq.Identity.AuthServices
         public string GetToken(UserDto user) => 
             _jwtFactory.GenerateToken(user.Email, user.Username, user.Id);
 
-        public async Task<UserDto> Login(UserLogin credentials)
+        public async Task<UserDto> Login(UserLogin credentials, CancellationToken token = default)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == credentials.Email);
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == credentials.Email, token);
 
             if (user == null)
                 throw new NotFoundException(nameof(User));
@@ -37,7 +37,7 @@ namespace RabbitMq.Identity.AuthServices
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<string> Register(UserRegister credentials)
+        public async Task<string> Register(UserRegister credentials, CancellationToken token = default)
         {
             ValidateModelOrThrow(credentials);
 
@@ -51,8 +51,8 @@ namespace RabbitMq.Identity.AuthServices
                 Username = credentials.Username,
             };
 
-            await _db.Users.AddAsync(user);
-            await _db.SaveChangesAsync();
+            await _db.Users.AddAsync(user, token);
+            await _db.SaveChangesAsync(token);
 
             return GetToken(
                 _mapper.Map<UserDto>(user));
