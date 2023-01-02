@@ -14,7 +14,7 @@ export class ToastrNotificationService {
     message: string, 
     title?: string, 
     onTap?: () => void, 
-    ms: number = 5000) : void {
+    ms = 5000) : void {
 
     const toast = this.toastr.success(message, title, {
       timeOut: ms,
@@ -29,7 +29,7 @@ export class ToastrNotificationService {
     message: string, 
     title?: string,
     onTap?: () => void, 
-    ms: number = 5000) : void {
+    ms = 5000) : void {
 
     const toast = this.toastr.error(message, title, {
       timeOut: ms
@@ -44,7 +44,7 @@ export class ToastrNotificationService {
     message: string, 
     title?: string,
     onTap?: () => void, 
-    ms: number = 5000) : void {
+    ms = 5000) : void {
 
     const toast = this.toastr.info(message, title, {
       timeOut: ms
@@ -59,7 +59,7 @@ export class ToastrNotificationService {
     message: string, 
     title?: string,
     onTap?: () => void, 
-    ms: number = 5000) : void {
+    ms = 5000) : void {
 
     const toast = this.toastr.warning(message, title, {
       timeOut: ms

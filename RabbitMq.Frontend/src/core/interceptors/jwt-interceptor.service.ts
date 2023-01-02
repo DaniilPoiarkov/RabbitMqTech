@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JwtInterceptorService implements HttpInterceptor {
-
-  constructor() { }
   
   public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = localStorage.getItem('token');
