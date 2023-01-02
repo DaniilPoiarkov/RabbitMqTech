@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore ../../../RabbitMqTech.WebAPI/RabbitMq.WebAPI.sln
+      run: dotnet restore ../../../RabbitMq.WebAPI/RabbitMq.WebAPI.sln
     - name: Build
-      run: dotnet build --no-restore ../../../RabbitMqTech.WebAPI/RabbitMq.WebAPI.sln
+      run: dotnet build --no-restore ../../../RabbitMq.WebAPI/RabbitMq.WebAPI.sln
     - name: Run tests
       run: dotnet test --no-build --verbosity normal
