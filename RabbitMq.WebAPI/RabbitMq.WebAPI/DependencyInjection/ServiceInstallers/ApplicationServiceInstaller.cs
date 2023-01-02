@@ -11,8 +11,11 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSignalR();
-            services.AddLogging();
-            services.AddMemoryCache();
+
+            services
+                .AddLogging()
+                .AddMemoryCache()
+                .AddHealthChecks();
 
             services
                 .AddTransient<UserService>()
