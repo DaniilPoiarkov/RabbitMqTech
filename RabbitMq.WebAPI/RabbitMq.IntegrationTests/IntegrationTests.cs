@@ -23,10 +23,10 @@ namespace RabbitMq.IntegrationTests
                     {
                         services.RemoveAll<RabbitMqDb>();
 
-                        var options = services.FirstOrDefault(descriptor => 
+                        var options = services.FirstOrDefault(descriptor =>
                             descriptor.ServiceType == typeof(DbContextOptions<RabbitMqDb>));
 
-                        if(options is not null)
+                        if (options is not null)
                             services.Remove(options);
 
                         services.AddDbContext<RabbitMqDb>(options =>
