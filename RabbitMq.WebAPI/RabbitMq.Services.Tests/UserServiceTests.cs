@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using RabbitMq.Common.Exceptions;
 using RabbitMq.Services.Implementations;
-using RabbitMq.Services.MappingProfiles;
 using System.Diagnostics;
 
 namespace RabbitMq.Services.Tests

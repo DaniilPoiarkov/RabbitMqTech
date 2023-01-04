@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using FakeItEasy;
+using Microsoft.Extensions.Options;
 using RabbitMq.Broker.Models.Options;
 using RabbitMq.Broker.QueueServices;
 using RabbitMq.Broker.Services;
@@ -39,11 +40,11 @@ namespace RabbitMq.Services.Tests
                 Username = "test",
                 ConnectionId = "test"
             });
-
+            
             db.SaveChanges();
 
             var producerScopeFactory = new ProducerScopeFactory(
-                new ConnectionFactory());
+                A.Fake<IConnectionFactory>());
 
             var mapper = new MapperConfiguration(opt =>
             {
