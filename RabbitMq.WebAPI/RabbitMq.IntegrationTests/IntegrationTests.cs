@@ -57,7 +57,7 @@ namespace RabbitMq.IntegrationTests
             var token = JsonConvert.DeserializeObject<AccessToken>(registerResponse);
 
             if (token?.Token == null)
-                throw new UnreachableException("Test model");
+                throw new UnreachableException(registerResponse);
 
             return token.Token;
         }
