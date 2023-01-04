@@ -1,0 +1,8 @@
+{
+  "RabbitMq.Broker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.Broker",
+  "RabbitMq.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.Common",
+  "RabbitMq.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.DAL",
+  "RabbitMq.Identity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.Identity",
+  "RabbitMq.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.Services",
+  "RabbitMq.WebAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\$Hp\\source\\repos\\RabbitMqTech\\RabbitMq.WebAPI\\RabbitMq.WebAPI"
+}

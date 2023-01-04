@@ -47,9 +47,18 @@ namespace RabbitMq.Services.Implementations
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default) =>
-            await _db.Users.Where(u => u.Id == userId)
-                .ExecuteUpdateAsync(c => c.SetProperty(
-                    u => u.ConnectionId, p => connectionId), cancellationToken);
+        //public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default) => // Integration Tests can't handle this type of LINQ
+        //    await _db.Users.Where(u => u.Id == userId)
+        //        .ExecuteUpdateAsync(c => c.SetProperty(
+        //            u => u.ConnectionId, p => connectionId), cancellationToken);
+
+        public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default)
+        {
+            var user = await _db.Users.Where(u => u.Id == userId)
+                .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(nameof(User));
+
+            user.ConnectionId = connectionId;
+            await _db.SaveChangesAsync(cancellationToken);
+        }
     }
 }
