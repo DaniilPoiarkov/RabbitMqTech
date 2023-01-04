@@ -1,5 +1,4 @@
-﻿using FakeItEasy;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RabbitMq.Broker.Models.Options;
 using RabbitMq.Broker.QueueServices;
 using RabbitMq.Broker.Services;
