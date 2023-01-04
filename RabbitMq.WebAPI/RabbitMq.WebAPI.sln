@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.BenchmarkTests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FAC33D67-91A7-45F4-B30F-27D9117DE041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Services.Tests", "RabbitMq.Services.Tests\RabbitMq.Services.Tests.csproj", "{F479F261-B0A4-46A8-ACAE-175461A53267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.Services.Tests", "RabbitMq.Services.Tests\RabbitMq.Services.Tests.csproj", "{F479F261-B0A4-46A8-ACAE-175461A53267}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +70,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{5F522404-4E02-4B6D-A8FF-04D27443B8F8} = {FAC33D67-91A7-45F4-B30F-27D9117DE041}
 		{F479F261-B0A4-46A8-ACAE-175461A53267} = {FAC33D67-91A7-45F4-B30F-27D9117DE041}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
