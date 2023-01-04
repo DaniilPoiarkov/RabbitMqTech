@@ -15,7 +15,7 @@ namespace RabbitMq.BenchmarkTests.ConsoleClientTests
         [GlobalSetup]
         public void Setup()
         {
-            var rnd = new Random();
+            var rnd = new Random(3);
             _items = Enumerable.Range(1, Size).Select(i => rnd.Next()).ToArray();
         }
 
@@ -42,7 +42,7 @@ namespace RabbitMq.BenchmarkTests.ConsoleClientTests
         }
 
         [Benchmark]
-        public void ForLoop_AsIList()
+        public void ForLoop_AsList()
         {
             var items = _items.ToList();
 
@@ -68,7 +68,7 @@ namespace RabbitMq.BenchmarkTests.ConsoleClientTests
         [Benchmark]
         public void ForLoop_UnsafeAdd()
         {
-            Span<int> items = _items;
+            Span<int> items = _items.AsSpan();
             ref var searchSpace = ref MemoryMarshal.GetReference(items);
 
             for (int i = 0; i < items.Length; i++)

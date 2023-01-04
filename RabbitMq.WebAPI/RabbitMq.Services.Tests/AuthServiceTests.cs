@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using RabbitMq.Common.DTOs.AuxiliaryModels;
-using RabbitMq.Common.Exceptions;
-using RabbitMq.DAL;
+﻿using RabbitMq.Common.DTOs.AuxiliaryModels;
 using RabbitMq.Identity.AuthServices;
-using RabbitMq.Services.MappingProfiles;
 
 namespace RabbitMq.Services.Tests
 {

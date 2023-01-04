@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
-using RabbitMq.Common.Exceptions;
-using RabbitMq.DAL;
+﻿using Microsoft.Extensions.Caching.Memory;
 using RabbitMq.Services.Implementations;
-using RabbitMq.Services.MappingProfiles;
 using System.Diagnostics;
 
 namespace RabbitMq.Services.Tests
