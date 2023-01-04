@@ -1,14 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RabbitMq.Broker.Models.Options;
 using RabbitMq.Broker.QueueServices;
 using RabbitMq.Broker.Services;
 using RabbitMq.Common.DTOs.NotificationsDto;
 using RabbitMq.Common.Entities.Notifications;
-using RabbitMq.Common.Exceptions;
-using RabbitMq.DAL;
-using RabbitMq.Services.MappingProfiles;
 using RabbitMQ.Client;
 
 namespace RabbitMq.Services.Tests
