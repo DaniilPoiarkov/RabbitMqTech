@@ -1,5 +1,4 @@
-﻿global using Newtonsoft.Json;
-using RabbitMq.Common.DTOs;
+﻿using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
 using RabbitMq.Common.Exceptions;
 using System.Net.Http.Json;
