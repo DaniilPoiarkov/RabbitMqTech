@@ -24,6 +24,11 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandler>(logger);
 
+// This should be commented for integration tests
+// Otherwise it will throw following exception:
+// System.InvalidOperationException : Relational-specific methods can only be used when the context is using a relational database provider.
+// Posible Solution is to use separate Relational-DB for tests. At this moment InMemoryDatabase has been used
+
 //app.ApplyPendingMigrations();
 
 // Configure the HTTP request pipeline.
