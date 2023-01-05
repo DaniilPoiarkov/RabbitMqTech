@@ -1,4 +1,5 @@
-﻿using RabbitMq.Common.Exceptions;
+﻿using RabbitMq.Common.DTOs.AuxiliaryModels;
+using RabbitMq.Common.Exceptions;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
