@@ -14,6 +14,19 @@ namespace RabbitMq.IntegrationTests
     {
         protected readonly HttpClient HttpClient;
 
+        protected static readonly UserRegister RegisterModel = new()
+        {
+            Email = "test",
+            Username = "test",
+            Password = "test",
+        };
+
+        protected static readonly UserLogin LoginModel = new()
+        {
+            Email = "test",
+            Password = "test",
+        };
+
         public IntegrationTests()
         {
             var appFactory = new WebApplicationFactory<Program>()
@@ -46,11 +59,7 @@ namespace RabbitMq.IntegrationTests
 
         private async Task<string> GetToken()
         {
-            var response = await HttpClient.PutAsJsonAsync("/api/auth", new UserLogin()
-            {
-                Email = "test",
-                Password = "test",
-            });
+            var response = await HttpClient.PutAsJsonAsync("/api/auth", LoginModel);
 
             var registerResponse = await response.Content.ReadAsStringAsync();
             var token = JsonConvert.DeserializeObject<AccessToken>(registerResponse);

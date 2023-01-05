@@ -1,6 +1,5 @@
 ﻿using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
-using RabbitMq.Common.Exceptions;
 using System.Net.Http.Json;
 
 namespace RabbitMq.IntegrationTests
@@ -36,9 +35,7 @@ namespace RabbitMq.IntegrationTests
 
             var user = JsonConvert.DeserializeObject<UserDto>(await response.Content.ReadAsStringAsync());
 
-            if (user is null)
-                throw new UnreachableException(await response.Content.ReadAsStringAsync());
-
+            Assert.NotNull(user);
             user.Username.Should().Be("test");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -68,9 +65,9 @@ namespace RabbitMq.IntegrationTests
             var response = await HttpClient.GetAsync(_baseUrl + "/email?email=email");
 
             var user = JsonConvert.DeserializeObject<UserDto>(
-                await response.Content.ReadAsStringAsync()) ?? throw new UnreachableException(
-                    await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync());
 
+            Assert.NotNull(user);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             user.Username.Should().Be("TestUser");
             user.Email.Should().Be("email");
@@ -82,9 +79,9 @@ namespace RabbitMq.IntegrationTests
             await Authenticate();
             var response = await HttpClient.GetAsync(_baseUrl + "/all");
             var users = JsonConvert.DeserializeObject<List<UserDto>>(
-                await response.Content.ReadAsStringAsync()) ?? throw new UnreachableException(
-                    await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync());
 
+            Assert.NotNull(users);
             users.Should().HaveCount(2);
             users[0].Username.Should().Be("test");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -98,13 +95,12 @@ namespace RabbitMq.IntegrationTests
 
             var getResponse = await HttpClient.GetAsync(_baseUrl + "/current");
             var currentUser = JsonConvert.DeserializeObject<UserDto>(
-                await getResponse.Content.ReadAsStringAsync()) ?? throw new UnreachableException(
-                    await putResponse.Content.ReadAsStringAsync() + "\t---\t" + 
-                    await getResponse.Content.ReadAsStringAsync());
+                await getResponse.Content.ReadAsStringAsync());
 
             getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
             putResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
+            Assert.NotNull(currentUser);
             currentUser.ConnectionId.Should().Be("testconnectionid");
             currentUser.Username.Should().Be("test");
         }
