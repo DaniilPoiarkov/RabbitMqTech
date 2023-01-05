@@ -46,11 +46,10 @@ namespace RabbitMq.IntegrationTests
 
         private async Task<string> GetToken()
         {
-            var response = await HttpClient.PostAsJsonAsync("/api/auth", new UserRegister()
+            var response = await HttpClient.PutAsJsonAsync("/api/auth", new UserLogin()
             {
                 Email = "test",
                 Password = "test",
-                Username = "test",
             });
 
             var registerResponse = await response.Content.ReadAsStringAsync();

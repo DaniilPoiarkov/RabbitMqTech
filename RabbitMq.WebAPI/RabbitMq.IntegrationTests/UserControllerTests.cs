@@ -9,6 +9,16 @@ namespace RabbitMq.IntegrationTests
     {
         private static readonly string _baseUrl = "/api/user";
 
+        public UserControllerTests() : base()
+        {
+            _ = HttpClient.PostAsJsonAsync("/api/auth", new UserRegister()
+            {
+                Email = "test",
+                Password = "test",
+                Username = "test",
+            }).Result;
+        }
+
         [Fact]
         public async Task AccessToController_WhenUserNotAuthenticated_ShouldReturnStatusCodeUnauthorize()
         {
@@ -38,7 +48,7 @@ namespace RabbitMq.IntegrationTests
         {
             await Authenticate();
 
-            var response = await HttpClient.GetAsync(_baseUrl + "?id=2");
+            var response = await HttpClient.GetAsync(_baseUrl + "?id=3");
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -67,7 +77,7 @@ namespace RabbitMq.IntegrationTests
         }
 
         [Fact]
-        public async Task GetAllUsers_WhenOneUserExist_ThenReturnsCollectionWithOneUser()
+        public async Task GetAllUsers_WhenTwoUsersExist_ThenReturnsCollectionWithTwoUsers()
         {
             await Authenticate();
             var response = await HttpClient.GetAsync(_baseUrl + "/all");
@@ -75,7 +85,7 @@ namespace RabbitMq.IntegrationTests
                 await response.Content.ReadAsStringAsync()) ?? throw new UnreachableException(
                     await response.Content.ReadAsStringAsync());
 
-            users.Should().HaveCount(1);
+            users.Should().HaveCount(2);
             users[0].Username.Should().Be("test");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
