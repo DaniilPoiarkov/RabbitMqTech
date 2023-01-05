@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using RabbitMq.Common.DTOs.AuxiliaryModels;
-using RabbitMq.Common.Exceptions;
-using RabbitMq.DAL;
+﻿using RabbitMq.Common.Exceptions;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 

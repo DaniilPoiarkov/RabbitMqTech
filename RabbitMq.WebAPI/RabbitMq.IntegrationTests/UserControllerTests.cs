@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using RabbitMq.Common.DTOs;
+﻿using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
-using RabbitMq.DAL;
 using System.Net.Http.Json;
 
 namespace RabbitMq.IntegrationTests
