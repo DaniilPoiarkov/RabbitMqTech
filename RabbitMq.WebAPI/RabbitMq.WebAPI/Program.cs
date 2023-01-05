@@ -24,7 +24,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandler>(logger);
 
-app.ApplyPendingMigrations();
+//app.ApplyPendingMigrations();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -57,3 +57,9 @@ app.UseEndpoints(cfg =>
 });
 
 app.Run();
+
+// Necessary for integration tests
+public partial class Program
+{
+
+}

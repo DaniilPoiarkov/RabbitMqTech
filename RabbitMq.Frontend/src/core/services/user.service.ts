@@ -24,7 +24,7 @@ export class UserService {
   }
 
   public getUserByEmail(email: string): Observable<HttpResponse<User>> {
-    return this.http.getFullRequest(this.baseUrl + '?email=' + email);
+    return this.http.getFullRequest(this.baseUrl + '/email?email=' + email);
   }
 
   public getAllUsers(): Observable<HttpResponse<User[]>> {
