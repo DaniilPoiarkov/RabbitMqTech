@@ -12,7 +12,7 @@ namespace RabbitMq.IntegrationTests
 {
     public class IntegrationTests
     {
-        protected readonly HttpClient HttpClient;
+        protected HttpClient HttpClient;
 
         protected static readonly UserRegister RegisterModel = new()
         {

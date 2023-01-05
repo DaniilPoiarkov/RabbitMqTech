@@ -1,5 +1,10 @@
-﻿using RabbitMq.Common.DTOs;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
+using RabbitMq.DAL;
 using System.Net.Http.Json;
 
 namespace RabbitMq.IntegrationTests
@@ -10,12 +15,29 @@ namespace RabbitMq.IntegrationTests
 
         public UserControllerTests() : base()
         {
-            _ = HttpClient.PostAsJsonAsync("/api/auth", new UserRegister()
-            {
-                Email = "test",
-                Password = "test",
-                Username = "test",
-            }).Result;
+            var appFactory = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.RemoveAll<RabbitMqDb>();
+
+                        var options = services.FirstOrDefault(descriptor =>
+                            descriptor.ServiceType == typeof(DbContextOptions<RabbitMqDb>));
+
+                        if (options is not null)
+                            services.Remove(options);
+
+                        services.AddDbContext<RabbitMqDb>(options =>
+                        {
+                            options.UseInMemoryDatabase("IntegrationTestsDb:User");
+                        });
+                    });
+                });
+
+            HttpClient = appFactory.CreateClient();
+
+            _ = HttpClient.PostAsJsonAsync("/api/auth", RegisterModel).Result;
         }
 
         [Fact]
