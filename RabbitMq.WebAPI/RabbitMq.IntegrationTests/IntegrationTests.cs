@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using RabbitMq.Common.DTOs.AuxiliaryModels;
+﻿using RabbitMq.Common.DTOs.AuxiliaryModels;
 using RabbitMq.Common.Exceptions;
-using RabbitMq.DAL;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -12,7 +7,20 @@ namespace RabbitMq.IntegrationTests
 {
     public class IntegrationTests
     {
-        protected readonly HttpClient HttpClient;
+        protected HttpClient HttpClient;
+
+        protected static readonly UserRegister RegisterModel = new()
+        {
+            Email = "test",
+            Username = "test",
+            Password = "test",
+        };
+
+        protected static readonly UserLogin LoginModel = new()
+        {
+            Email = "test",
+            Password = "test",
+        };
 
         public IntegrationTests()
         {
@@ -46,11 +54,7 @@ namespace RabbitMq.IntegrationTests
 
         private async Task<string> GetToken()
         {
-            var response = await HttpClient.PutAsJsonAsync("/api/auth", new UserLogin()
-            {
-                Email = "test",
-                Password = "test",
-            });
+            var response = await HttpClient.PutAsJsonAsync("/api/auth", LoginModel);
 
             var registerResponse = await response.Content.ReadAsStringAsync();
             var token = JsonConvert.DeserializeObject<AccessToken>(registerResponse);
