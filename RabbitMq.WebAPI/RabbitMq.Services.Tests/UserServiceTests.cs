@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using RabbitMq.Services.Implementations;
+using Serilog;
 using System.Diagnostics;
 
 namespace RabbitMq.Services.Tests
@@ -36,9 +37,10 @@ namespace RabbitMq.Services.Tests
             }).CreateMapper();
 
             var cache = new MemoryCache(new MemoryCacheOptions());
+            var logger = A.Fake<ILogger>();
 
             _service = new(db, mapper);
-            _decorated = new DecoratedUserService(_service, cache);
+            _decorated = new DecoratedUserService(_service, cache, logger);
         }
 
         [Fact]
