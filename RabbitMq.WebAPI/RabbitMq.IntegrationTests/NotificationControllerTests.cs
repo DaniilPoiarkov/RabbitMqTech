@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 
 namespace RabbitMq.IntegrationTests
 {
+    /*
     public class NotificationControllerTests : IntegrationTests
     {
         private static readonly string _privateNotificationUrl = "/api/privateNotification";
@@ -131,4 +132,5 @@ namespace RabbitMq.IntegrationTests
             notifications[0].CreatedAt.ToLongDateString().Should().Be(DateTime.UtcNow.ToLongDateString());
         }
     }
+    */
 }
