@@ -93,5 +93,15 @@ namespace RabbitMq.Services.Tests
             Assert.Equal(user.Username, register.Username);
             Assert.Equal(user.Email, register.Email);
         }
+
+        [Fact]
+        public async Task ResetPassword_WhenUserNotExist_ThenNotFoundExceptionThrown()
+        {
+            await Assert.ThrowsAsync<NotFoundException>(async () => await _service.ResetPassword(new()
+            {
+                Email = "notExistingUser",
+                NewPassword = "test",
+            }));
+        }
     }
 }

@@ -29,5 +29,12 @@ namespace RabbitMq.WebAPI.Controllers
         [HttpGet]
         public IActionResult Login(UserDto user) => 
             Ok(new AccessToken() { Token = _service.GetToken(user) });
+
+        [HttpPut("reset")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model, CancellationToken tokem)
+        {
+            await _service.ResetPassword(model, tokem);
+            return NoContent();
+        }
     }
 }

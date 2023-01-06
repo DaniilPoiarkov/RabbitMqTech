@@ -9,5 +9,6 @@ namespace RabbitMq.Identity.Abstract
         Task<UserDto> Login(UserLogin credentials, CancellationToken token = default);
         string GetToken(UserDto user);
         Task<string> Register(UserRegister credentials, CancellationToken token = default);
+        Task ResetPassword(ResetPasswordModel model, CancellationToken token = default);
     }
 }
