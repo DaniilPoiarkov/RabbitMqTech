@@ -78,5 +78,29 @@ namespace RabbitMq.IntegrationTests
             headerValues.Should().ContainSingle();
             headerValues.ElementAt(0).Should().Be(DateTime.UtcNow.ToShortDateString());
         }
+
+        [Fact]
+        public async Task ResetPassword_WhenPasswordChanged_ThenUserCanLoginWithNewPassword()
+        {
+            await HttpClient.PostAsJsonAsync(_baseUrl, new UserRegister()
+            {
+                Email = "testemail",
+                Password = "password",
+                Username = "username"
+            });
+            await HttpClient.PutAsJsonAsync(_baseUrl + "/reset", new ResetPasswordModel()
+            {
+                Email = "testemail",
+                NewPassword = "newpassword"
+            });
+
+            var response = await HttpClient.PutAsJsonAsync(_baseUrl, new UserLogin()
+            {
+                Email = "testemail",
+                Password = "newpassword"
+            });
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
     }
 }

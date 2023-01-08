@@ -58,6 +58,17 @@ namespace RabbitMq.Identity.AuthServices
                 _mapper.Map<UserDto>(user));
         }
 
+        public async Task ResetPassword(ResetPasswordModel model, CancellationToken token = default)
+        {
+            var user = await _db.Users.Where(u => u.Email == model.Email)
+                .FirstOrDefaultAsync(token) ?? throw new NotFoundException(nameof(User));
+
+            user.Salt = Convert.ToBase64String(AuthHelper.GetBytes());
+            user.Password = AuthHelper.HashPassword(model.NewPassword, user.Salt);
+
+            await _db.SaveChangesAsync(token);
+        }
+
         private void ValidateModelOrThrow(UserRegister model)
         {
             if (string.IsNullOrEmpty(model.Password))

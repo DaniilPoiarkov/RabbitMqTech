@@ -1,5 +1,4 @@
 using RabbitMq.Broker.Hubs;
-using RabbitMq.WebAPI;
 using RabbitMq.WebAPI.DependencyInjection;
 using RabbitMq.WebAPI.Middlewares;
 using Serilog;
