@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMq.Common.Parameters;
-using RabbitMq.Services.MediatoR.Requests;
+using RabbitMq.Services.MediatoR.User.Requests;
 
 namespace RabbitMq.WebAPI.Controllers
 {

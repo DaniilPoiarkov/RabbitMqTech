@@ -4,7 +4,7 @@ using RabbitMq.Services.Abstract;
 using RabbitMq.Services.MediatoR.Requests;
 using Serilog;
 
-namespace RabbitMq.Services.MediatoR.Handlers
+namespace RabbitMq.Services.MediatoR.User.Handlers
 {
     public class GetUserByEmailHandler : IRequestHandler<GetUserByEmailRequest, UserDto>
     {

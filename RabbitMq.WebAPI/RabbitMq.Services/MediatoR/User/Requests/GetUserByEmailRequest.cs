@@ -2,7 +2,7 @@
 using MediatR;
 using RabbitMq.Common.DTOs;
 
-namespace RabbitMq.Services.MediatoR.Requests
+namespace RabbitMq.Services.MediatoR.User.Requests
 {
     public class GetUserByEmailRequest : IRequest<UserDto>
     {

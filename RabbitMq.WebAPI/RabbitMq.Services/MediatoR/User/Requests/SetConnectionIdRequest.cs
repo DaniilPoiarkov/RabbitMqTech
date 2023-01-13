@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RabbitMq.Services.MediatoR.Requests
+namespace RabbitMq.Services.MediatoR.User.Requests
 {
     public class SetConnectionIdRequest : IRequest
     {

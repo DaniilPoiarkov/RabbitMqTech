@@ -4,7 +4,7 @@ using RabbitMq.Services.Abstract;
 using RabbitMq.Services.MediatoR.Requests;
 using Serilog;
 
-namespace RabbitMq.Services.MediatoR.Handlers
+namespace RabbitMq.Services.MediatoR.User.Handlers
 {
     public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, UserDto>
     {
@@ -18,11 +18,11 @@ namespace RabbitMq.Services.MediatoR.Handlers
 
         public Task<UserDto> Handle(GetUserByIdRequest request, CancellationToken cancellationToken)
         {
-            _logger.Information("Request {requestName} is handling in {requestHandler} at {datetime}", 
-                typeof(GetUserByIdRequest).Name, 
+            _logger.Information("Request {requestName} is handling in {requestHandler} at {datetime}",
+                typeof(GetUserByIdRequest).Name,
                 typeof(GetUserByIdHandler).Name,
                 DateTime.UtcNow);
-            
+
             return _service.GetUserById(request.UserId, cancellationToken);
         }
     }
