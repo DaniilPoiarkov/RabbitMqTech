@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using RabbitMq.Services.MediatoR.Requests;
+using RabbitMq.Services.MediatoR.User.Requests;
 
 namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
 {

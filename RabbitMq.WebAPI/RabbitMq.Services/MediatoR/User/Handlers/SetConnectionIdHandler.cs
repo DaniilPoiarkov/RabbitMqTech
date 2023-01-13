@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RabbitMq.Services.Abstract;
-using RabbitMq.Services.MediatoR.Requests;
+using RabbitMq.Services.MediatoR.User.Requests;
 using Serilog;
 
 namespace RabbitMq.Services.MediatoR.User.Handlers
