@@ -28,16 +28,14 @@ export class UserListComponent implements OnInit {
     this.allUsers$ = this.userService.getAllUsers().pipe(
       map(resp => {
         const users = resp.body as User[];
-
-        el.style.margin = '2px 0 0 0';
-        el.style.borderBottom = '2px solid #66fcf1';
-
         return users.filter(u => u.id != this.user.id);
       })
     );
 
     const el = document.getElementById('users') as HTMLElement;
     el.style.color = '#45a29e';
+    el.style.margin = '2px 0 0 0';
+    el.style.borderBottom = '2px solid #66fcf1';
 
   }
 
