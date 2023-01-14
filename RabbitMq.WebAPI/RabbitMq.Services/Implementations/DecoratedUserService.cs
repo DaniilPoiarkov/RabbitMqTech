@@ -39,6 +39,7 @@ namespace RabbitMq.Services.Implementations
         public async Task<UserDto> GetUserByEmail(string email, CancellationToken cancellationToken = default) => 
             await _cache.GetOrCreateAsync(email, entry =>
             {
+                _logger.Information("User wtih key {Key} not cached.", email);
                 entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
                 return _decorated.GetUserByEmail(email, cancellationToken);
             }) ?? throw new NotFoundException(nameof(User));
@@ -46,6 +47,7 @@ namespace RabbitMq.Services.Implementations
         public async Task<UserDto> GetUserById(int id, CancellationToken cancellationToken = default) =>
             await _cache.GetOrCreateAsync(id, entry =>
             {
+                _logger.Information("User wtih key {Key} not cached.", id);
                 entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(3));
                 return _decorated.GetUserById(id, cancellationToken);
             }) ?? throw new NotFoundException(nameof(User));
