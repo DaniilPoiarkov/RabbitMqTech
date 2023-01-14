@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { CurrentUserService } from 'src/core/services/current-user.service';
 import { SimpleNotificationService } from 'src/core/services/simple-notification.service';
-import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { SimpleNotification } from 'src/models/notifications/simple-notification';
 import { User } from 'src/models/user';
 
@@ -12,12 +12,11 @@ import { User } from 'src/models/user';
 })
 export class SimpleNotificationListComponent implements OnInit {
 
-  public notifications: SimpleNotification[] = [];
+  public notifications$: Observable<SimpleNotification[]>;
   public user: User;
 
   constructor(
     private service: SimpleNotificationService,
-    private toastr: ToastrNotificationService,
     private currentUser: CurrentUserService,
   ) { }
 
@@ -34,16 +33,13 @@ export class SimpleNotificationListComponent implements OnInit {
   }
 
   private getNotifications(): void {
-    this.service.getAllNotifications(this.user.id).subscribe((resp) => {
-      this.notifications = resp.body as SimpleNotification[];
-    }, (err) => {
-      this.toastr.error(err.error.Error, 'Error');
-    });
+    this.notifications$ = this.service.getAllNotifications(this.user.id).pipe(
+      map(resp => resp.body as SimpleNotification[])
+    );
   }
 
-  removeNotification(id: number): void {
-    const index = this.notifications.findIndex((n) => n.id == id);
-    this.notifications.splice(index, 1);
+  removeNotification(): void {
+    this.getNotifications();
   }
 
 }

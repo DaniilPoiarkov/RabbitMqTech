@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { CurrentUserService } from 'src/core/services/current-user.service';
 import { UserService } from 'src/core/services/user.service';
 import { User } from 'src/models/user';
@@ -16,7 +17,7 @@ export class UserListComponent implements OnInit {
   ) { }
 
   public user: User;
-  public allUsers: User[] = [];
+  public allUsers$: Observable<User[]>;
 
   ngOnInit(): void {
     
@@ -24,13 +25,16 @@ export class UserListComponent implements OnInit {
       this.user = user;
     });
 
-    this.userService.getAllUsers().subscribe((resp) => {
-      const users = resp.body as User[];
-      this.allUsers = users.filter(u => u.id != this.user.id);
+    this.allUsers$ = this.userService.getAllUsers().pipe(
+      map(resp => {
+        const users = resp.body as User[];
 
-      el.style.margin = '2px 0 0 0';
-      el.style.borderBottom = '2px solid #66fcf1';
-    });
+        el.style.margin = '2px 0 0 0';
+        el.style.borderBottom = '2px solid #66fcf1';
+
+        return users.filter(u => u.id != this.user.id);
+      })
+    );
 
     const el = document.getElementById('users') as HTMLElement;
     el.style.color = '#45a29e';

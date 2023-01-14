@@ -1,6 +1,6 @@
 <h1>People around you:</h1>
 <div class="container">
-    <div class="user-cards">
+    <div *ngIf="allUsers$ | async as allUsers" class="user-cards">
         <div *ngFor="let user of allUsers">
             <app-user-card [user]="user"></app-user-card>
         </div>
