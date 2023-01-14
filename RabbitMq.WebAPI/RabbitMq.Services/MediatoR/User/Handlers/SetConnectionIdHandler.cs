@@ -24,7 +24,7 @@ namespace RabbitMq.Services.MediatoR.User.Handlers
                 DateTime.UtcNow);
 
             await _service.SetConnectionId(request.ConnectionId, request.UserId, cancellationToken);
-            return new Unit();
+            return Unit.Value;
         }
     }
 }
