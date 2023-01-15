@@ -4,7 +4,7 @@ using RabbitMq.WebAPI.Behaviors;
 
 namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
 {
-    public class MediatorServiceInstaller : IServiceInstaller
+    public class MediatRServiceInstaller : IServiceInstaller
     {
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {

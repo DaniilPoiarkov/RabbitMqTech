@@ -7,6 +7,7 @@ import { MainPageComponent } from './base/components/main-page/main-page.compone
 import { PrivateNotificationListComponent } from './base/components/private-notification-list/private-notification-list.component';
 import { SimpleNotificationListComponent } from './base/components/simple-notification-list/simple-notification-list.component';
 import { UserListComponent } from './base/components/user-list/user-list.component';
+import { UserProfileComponent } from './base/components/user-profile/user-profile.component';
 
 const routes: Routes = [
   ...AuthRoutes,
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: 'news', component: MainPageComponent },
       { path: 'users', component: UserListComponent },
       { path: 'private-notifications', component: PrivateNotificationListComponent },
-      { path: 'simple-notifications', component: SimpleNotificationListComponent }
+      { path: 'simple-notifications', component: SimpleNotificationListComponent },
+      { path: 'profile', component: UserProfileComponent }
     ]
   },
   { path: '**', redirectTo: 'news' }
