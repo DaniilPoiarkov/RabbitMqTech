@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SendPrivateNotificationDialogComponent } from './send-private-notification-dialog/send-private-notification-dialog.component';
 import { SendSimpleNotificationDialogComponent } from './send-simple-notification-dialog/send-simple-notification-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AvatarComponent } from './avatar/avatar.component';
 
 
 
@@ -14,7 +15,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     InputComponent,
     ButtonComponent,
     SendPrivateNotificationDialogComponent,
-    SendSimpleNotificationDialogComponent
+    SendSimpleNotificationDialogComponent,
+    AvatarComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   exports: [
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    AvatarComponent
   ]
 })
 export class SharedModule { }

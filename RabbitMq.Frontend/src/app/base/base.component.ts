@@ -71,11 +71,5 @@ export class BaseComponent implements OnInit {
         }, 10000);
     });
   }
-
-  logout(): void {
-    localStorage.clear();
-    this.toastr.success('Logout successfull');
-    this.router.navigate(['auth/login']);
-  }
   
 }

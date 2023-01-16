@@ -1,0 +1,14 @@
+<div class="avatar" *ngIf="user$ | async as user">
+    <img *ngIf="user.avatarUrl" [src]="user.avatarUrl">
+    <span *ngIf="!user.avatarUrl">{{ user.username[0].toUpperCase() }}</span>
+    <div class="menu">
+        <ul class="nav-container">
+            <li class="nav" (click)="profile()">
+                <span>Profile</span>
+            </li>
+            <li class="nav" (click)="logout()">
+                <span>Logout</span>
+            </li>
+        </ul>
+    </div>
+</div>
