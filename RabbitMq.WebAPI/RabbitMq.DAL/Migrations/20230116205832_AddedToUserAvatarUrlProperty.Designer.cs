@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RabbitMq.DAL;
@@ -11,9 +12,11 @@ using RabbitMq.DAL;
 namespace RabbitMq.DAL.Migrations
 {
     [DbContext(typeof(RabbitMqDb))]
-    partial class RabbitMqDbModelSnapshot : ModelSnapshot
+    [Migration("20230116205832_AddedToUserAvatarUrlProperty")]
+    partial class AddedToUserAvatarUrlProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

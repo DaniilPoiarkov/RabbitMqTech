@@ -60,5 +60,14 @@ namespace RabbitMq.Services.Implementations
             user.ConnectionId = connectionId;
             await _db.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task UpdateAvatar(int userId, string avatarUrl, CancellationToken token = default)
+        {
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId, token) ?? 
+                throw new NotFoundException(nameof(User));
+
+            user.AvatarUrl = avatarUrl;
+            await _db.SaveChangesAsync(token);
+        }
     }
 }

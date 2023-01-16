@@ -54,5 +54,8 @@ namespace RabbitMq.Services.Implementations
 
         public async Task SetConnectionId(string connectionId, int userId, CancellationToken cancellationToken = default) =>
             await _decorated.SetConnectionId(connectionId, userId, cancellationToken);
+
+        public Task UpdateAvatar(int userId, string avatarUrl, CancellationToken cancellationToken = default) =>
+            _decorated.UpdateAvatar(userId, avatarUrl, cancellationToken);
     }
 }

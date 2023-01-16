@@ -9,6 +9,7 @@ namespace RabbitMq.Common.DTOs
         public string ConnectionId { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string? AvatarUrl { get; set; }
         public List<NotificationDto> Notifications { get; set; } = new();
     }
 }
