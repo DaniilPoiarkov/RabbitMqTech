@@ -14,7 +14,7 @@ namespace RabbitMq.Services.MediatoR.User.Handlers
 
         public async Task<Unit> Handle(UpdateAvatarUrlRequest request, CancellationToken cancellationToken)
         {
-            await _service.UpdateAvatar(request.UserId, request.AvatarUrl, cancellationToken);
+            await _service.UpdateAvatar(request.UserId, request.AvatarUrl ?? "", cancellationToken);
             return Unit.Value;
         }
     }

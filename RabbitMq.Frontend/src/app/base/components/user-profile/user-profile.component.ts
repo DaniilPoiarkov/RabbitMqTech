@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/core/services/auth.service';
 import { CurrentUserService } from 'src/core/services/current-user.service';
 import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
+import { UserService } from 'src/core/services/user.service';
 import { ResetPasswordModel } from 'src/models/reset-password-model';
 import { User } from 'src/models/user';
 
@@ -19,10 +20,12 @@ export class UserProfileComponent implements OnInit {
   public passwordControl: FormControl;
   public displayError = false;
   public repeatedPassword: string;
+  public avatarUrl: string;
 
   constructor(
     private currentUser: CurrentUserService,
     private authService: AuthService,
+    private userService: UserService,
     private toastr: ToastrNotificationService
   ) { }
 
@@ -73,12 +76,26 @@ export class UserProfileComponent implements OnInit {
     });
 
   }
+
+  setAvatarUrl(url: string): void {
+    this.avatarUrl = url;
+  }
   
   private sendRequest(): void {
     this.authService.resetPassword(this.resetPasswordModel).subscribe(resp => {
       if(resp.ok) {
         this.toastr.success('Your password updated successfully');
       }
+    });
+  }
+
+  public updateAvatarUrl(): void {
+    this.user$.subscribe(user => {
+      this.userService.updateAvatar(user.id, this.avatarUrl).subscribe(resp => {
+        if(resp.ok) {
+          this.toastr.success('Avatar updated successfully!');
+        }
+      });
     });
   }
 
