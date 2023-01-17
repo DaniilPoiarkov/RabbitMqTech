@@ -41,6 +41,17 @@ export class BaseComponent implements OnInit {
         'Some functionalities can not be processed', 'Error'));
 
     this.hubConnection = connection;
+
+    const el = document.getElementById('avatar-nav-menu') as HTMLElement;
+    const menu = document.getElementById('avatar-menu') as HTMLElement;
+
+    el.addEventListener('mouseover', () => {
+      menu.style.display = 'block';
+    });
+    
+    menu.addEventListener('mouseleave', () => {
+      menu.style.display = 'none';
+    })
   }
 
   configureConnection(connection: HubConnection): void {
@@ -75,7 +86,11 @@ export class BaseComponent implements OnInit {
   logout(): void {
     localStorage.clear();
     this.toastr.success('Logout successfull');
-    this.router.navigate(['auth/login']);
+    this.router.navigate(['/auth/login']);
+  }
+
+  profile(): void {
+    this.router.navigate(['/profile']);
   }
   
 }

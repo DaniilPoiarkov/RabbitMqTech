@@ -1,0 +1,60 @@
+<div class="container" *ngIf="user$ | async as user; else empty">
+    <div class="frame">
+        <div class="card">
+            <div class="user-info">
+                <h1>{{ user.username }}</h1>
+                <h2>Your email: {{ user.email }}</h2>
+            </div>
+            <app-avatar [size]="100" [isDisabled]="true" ids="menu"></app-avatar>
+        </div>
+        <div class="update-avatar-container">
+            <div class="update-avatar-form">
+                <app-input
+                    label="Update avatar url"
+                    placeholder="Put here link to your new avatar"
+                    (value)="setAvatarUrl($event)">
+                </app-input>
+                <div class="btn-container">
+                    <app-button
+                        btnText="Update Avatar"
+                        (clicked)="updateAvatarUrl()">
+                    </app-button>
+                    <app-button
+                        btnText="Remove Avatar"
+                        (clicked)="removeAvatarUrl()">
+                    </app-button>
+                </div>
+            </div>
+        </div>
+        <div class="reset-password-container">
+            <div class="reset-password-form">
+                <form>
+                    <app-input
+                        label="Reset password"
+                        placeholder="Your new password"
+                        type="password"
+                        [errorMessage]="errorMessage"
+                        [isErrorDisplay]="displayError"
+                        [formControl]="passwordControl"
+                    ></app-input>
+                    <app-input
+                        label="Repeat new password"
+                        placeholder="Repeat your new password"
+                        type="password"
+                        [errorMessage]="repeatedPasswordErrorMessage"
+                        [isErrorDisplay]="displayError"
+                        (value)="setRepeatedPassword($event)">
+                    </app-input>
+                </form>
+                <app-button
+                    (clicked)="resetPassword()"
+                    btnText="Reset password">
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #empty>
+    <span>Loading...</span>
+</ng-template>

@@ -1,10 +1,10 @@
 <h1>Your private notifications:</h1>
-<div class="container" *ngIf="loaded">
-    <div class="notification-list">
+<div class="container">
+    <div class="notification-list" *ngIf="notifications$ | async as notifications">
         <div *ngFor="let notification of notifications">
             <app-private-notification
                 [notification]="notification"
-                (deleted)="removeNotification($event)">
+                (deleted)="removeNotification()">
             </app-private-notification>
         </div>
     </div>

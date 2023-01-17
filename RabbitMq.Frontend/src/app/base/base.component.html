@@ -14,11 +14,19 @@
                 <a id="users" href="/users">People around you</a>
             </li>
         </ul>
-        <app-button 
-            class="header-btn logout" 
-            btnText="logout"
-            (clicked)="logout()">
-        </app-button>
+        <div class="profile">
+            <app-avatar id="avatar-nav-menu"></app-avatar>
+            <div class="menu" id="avatar-menu">
+                <ul class="nav-container-menu">
+                    <li class="nav-menu" (click)="profile()">
+                        <span>Profile</span>
+                    </li>
+                    <li class="nav-menu" (click)="logout()">
+                        <span>Logout</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="router">
         <div class="main-content">

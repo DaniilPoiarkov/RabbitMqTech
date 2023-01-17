@@ -20,6 +20,8 @@ import { UserCardComponent } from './base/components/user-list/user-card/user-ca
 import { PrivateNotificationComponent } from './base/components/private-notification-list/private-notification/private-notification.component';
 import { MainPageComponent } from './base/components/main-page/main-page.component';
 import { SimpleNotificationComponent } from './base/components/simple-notification-list/simple-notification/simple-notification.component';
+import { UserProfileComponent } from './base/components/user-profile/user-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,12 +34,14 @@ import { SimpleNotificationComponent } from './base/components/simple-notificati
     UserCardComponent,
     PrivateNotificationComponent,
     MainPageComponent,
-    SimpleNotificationComponent
+    SimpleNotificationComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    ReactiveFormsModule,
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,

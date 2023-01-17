@@ -3,5 +3,6 @@ export interface User {
     username: string,
     connectionId: string,
     email: string,
-    password: string
+    password: string,
+    avatarUrl?: string
 }

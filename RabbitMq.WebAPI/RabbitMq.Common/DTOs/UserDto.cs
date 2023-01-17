@@ -1,4 +1,5 @@
-﻿
+﻿using RabbitMq.Common.DTOs.NotificationsDto;
+
 namespace RabbitMq.Common.DTOs
 {
     public class UserDto
@@ -8,6 +9,7 @@ namespace RabbitMq.Common.DTOs
         public string ConnectionId { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public List<NotificationsDto.NotificationDto> Notifications { get; set; } = new();
+        public string? AvatarUrl { get; set; }
+        public List<NotificationDto> Notifications { get; set; } = new();
     }
 }

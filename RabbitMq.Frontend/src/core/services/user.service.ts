@@ -34,5 +34,13 @@ export class UserService {
   public setConnectionId(id: string): Observable<HttpResponse<void>> {
     return this.http.putFullRequest(this.baseUrl + '?connectionId=' + id, undefined);
   }
+
+  public updateAvatar(id: number, avatarUrl: string): Observable<HttpResponse<void>> {
+    return this.http.putFullRequest(this.baseUrl + '/avatar?userId=' + id + '&avatarUrl=' + avatarUrl);
+  }
+
+  public removeAvatar(id: number): Observable<HttpResponse<void>> {
+    return this.http.putFullRequest(this.baseUrl + '/avatar/remove?userId=' + id);
+  }
   
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { CurrentUserService } from 'src/core/services/current-user.service';
 import { PrivateNotificationService } from 'src/core/services/private-notification.service';
-import { ToastrNotificationService } from 'src/core/services/toastr-notification.service';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
 import { User } from 'src/models/user';
 
@@ -14,15 +14,12 @@ export class PrivateNotificationListComponent implements OnInit {
 
   constructor(
     private currentUser: CurrentUserService,
-    private toastr: ToastrNotificationService,
     private service: PrivateNotificationService
   ) { }
 
-  public notifications: PrivateNotification[];
+  public notifications$: Observable<PrivateNotification[]>;
 
   public user: User;
-
-  public loaded = false;
 
   ngOnInit(): void {
     this.currentUser.currentUser$.subscribe((user) => {
@@ -37,19 +34,15 @@ export class PrivateNotificationListComponent implements OnInit {
   }
 
   private getNotifications(): void {
-
-    this.service.getAllNotifications(this.user.id).subscribe((resp) => {
-      this.notifications = resp.body as PrivateNotification[];
-      this.loaded = true;
-    }, (err) => {
-      this.toastr.error(err.error.Error, 'Error');
-    });
-
+    this.notifications$ = this.service.getAllNotifications(this.user.id).pipe(
+      map(resp => {
+        return resp.body as PrivateNotification[];
+      })
+    )
   }
 
-  removeNotification(id: number): void {
-    const index = this.notifications.findIndex((n) => n.id == id);
-    this.notifications.splice(index, 1);
+  removeNotification(): void {
+    this.getNotifications();
   }
 
 }

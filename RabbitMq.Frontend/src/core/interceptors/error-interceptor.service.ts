@@ -37,6 +37,7 @@ export class ErrorInterceptorService extends ErrorHandler {
 
     if(error.status >= 500) {
       this.toastr.error('Unexpected server-side error', 'Error');
+      return;
     }
 
     if(error.status === 401) {

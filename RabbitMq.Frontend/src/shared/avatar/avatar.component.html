@@ -1,0 +1,4 @@
+<div class="avatar" *ngIf="user$ | async as user" [style]="style">
+    <img *ngIf="user.avatarUrl" [src]="user.avatarUrl">
+    <span *ngIf="!user.avatarUrl">{{ user.username[0].toUpperCase() }}</span>
+</div>

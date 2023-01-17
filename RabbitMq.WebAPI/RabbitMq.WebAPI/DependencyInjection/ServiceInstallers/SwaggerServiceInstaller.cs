@@ -37,7 +37,7 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
                 {
                     Title = "RabbitMq",
                     Version = "1.0.1",
-                    Description = "Simple implementation of RabbitMQ"
+                    Description = "Simple implementation of RabbitMQ with some other libraries. E.g. MediatR, Automapper & xUnit"
                 });
             });
         }
