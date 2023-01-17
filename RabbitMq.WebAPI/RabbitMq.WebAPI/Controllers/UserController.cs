@@ -51,5 +51,9 @@ namespace RabbitMq.WebAPI.Controllers
         [HttpPut("avatar")]
         public async Task<IActionResult> UpdateAvatar(int userId, string avatarUrl, CancellationToken token) =>
             Ok(await _mediator.Send(new UpdateAvatarUrlRequest() { UserId = userId, AvatarUrl = avatarUrl }, token));
+
+        [HttpPut("avatar/remove")]
+        public async Task<IActionResult> RemoveAvatar(int userId, CancellationToken token) =>
+            Ok(await _mediator.Send(new UpdateAvatarUrlRequest() { UserId = userId, AvatarUrl = null }, token));
     }
 }

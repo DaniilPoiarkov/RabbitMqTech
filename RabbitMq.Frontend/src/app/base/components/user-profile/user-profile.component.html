@@ -14,10 +14,16 @@
                     placeholder="Put here link to your new avatar"
                     (value)="setAvatarUrl($event)">
                 </app-input>
-                <app-button
-                    btnText="Update Avatar"
-                    (clicked)="updateAvatarUrl()">
-                </app-button>
+                <div class="btn-container">
+                    <app-button
+                        btnText="Update Avatar"
+                        (clicked)="updateAvatarUrl()">
+                    </app-button>
+                    <app-button
+                        btnText="Remove Avatar"
+                        (clicked)="removeAvatarUrl()">
+                    </app-button>
+                </div>
             </div>
         </div>
         <div class="reset-password-container">

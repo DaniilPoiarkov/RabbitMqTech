@@ -99,4 +99,12 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  public removeAvatarUrl(): void {
+    this.user$.subscribe(user => {
+      this.userService.removeAvatar(user.id).subscribe(() => {
+        this.toastr.success('Avatar removed successfuly!');
+      });
+    });
+  }
+
 }

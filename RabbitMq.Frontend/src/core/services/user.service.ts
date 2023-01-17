@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/user';
 import { HttpService } from './http.service';
@@ -37,6 +38,10 @@ export class UserService {
 
   public updateAvatar(id: number, avatarUrl: string): Observable<HttpResponse<void>> {
     return this.http.putFullRequest(this.baseUrl + '/avatar?userId=' + id + '&avatarUrl=' + avatarUrl);
+  }
+
+  public removeAvatar(id: number): Observable<HttpResponse<void>> {
+    return this.http.putFullRequest(this.baseUrl + '/avatar/remove?userId=' + id);
   }
   
 }
