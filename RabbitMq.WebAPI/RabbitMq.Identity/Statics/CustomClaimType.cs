@@ -2,7 +2,7 @@
 {
     internal static class CustomClaimType
     {
-        public static string Id = "Id";
-        public static string AvatarUri = "AvatarUri";
+        public const string Id = "Id";
+        public const string AvatarUri = "AvatarUri";
     }
 }
