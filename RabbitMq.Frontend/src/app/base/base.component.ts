@@ -7,6 +7,7 @@ import { UserService } from 'src/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
 import { SimpleNotification } from 'src/models/notifications/simple-notification';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-base',
@@ -22,11 +23,16 @@ export class BaseComponent implements OnInit {
     private currentUser: CurrentUserService
   ) { }
 
+  public user: User;
+
   public hubConnection: HubConnection;
 
   ngOnInit(): void {
 
     this.currentUser.resetCurrentUser().subscribe();
+    this.currentUser.currentUser$.subscribe(user => {
+      this.user = user;
+    });
 
     const connection = new HubConnectionBuilder()
       .withUrl(environment.hubUrl)

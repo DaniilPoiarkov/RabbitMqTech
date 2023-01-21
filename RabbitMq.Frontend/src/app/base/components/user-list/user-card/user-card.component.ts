@@ -33,4 +33,9 @@ export class UserCardComponent implements OnInit {
     this.dialogService.openSendSimpleNotificationDialog(this.user);
   }
 
+  onAvatarClick(): void {
+    //TODO: Implement user-pages and set here navigate to their pages
+    console.log(this.user);
+  }
+
 }

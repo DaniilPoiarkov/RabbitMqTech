@@ -1,6 +1,11 @@
 <div class="user-card">
-    <h2>{{ user.username }}</h2>
-    <span>{{ user.email }}</span>
+    <div class="user-block">
+        <app-avatar [user]="user" (clicked)="onAvatarClick()"></app-avatar>
+        <div class="user-info">
+            <h2>{{ user.username }}</h2>
+            <span>{{ user.email }}</span>
+        </div>
+    </div>
     <div class="btn-container">
         <app-button 
             class="card-btn" 
