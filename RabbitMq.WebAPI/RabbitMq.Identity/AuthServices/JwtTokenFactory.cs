@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using RabbitMq.Identity.Options;
+using RabbitMq.Identity.Statics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,16 +15,17 @@ namespace RabbitMq.Identity.AuthServices
             _options = options;
         }
 
-        public string GenerateToken(string userEmail, string userName, int userId)
+        public string GenerateToken(string userEmail, string userName, int userId, string avatarUri)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userName),
-                new Claim(JwtRegisteredClaimNames.Email, userEmail),
-                new Claim("id", userId.ToString()),
+                new(JwtRegisteredClaimNames.Sub, userName),
+                new(JwtRegisteredClaimNames.Email, userEmail),
+                new(CustomClaimType.Id, userId.ToString()),
+                new(CustomClaimType.AvatarUri, avatarUri),
             };
 
             var token = new JwtSecurityToken(

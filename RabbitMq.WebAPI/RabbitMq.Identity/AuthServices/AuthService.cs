@@ -22,7 +22,7 @@ namespace RabbitMq.Identity.AuthServices
         }
 
         public string GetToken(UserDto user) => 
-            _jwtFactory.GenerateToken(user.Email, user.Username, user.Id);
+            _jwtFactory.GenerateToken(user.Email, user.Username, user.Id, user.AvatarUrl ?? string.Empty);
 
         public async Task<UserDto> Login(UserLogin credentials, CancellationToken token = default)
         {
