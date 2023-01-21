@@ -1,6 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CurrentUserService } from 'src/core/services/current-user.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/models/user';
 
 @Component({
@@ -12,18 +10,21 @@ export class AvatarComponent implements OnInit {
 
   @Input() size = 45;
   @Input() isDisabled = false;
+  @Input() user: User;
+
+  @Output() clicked = new EventEmitter<void>();
 
   style: string;
   
   constructor(
-    private currentUser: CurrentUserService
   ) { }
 
-  public user$: Observable<User>;
-
   ngOnInit(): void {
-    this.user$ = this.currentUser.currentUser$;
     this.style = `width: ${this.size}px; height: ${this.size}px`;
+  }
+
+  click(): void {
+    this.clicked.emit();
   }
 
 }
