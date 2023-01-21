@@ -9,7 +9,6 @@ import { User } from 'src/models/user';
 export class AvatarComponent implements OnInit {
 
   @Input() size = 45;
-  @Input() isDisabled = false;
   @Input() user: User;
 
   @Output() clicked = new EventEmitter<void>();
