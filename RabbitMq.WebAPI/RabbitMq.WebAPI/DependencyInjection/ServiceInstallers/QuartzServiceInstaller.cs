@@ -10,7 +10,6 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
             services.AddQuartz();
-            services.AddTransient<LogJob>();
 
             services.AddSingleton(sp =>
             {
@@ -18,6 +17,8 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
                 scheduler.JobFactory = new CustomJobFactory(sp);
                 return scheduler;
             });
+
+            services.AddTransient<LogJob>();
         }
     }
 }
