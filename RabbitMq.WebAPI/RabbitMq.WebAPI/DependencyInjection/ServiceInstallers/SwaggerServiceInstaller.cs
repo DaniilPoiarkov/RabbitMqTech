@@ -37,7 +37,10 @@ namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers
                 {
                     Title = "RabbitMq",
                     Version = "1.0.1",
-                    Description = "Simple implementation of RabbitMQ with some other libraries. E.g. MediatR, Automapper & xUnit"
+                    Description = "Simple implementation of following technologies:\n" +
+                        "RabbitMQ, MediatR, Automapper, xUnit, Quartz, SignalR.\n\t\r" +
+                        "Database: Postgres.\n\t\r" +
+                        "Custom Identity implementation."
                 });
             });
         }
