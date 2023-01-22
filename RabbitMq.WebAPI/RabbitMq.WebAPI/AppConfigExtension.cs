@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Quartz;
 using RabbitMq.DAL;
+using RabbitMq.Services.Quartz.Jobs;
+using ILogger = Serilog.ILogger;
 
 namespace RabbitMq.WebAPI
 {
@@ -12,6 +15,29 @@ namespace RabbitMq.WebAPI
 
             if (db.Database.GetPendingMigrations().Any())
                 db.Database.Migrate();
+        }
+
+        public static void StartQuartzJobs(this WebApplication app)
+        {
+            var scheduler = app.Services.GetService<IScheduler>();
+
+            if (scheduler is null)
+            {
+                var logger = app.Services.GetRequiredService<ILogger>();
+                logger.Error("Service {serviceName} cannot be registered", nameof(IScheduler));
+                return;
+            }
+
+            scheduler.Start();
+            scheduler.ScheduleJob(
+                JobBuilder.Create<LogJob>().Build(),
+                TriggerBuilder.Create()
+                    .WithDailyTimeIntervalSchedule(s => s
+                        .WithIntervalInSeconds(5)
+                        .StartingDailyAt(
+                            TimeOfDay.HourAndMinuteOfDay(0, 0))
+                        .OnEveryDay())
+                    .Build());
         }
     }
 }
