@@ -7,50 +7,51 @@ using RabbitMq.Identity.Options;
 using System.Net;
 using System.Text;
 
-namespace RabbitMq.Identity.IoC
+namespace RabbitMq.Identity.IoC;
+
+public static class Identity
 {
-    public static class Identity
+    public static IServiceCollection ApplyJwtConfiguration(this IServiceCollection services, JwtOptions options)
     {
-        public static IServiceCollection ApplyJwtConfiguration(this IServiceCollection services, JwtOptions options)
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt => ApplyJwtOptions(opt, options));
+
+        services
+            .AddSingleton(options)
+            .AddSingleton<JwtTokenFactory>()
+
+            .AddTransient<IAuthService, AuthService>();
+
+        return services;
+    }
+
+    private static void ApplyJwtOptions(JwtBearerOptions opt, JwtOptions options)
+    {
+        opt.TokenValidationParameters = new()
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt =>
-                {
-                    opt.TokenValidationParameters = new()
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = options.Issuer,
+            ValidateIssuer = true,
+            ValidIssuer = options.Issuer,
 
-                        ValidateAudience = true,
-                        ValidAudience = options.Audience,
+            ValidateAudience = true,
+            ValidAudience = options.Audience,
 
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
 
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),
-                    };
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),
+        };
 
-                    opt.Events = new()
-                    {
-                        OnAuthenticationFailed = context =>
-                        {
-                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                                context.Response.Headers.Add("token-expired", "true");
+        opt.Events = new()
+        {
+            OnAuthenticationFailed = context =>
+            {
+                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                    context.Response.Headers.Add("token-expired", "true");
 
-                            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
-
-            services
-                .AddSingleton(options)
-                .AddSingleton<JwtTokenFactory>()
-
-                .AddTransient<IAuthService, AuthService>();
-
-            return services;
-        }
+                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return Task.CompletedTask;
+            }
+        };
     }
 }
