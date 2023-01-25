@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Quartz;
-using Quartz.Simpl;
 using RabbitMq.DAL;
 using RabbitMq.Services.Quartz.Jobs;
 using ILogger = Serilog.ILogger;
@@ -32,7 +30,7 @@ public static class AppConfigExtension
 
         scheduler.Start();
         scheduler.ScheduleJob(
-            JobBuilder.Create<LogJob>().Build(),
+            CreateJob<LogJob>(),
             TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule(s => s
                     .WithIntervalInSeconds(5)
@@ -42,7 +40,7 @@ public static class AppConfigExtension
                 .Build());
 
         scheduler.ScheduleJob(
-            JobBuilder.Create<SendReminderJob>().Build(),
+            CreateJob<SendReminderJob>(),
             TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule(s => s
                     .WithIntervalInMinutes(1)
@@ -50,5 +48,11 @@ public static class AppConfigExtension
                         TimeOfDay.HourAndMinuteOfDay(0, 0))
                     .OnEveryDay())
                 .Build());
+    }
+
+    private static IJobDetail CreateJob<TJob>()
+        where TJob : IJob
+    {
+        return JobBuilder.Create<TJob>().Build();
     }
 }
