@@ -1,6 +1,7 @@
-﻿using Quartz;
+﻿using Microsoft.Extensions.Options;
+using Quartz;
 using Quartz.Impl;
-using RabbitMq.Services.Quartz;
+using Quartz.Simpl;
 using RabbitMq.Services.Quartz.Jobs;
 
 namespace RabbitMq.WebAPI.DependencyInjection.ServiceInstallers;
@@ -14,7 +15,9 @@ public class QuartzServiceInstaller : IServiceInstaller
         services.AddSingleton(sp =>
         {
             var scheduler = new StdSchedulerFactory().GetScheduler().Result;
-            scheduler.JobFactory = new CustomJobFactory(sp);
+            var options = sp.GetRequiredService<IOptions<QuartzOptions>>();
+
+            scheduler.JobFactory = new MicrosoftDependencyInjectionJobFactory(sp, options);
             return scheduler;
         });
 

@@ -24,6 +24,7 @@ namespace RabbitMq.Broker.DIRegistration
                 .AddTransient<SimpleNotificationService>()
 
                 .AddSingleton<ISubscriptionManager, SubscriptionManager>()
+                .AddSingleton<SendReminderHub>()
                 .AddSingleton(sp =>
                 {
                     var manager = sp.GetService<ISubscriptionManager>();
