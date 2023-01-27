@@ -6,7 +6,6 @@ export const environment = {
   production: false,
   webAPI: 'https://localhost:7036',
   notificationsHubUrl: 'https://localhost:7036/notifications',
-  reminderHubUrl: 'https://localhost:7036/reminder'
 };
 
 /*
