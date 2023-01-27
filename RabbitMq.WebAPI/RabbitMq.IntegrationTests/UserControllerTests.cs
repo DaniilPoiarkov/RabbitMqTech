@@ -1,4 +1,5 @@
-﻿using RabbitMq.Common.DTOs;
+﻿using Quartz;
+using RabbitMq.Common.DTOs;
 using RabbitMq.Common.DTOs.AuxiliaryModels;
 using System.Net.Http.Json;
 
@@ -16,6 +17,7 @@ namespace RabbitMq.IntegrationTests
                     builder.ConfigureServices(services =>
                     {
                         services.RemoveAll<RabbitMqDb>();
+                        services.RemoveAll<IScheduler>();
 
                         var options = services.FirstOrDefault(descriptor =>
                             descriptor.ServiceType == typeof(DbContextOptions<RabbitMqDb>));

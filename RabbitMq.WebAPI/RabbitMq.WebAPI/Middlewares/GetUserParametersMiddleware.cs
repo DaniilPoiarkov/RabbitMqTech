@@ -1,4 +1,6 @@
 ﻿using RabbitMq.Common.Parameters;
+using RabbitMq.Identity.Statics;
+using System.Security.Claims;
 
 namespace RabbitMq.WebAPI.Middlewares
 {
@@ -13,12 +15,10 @@ namespace RabbitMq.WebAPI.Middlewares
 
         public async Task Invoke(HttpContext context, UserParameters userParameters)
         {
-            if (int.TryParse(context.User.FindFirst("id")?.Value, out var userId))
+            if (int.TryParse(context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
                 userParameters.UserId = userId;
-            if (context.User.FindFirst(
-                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value != null)
-                userParameters.Email = context.User.FindFirst(
-                    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+            if (context.User.FindFirst(ClaimTypes.Email)?.Value != null)
+                userParameters.Email = context.User.FindFirst(ClaimTypes.Email)?.Value;
 
             await _next.Invoke(context);
         }

@@ -1,4 +1,5 @@
 using RabbitMq.Broker.Hubs;
+using RabbitMq.WebAPI;
 using RabbitMq.WebAPI.DependencyInjection;
 using RabbitMq.WebAPI.Middlewares;
 using Serilog;
@@ -59,6 +60,8 @@ app.UseEndpoints(cfg =>
     cfg.MapControllers();
     cfg.MapHub<NotificationHub>("/notifications");
 });
+
+app.StartQuartzJobs();
 
 app.Run();
 

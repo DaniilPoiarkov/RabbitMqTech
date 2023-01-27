@@ -7,6 +7,7 @@ import { UserService } from 'src/core/services/user.service';
 import { environment } from 'src/environments/environment';
 import { PrivateNotification } from 'src/models/notifications/private-notification';
 import { SimpleNotification } from 'src/models/notifications/simple-notification';
+import { User } from 'src/models/user';
 
 @Component({
   selector: 'app-base',
@@ -22,25 +23,30 @@ export class BaseComponent implements OnInit {
     private currentUser: CurrentUserService
   ) { }
 
-  public hubConnection: HubConnection;
+  public user: User;
+
+  public notificationConnection: HubConnection;
 
   ngOnInit(): void {
 
     this.currentUser.resetCurrentUser().subscribe();
+    this.currentUser.currentUser$.subscribe(user => {
+      this.user = user;
+    });
 
-    const connection = new HubConnectionBuilder()
-      .withUrl(environment.hubUrl)
+    const notificationConnection = new HubConnectionBuilder()
+      .withUrl(environment.notificationsHubUrl)
       .withAutomaticReconnect()
       .build();
 
-    this.configureConnection(connection);
+    this.configureNotificationConnection(notificationConnection);
 
-    connection.start()
+    notificationConnection.start()
       .catch(() => this.toastr.error(
         'Failed to connect to the server.\n' +
         'Some functionalities can not be processed', 'Error'));
 
-    this.hubConnection = connection;
+    this.notificationConnection = notificationConnection;
 
     const el = document.getElementById('avatar-nav-menu') as HTMLElement;
     const menu = document.getElementById('avatar-menu') as HTMLElement;
@@ -54,7 +60,7 @@ export class BaseComponent implements OnInit {
     })
   }
 
-  configureConnection(connection: HubConnection): void {
+  configureNotificationConnection(connection: HubConnection): void {
 
     connection.on('Connected', (connectionId: string) => {
       this.userService.setConnectionId(connectionId)
@@ -80,6 +86,17 @@ export class BaseComponent implements OnInit {
         () => {
           this.router.navigate(['/simple-notifications']);
         }, 10000);
+    });
+
+    connection.on('recieveReminder', (reminder: string) => {
+      this.toastr.info(reminder, 'Reminder!');
+    });
+    
+  }
+
+  configureReminderConnection(connection: HubConnection): void {
+    connection.on('recieveReminder', (reminder: string) => {
+      this.toastr.info(reminder, 'Reminder!');
     });
   }
 

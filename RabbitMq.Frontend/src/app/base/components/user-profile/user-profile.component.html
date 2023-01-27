@@ -5,7 +5,7 @@
                 <h1>{{ user.username }}</h1>
                 <h2>Your email: {{ user.email }}</h2>
             </div>
-            <app-avatar [size]="100" [isDisabled]="true" ids="menu"></app-avatar>
+            <app-avatar [size]="100" [user]="user"></app-avatar>
         </div>
         <div class="update-avatar-container">
             <div class="update-avatar-form">
@@ -56,5 +56,5 @@
 </div>
 
 <ng-template #empty>
-    <span>Loading...</span>
+    <span>Something went wrong. Try to reload page</span>
 </ng-template>

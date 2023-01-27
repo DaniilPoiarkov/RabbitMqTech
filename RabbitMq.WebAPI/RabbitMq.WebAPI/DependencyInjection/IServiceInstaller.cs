@@ -1,7 +1,6 @@
-﻿namespace RabbitMq.WebAPI.DependencyInjection
+﻿namespace RabbitMq.WebAPI.DependencyInjection;
+
+public interface IServiceInstaller
 {
-    public interface IServiceInstaller
-    {
-        void InstallService(IServiceCollection services, IConfiguration configuration);
-    }
+    void InstallService(IServiceCollection services, IConfiguration configuration);
 }
