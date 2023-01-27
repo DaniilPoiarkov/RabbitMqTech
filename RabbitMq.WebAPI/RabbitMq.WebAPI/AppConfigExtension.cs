@@ -53,7 +53,7 @@ public static class AppConfigExtension
             CreateJob<StatisticNotificationJob>(),
             TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule(s => s
-                    .WithIntervalInSeconds(10)
+                    .WithIntervalInMinutes(10)
                     .StartingDailyAt(
                         TimeOfDay.HourAndMinuteOfDay(0, 0))
                     .OnEveryDay())
