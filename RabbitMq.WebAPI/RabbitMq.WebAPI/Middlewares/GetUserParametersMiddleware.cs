@@ -15,7 +15,7 @@ namespace RabbitMq.WebAPI.Middlewares
 
         public async Task Invoke(HttpContext context, UserParameters userParameters)
         {
-            if (int.TryParse(context.User.FindFirst(CustomClaimType.Id)?.Value, out var userId))
+            if (int.TryParse(context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
                 userParameters.UserId = userId;
             if (context.User.FindFirst(ClaimTypes.Email)?.Value != null)
                 userParameters.Email = context.User.FindFirst(ClaimTypes.Email)?.Value;

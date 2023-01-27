@@ -49,19 +49,19 @@ export class BaseComponent implements OnInit {
 
     this.notificationConnection = notificationConnection;
 
-    const reminderConnection = new HubConnectionBuilder()
-      .withUrl(environment.reminderHubUrl)
-      .withAutomaticReconnect()
-      .build();
+    // const reminderConnection = new HubConnectionBuilder()
+    //   .withUrl(environment.reminderHubUrl)
+    //   .withAutomaticReconnect()
+    //   .build();
 
-    this.configureReminderConnection(reminderConnection);
+    // this.configureReminderConnection(reminderConnection);
 
-    reminderConnection.start()
-      .catch(() => this.toastr.error(
-        'Failed to connect to the server.\n' +
-        'Some functionalities can not be processed', 'Error'));
+    // reminderConnection.start()
+    //   .catch(() => this.toastr.error(
+    //     'Failed to connect to the server.\n' +
+    //     'Some functionalities can not be processed', 'Error'));
 
-    this.reminderConnection = reminderConnection;
+    //this.reminderConnection = reminderConnection;
 
     const el = document.getElementById('avatar-nav-menu') as HTMLElement;
     const menu = document.getElementById('avatar-menu') as HTMLElement;
@@ -102,6 +102,11 @@ export class BaseComponent implements OnInit {
           this.router.navigate(['/simple-notifications']);
         }, 10000);
     });
+
+    connection.on('recieveReminder', (reminder: string) => {
+      this.toastr.info(reminder, 'Reminder!');
+    });
+    
   }
 
   configureReminderConnection(connection: HubConnection): void {

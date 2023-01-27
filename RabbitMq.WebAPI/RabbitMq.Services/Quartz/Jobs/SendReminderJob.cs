@@ -10,9 +10,9 @@ public class SendReminderJob : IJob
 {
     private readonly ILogger _logger;
 
-    private readonly IHubContext<SendReminderHub> _context;
+    private readonly IHubContext<NotificationHub> _context;
 
-    public SendReminderJob(IHubContext<SendReminderHub> context, ILogger logger)
+    public SendReminderJob(IHubContext<NotificationHub> context, ILogger logger)
     {
         _context = context;
         _logger = logger;
@@ -21,7 +21,7 @@ public class SendReminderJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
         if(_logger.IsEnabled(LogEventLevel.Information))
-            _logger.Information("Send reminder to {hubName} hub", nameof(SendReminderHub));
+            _logger.Information("Send reminder to {hubName} hub", nameof(NotificationHub));
 
         await _context.Clients.All.SendAsync("recieveReminder", "Don\'t forget to have a rest!");
     }

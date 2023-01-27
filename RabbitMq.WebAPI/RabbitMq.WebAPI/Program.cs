@@ -59,7 +59,6 @@ app.UseEndpoints(cfg =>
 {
     cfg.MapControllers();
     cfg.MapHub<NotificationHub>("/notifications");
-    cfg.MapHub<SendReminderHub>("/reminder");
 });
 
 app.StartQuartzJobs();

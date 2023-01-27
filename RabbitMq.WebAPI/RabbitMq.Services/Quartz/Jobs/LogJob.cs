@@ -14,7 +14,7 @@ public class LogJob : IJob
 
     public Task Execute(IJobExecutionContext context)
     {
-        _logger.Information("{job} is executed at {1}", nameof(LogJob), DateTime.UtcNow.ToLongTimeString());
+        _logger.Information("{job} is executed at {dateTime}", nameof(LogJob), DateTime.UtcNow.ToLongTimeString());
         return Task.CompletedTask;
     }
 }

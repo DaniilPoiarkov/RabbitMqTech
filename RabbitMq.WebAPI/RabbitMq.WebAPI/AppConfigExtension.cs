@@ -48,6 +48,16 @@ public static class AppConfigExtension
                         TimeOfDay.HourAndMinuteOfDay(0, 0))
                     .OnEveryDay())
                 .Build());
+
+        scheduler.ScheduleJob(
+            CreateJob<StatisticNotificationJob>(),
+            TriggerBuilder.Create()
+                .WithDailyTimeIntervalSchedule(s => s
+                    .WithIntervalInSeconds(10)
+                    .StartingDailyAt(
+                        TimeOfDay.HourAndMinuteOfDay(0, 0))
+                    .OnEveryDay())
+                .Build());
     }
 
     private static IJobDetail CreateJob<TJob>()

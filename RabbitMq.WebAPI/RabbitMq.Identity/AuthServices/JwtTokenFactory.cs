@@ -22,9 +22,9 @@ namespace RabbitMq.Identity.AuthServices
 
             var claims = new Claim[]
             {
-                new(JwtRegisteredClaimNames.Sub, userName),
+                new(ClaimTypes.Name, userName),
                 new(JwtRegisteredClaimNames.Email, userEmail),
-                new(CustomClaimType.Id, userId.ToString()),
+                new(ClaimTypes.NameIdentifier, userId.ToString()),
                 new(CustomClaimType.AvatarUri, avatarUri),
             };
 
