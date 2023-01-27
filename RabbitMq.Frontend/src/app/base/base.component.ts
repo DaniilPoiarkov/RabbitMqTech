@@ -26,7 +26,6 @@ export class BaseComponent implements OnInit {
   public user: User;
 
   public notificationConnection: HubConnection;
-  public reminderConnection: HubConnection;
 
   ngOnInit(): void {
 
@@ -48,20 +47,6 @@ export class BaseComponent implements OnInit {
         'Some functionalities can not be processed', 'Error'));
 
     this.notificationConnection = notificationConnection;
-
-    // const reminderConnection = new HubConnectionBuilder()
-    //   .withUrl(environment.reminderHubUrl)
-    //   .withAutomaticReconnect()
-    //   .build();
-
-    // this.configureReminderConnection(reminderConnection);
-
-    // reminderConnection.start()
-    //   .catch(() => this.toastr.error(
-    //     'Failed to connect to the server.\n' +
-    //     'Some functionalities can not be processed', 'Error'));
-
-    //this.reminderConnection = reminderConnection;
 
     const el = document.getElementById('avatar-nav-menu') as HTMLElement;
     const menu = document.getElementById('avatar-menu') as HTMLElement;
