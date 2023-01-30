@@ -25,3 +25,9 @@ jobs:
     - name: Build the Docker image WebAPI
       working-directory: RabbitMq.WebAPI
       run: docker build . --file Dockerfile --tag ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:v${{ env.IMAGE_TAG }}
+      
+    - name: Login to ghcr.io
+      run: docker login ghcr.io -u ${{ env.USERNAME }} -p ${{ env.GH_AUTH_TOKEN }}
+      
+    - name: Push image to ghcr.io
+      run: docker push ghcr.io/${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:v${{ env.IMAGE_TAG }}
