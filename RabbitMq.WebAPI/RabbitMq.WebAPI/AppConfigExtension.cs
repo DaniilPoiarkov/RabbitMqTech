@@ -40,6 +40,16 @@ public static class AppConfigExtension
                 .Build());
 
         scheduler.ScheduleJob(
+            CreateJob<ReadAndDeleteLogsJob>(),
+            TriggerBuilder.Create()
+                .WithDailyTimeIntervalSchedule(s => s
+                    .WithIntervalInHours(24)
+                    .StartingDailyAt(
+                        TimeOfDay.HourAndMinuteOfDay(5, 0))
+                    .OnEveryDay())
+                .Build());
+
+        scheduler.ScheduleJob(
             CreateJob<SendReminderJob>(),
             TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule(s => s

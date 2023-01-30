@@ -1,13 +1,12 @@
 ﻿using BenchmarkDotNet.Running;
-using RabbitMq.BenchmarkTests.ConsoleClientTests;
+using RabbitMq.BenchmarkTests.Tasks;
 
-namespace RebbitMq.BenchmarkTests
+namespace RebbitMq.BenchmarkTests;
+
+public class Program
 {
-    public class Program
+    public static void Main()
     {
-        public static void Main()
-        {
-            BenchmarkRunner.Run<ForLoopBenchmark>();
-        }
+        BenchmarkRunner.Run<TasksMemoryAllocation>();
     }
 }

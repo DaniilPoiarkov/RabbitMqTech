@@ -29,3 +29,6 @@ RabbitMq.WebAPI/RabbitMq.Services.Tests/bin
 
 RabbitMq.WebAPI/RabbitMq.IntegrationTests/obj
 RabbitMq.WebAPI/RabbitMq.IntegrationTests/bin
+
+RabbitMq.WebApi/Logs
+
