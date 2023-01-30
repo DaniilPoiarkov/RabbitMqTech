@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: print variables
-      run: echo ${{ env.$USERNAME }}
+      run: echo ${{ env.USERNAME }}
       
     - name: Build the Docker image WebAPI
       working-directory: RabbitMq.WebAPI
