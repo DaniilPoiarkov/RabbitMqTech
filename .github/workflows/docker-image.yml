@@ -8,9 +8,10 @@ on:
   workflow_dispatch:
   
 env:
-  USERNAME: ${{ secrets.Username }}/rabbitmq
+  USERNAME: ${{ secrets.USERNAME }}
   GH_AUTH_TOKEN: ${{ secrets.GhAuthToken }}
-  IMAGE_TAG: ${{ secrets.ImageTag }}
+  IMAGE_NAME: rabbitmq
+  IMAGE_TAG: ${{ secrets.IMAGETAG }}
 
 jobs:
 
@@ -23,4 +24,4 @@ jobs:
     
     - name: Build the Docker image WebAPI
       working-directory: RabbitMq.WebAPI
-      run: docker build . --file Dockerfile --tag ${{ env.USERNAME }}:v${{ env.IMAGE_TAG }}
+      run: docker build . --file Dockerfile --tag ${{ env.USERNAME }}/${{ env.IMAGE_NAME }}:v${{ env.IMAGE_TAG }}
