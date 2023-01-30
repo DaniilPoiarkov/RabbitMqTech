@@ -19,9 +19,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: print variables
-      run: echo $USERNAME $IMAGE_TAG
     - uses: actions/checkout@v3
+    
+    - name: print variables
+      run: echo "::workflow-command USERNAME={$USERNAME},IMAGE_TAG={$IMAGE_TAG}"
+      
     - name: Build the Docker image
       working-directory: RabbitMq.WebApi
       run: docker build . --file Dockerfile --tag $USERNAME/rabbitmq:v$IMAGE_TAG
