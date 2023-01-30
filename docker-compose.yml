@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  web_api:
+    image: 'daniilpoiarkov/rabbitmq:v1.0'
+    build: 
+      context: ./
+      dockerfile: ./RabbitMq.WebApi/Dockerfile
+    restart: on-failure
+    
